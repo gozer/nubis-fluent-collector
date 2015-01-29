@@ -19,8 +19,8 @@
     "source_ami": "{{user `base_ami`}}",
     "instance_type": "m3.medium",
     "ssh_username": "ubuntu",
-    "ami_name": "mozilla nubis-ci v/{{user `release`}}.{{user `build`}} t/{{timestamp}}",
-    "ami_description": "Nubis - CI",
+    "ami_name": "mozilla nubis-fluent-collector v/{{user `release`}}.{{user `build`}} t/{{timestamp}}",
+    "ami_description": "Nubis - Fluent Collector",
     "ami_regions" : [ "us-east-1" ],
     "tags" : {
        "release": "{{user `release`}}.{{user `build`}}",
