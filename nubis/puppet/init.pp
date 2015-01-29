@@ -1,12 +1,14 @@
 include ::fluentd
 
+fluentd::configfile { 'collector': }
+
 fluentd::source { 'forwarder':
-  configfile => "forwarder",
+  configfile => "collector",
   type => "forward",
 }
 
 fluentd::match { 'collector':
-  configfile => "collect-to-disk",
+  configfile => "collector",
   pattern => '**',
   type  => 'file',
   config  => {
@@ -15,16 +17,5 @@ fluentd::match { 'collector':
      'time_slice_wait'   =>  "10m",
      'time_format'       => "%Y%m%dT%H%M%S%z",
      'compress'          =>  "gzip",
-  },
-}
-
-# all rsyslog daemons on the clients sends their messages to 5140
-fluentd::source { 'rsyslog':
-  configfile => "syslog",
-  type   => 'syslog',
-  config => {
-    'port' => '5140',
-    'bind' => '0.0.0.0',
-    'tag'  => 'system.local',
-  },
+  }   
 }
