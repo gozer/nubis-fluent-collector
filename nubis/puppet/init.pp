@@ -1,6 +1,6 @@
 include ::fluentd
 
-fluentd::source { 'collector':
+fluentd::source { 'forwarder':
   configfile => "forwarder",
   type => "forward",
 }
@@ -17,7 +17,6 @@ fluentd::match { 'collector':
      'compress'          =>  "gzip",
   },
 }
-
 
 # all rsyslog daemons on the clients sends their messages to 5140
 fluentd::source { 'rsyslog':
