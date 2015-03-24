@@ -32,7 +32,7 @@ file { "/etc/consul/svc-fluentd-collector.json":
 
 fluentd::match { 'collector':
   configfile => "collector",
-  pattern => '**',
+  pattern => 'forward.**',
   type  => 'file',
   config  => {
      'path' => "/var/log/fluentd/all.log",
