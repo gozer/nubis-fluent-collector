@@ -5,22 +5,11 @@ provider "aws" {
     region = "${var.region}"
 }
 
-provider "consul" {
-    address = "${var.consul}:8500"
-    datacenter = "${var.region}"
-}
-
-resource "consul_keys" "app" {
-    # Read the launch AMI from Consul
-    key {
-        name = "ami"
-        path = "nubis/${var.project}/releases/${var.release}.${var.build}/${var.region}"
-    }
-}
-
-resource "aws_security_group" "simple" {
-  name = "${var.project}-simple-access"
+resource "aws_security_group" "collector" {
+  name = "${var.project}-access-${var.release}-${var.build}"
   description = "Allow SSH"
+  
+  vpc_id = "${var.vpc_id}"
   
   // These are for internal traffic
   ingress {
@@ -46,19 +35,21 @@ resource "aws_security_group" "simple" {
 }
 
 resource "aws_instance" "node" {
-  ami = "${consul_keys.app.var.ami}"
+  ami = "${var.ami}"
+  
+  subnet_id = "${var.subnet_id}"
   
   instance_type = "m3.medium"
   key_name = "${var.key_name}"
   
   security_groups = [
-    "${aws_security_group.simple.name}",
+    "${aws_security_group.collector.id}",
   ]
   
   tags {
         Name = "Nubis ${var.project} (v/${var.release}.${var.build})"
         Release = "${var.release}.${var.build}"
   }
-
-  user_data = "CONSUL_PUBLIC=1\nCONSUL_DC=${var.region}\nCONSUL_SECRET=${var.secret}\nCONSUL_JOIN=${var.consul}"
+  
+  user_data = "NUBIS_PROJECT=${var.project}\nNUBIS_ENVIRONMENT=${var.environment}\nCONSUL_PUBLIC=0\nCONSUL_DC=${var.region}\nCONSUL_SECRET=${var.consul_secret}\nCONSUL_JOIN=${var.consul}\nCONSUL_KEY=\"${file("${var.consul_ssl_key}")}\"\nCONSUL_CERT=\"${file("${var.consul_ssl_cert}")}\"\n"
 }
