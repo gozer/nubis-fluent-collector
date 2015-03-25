@@ -38,7 +38,7 @@ file { "/etc/consul/svc-fluentd-collector.json":
 fluentd::match { 'collector':
   configfile => "collector",
   type => 's3',
-  pattern => 'forward.**',
+  pattern => 'ec2.forward.**',
 
   config  => {
       'type'        => 's3',
