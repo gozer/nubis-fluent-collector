@@ -32,7 +32,7 @@ file { "/etc/consul/svc-fluentd-collector.json":
   owner   => 'root',
   group   => 'root',
   mode    => '0644',
-  content => '{"service":{"check":{"interval":"10s","script":"/usr/bin/curl http://localhost:24220/api/plugins.json"},"port":24224,"tags":["collector","production"],"name":"fluentd"}}'
+  content => '{"service":{"check":{"interval":"10s","script":"/usr/bin/curl -s http://localhost:24220/api/plugins.json"},"port":24224,"tags":["collector","production"],"name":"fluentd"}}'
 }
 
 fluentd::match { 'collector':
