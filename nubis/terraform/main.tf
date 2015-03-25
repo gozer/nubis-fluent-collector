@@ -37,6 +37,7 @@ resource "aws_security_group" "collector" {
 resource "aws_instance" "node" {
   ami = "${var.ami}"
   
+  iam_instance_profile = "${var.iam_instance_profile}"
   subnet_id = "${var.subnet_id}"
   
   instance_type = "m3.medium"
