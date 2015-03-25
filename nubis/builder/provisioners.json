@@ -1,0 +1,9 @@
+{
+  "provisioners": [
+   {
+    "type": "shell",
+    "inline" : ["sudo rm -f /etc/td-agent/config.d/forward.conf"],
+    "order": 5
+  }
+  ]
+}

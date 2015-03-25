@@ -1,5 +1,10 @@
 include ::fluentd
 
+fluentd::install_plugin { 's3':
+  plugin_type => 'gem',
+  plugin_name => 'fluent-plugin-s3',
+}
+
 fluentd::configfile { 'collector': }
 
 fluentd::source { 'forwarder':
@@ -32,14 +37,17 @@ file { "/etc/consul/svc-fluentd-collector.json":
 
 fluentd::match { 'collector':
   configfile => "collector",
-  pattern => '**',
-  type  => 'file',
+  type => 's3',
+  pattern => 'ec2.forward.**',
+
   config  => {
-     'path' => "/var/log/fluentd/all.log",
-     'time_slice_format' => "%Y%m%d",
-     'time_slice_wait'   =>  "30m",
-     'time_format'       => "%Y%m%dT%H%M%S%z",
-     'compress'          =>  "gzip",
+      'type'        => 's3',
+      's3_bucket'   => '%%FLUENTD_S3_BUCKET%%',
+      's3_region'   => '%%FLUENTD_S3_REGION%%',
+      'buffer_path' => "/var/log/fluentd/s3.log",
+      'check_apikey_on_start' => false,
+      'time_slice_format' => '%Y%m%d%H%M',
+      'utc'         => true,
   },
   require => File["/var/log/fluentd"]
 }
