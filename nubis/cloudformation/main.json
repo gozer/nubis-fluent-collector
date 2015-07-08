@@ -38,7 +38,7 @@
       "Description": "Version of the Nubis Stacks",
       "Type": "String",
       "Default": "master"
-    },
+    }
   },
   "Mappings": {
     "InstanceTypeMap": {
