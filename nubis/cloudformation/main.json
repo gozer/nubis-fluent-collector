@@ -17,12 +17,7 @@
       ],
       "ConstraintDescription": "Must specify prod, dev, or sandbox."
     },
-    "BaseZone": {
-      "Description": "Base zone to create route53 zone in",
-      "Default": "nubis.allizom.org",
-      "Type": "String"
-    },
-    "KeyName": {
+    "SSHKeyName": {
       "Description": "Existing ssh key to deploy to instances",
       "Type": "String"
     },
@@ -60,6 +55,9 @@
         "TemplateURL": { "Fn::Join": [ "/", [ "https://s3.amazonaws.com/nubisproject-stacks", { "Ref": "StacksVersion" }, "ec2.template" ] ] },
         "TimeoutInMinutes": "60",
         "Parameters": {
+          "StackName": {
+            "Ref": "AWS::StackName"
+          },
           "ServiceName": {
             "Ref": "ServiceName"
           },
@@ -72,8 +70,8 @@
           "AmiId": {
             "Ref": "AmiId"
           },
-          "KeyName": {
-            "Ref": "KeyName"
+          "SSHKeyName": {
+            "Ref": "SSHKeyName"
           },
           "InstanceType": {
             "Fn::FindInMap": [
@@ -83,32 +81,7 @@
               },
               "InstanceType"
             ]
-          },
-          "ELB": {
-            "Fn::GetAtt": [
-              "ELBStack",
-              "Outputs.ELB"
-            ]
           }
-        }
-      }
-    },
-    "ELBStack": {
-      "Type": "AWS::CloudFormation::Stack",
-      "Properties": {
-        "TemplateURL": { "Fn::Join": [ "/", [ "https://s3.amazonaws.com/nubisproject-stacks", { "Ref": "StacksVersion" }, "elb.template" ] ] },
-        "TimeoutInMinutes": "60",
-        "Parameters": {
-          "ServiceName": {
-            "Ref": "AWS::StackName"
-          },
-          "TechnicalOwner": {
-            "Ref": "TechnicalOwner"
-          },
-          "Environment": {
-            "Ref": "Environment"
-          },
-          "ElbHealthTarget": "HTTP:80/"
         }
       }
     }
