@@ -17,7 +17,7 @@
       ],
       "ConstraintDescription": "Must specify prod, dev, or sandbox."
     },
-    "KeyName": {
+    "SSHKeyName": {
       "Description": "Existing ssh key to deploy to instances",
       "Type": "String"
     },
@@ -67,8 +67,8 @@
           "AmiId": {
             "Ref": "AmiId"
           },
-          "KeyName": {
-            "Ref": "KeyName"
+          "SSHKeyName": {
+            "Ref": "SSHKeyName"
           },
           "InstanceType": {
             "Fn::FindInMap": [
