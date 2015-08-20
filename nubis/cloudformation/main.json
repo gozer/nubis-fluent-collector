@@ -73,6 +73,9 @@
           "SSHKeyName": {
             "Ref": "SSHKeyName"
           },
+          "IamInstanceProfile": {
+            "Ref": "FluentInstanceProfile"
+          },
           "InstanceType": {
             "Fn::FindInMap": [
               "InstanceTypeMap",
@@ -116,6 +119,20 @@
           "AccessControl": "Private",
           "WithRole": "true"
         }
+      }
+    },
+    "FluentInstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [
+          {
+            "Fn::GetAtt": [
+              "S3Stack",
+              "Outputs.S3Role"
+            ]
+          }
+        ]
       }
     }
   }
