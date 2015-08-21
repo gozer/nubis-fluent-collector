@@ -1,0 +1,11 @@
+#!/bin/bash
+
+eval `curl -fq http://169.254.169.254/latest/user-data`
+REGION=`curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq '.region' -r`
+
+# fix the config file (poor-man's Augeas)
+perl -pi -e"s/%%FLUENTD_S3_BUCKET%%/nubis-${NUBIS_STACK}-${NUBIS_ENVIRONMENT}-${REGION}/g" /etc/td-agent/config.d/collector.conf
+perl -pi -e"s/%%FLUENTD_S3_REGION%%/$REGION/g" /etc/td-agent/config.d/collector.conf
+
+# Restart fluentd if all is well
+/etc/init.d/td-agent configtest && /etc/init.d/td-agent restart

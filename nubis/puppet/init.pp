@@ -51,3 +51,11 @@ fluentd::match { 'collector':
   },
   require => File["/var/log/fluentd"]
 }
+
+# Fixes up the settings %%'ed above, not runtime-controlled, static for the lifetime of the stack
+file { "/etc/nubis.d/fluentd-s3-config":
+    owner => 'root',
+    group => 'root',
+    mode  => '0755',
+    source => "puppet:///nubis/files/fluentd-fixups",
+}
