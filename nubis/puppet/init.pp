@@ -46,7 +46,7 @@ fluentd::match { 'collector':
       's3_region'   => '%%FLUENTD_S3_REGION%%',
       'buffer_path' => "/var/log/fluentd/s3.log",
       'check_apikey_on_start' => false,
-      'time_slice_format' => '%Y%m%d%H%M',
+      'time_slice_format' => '%Y/%m/%d/%H/%Y%m%d%H%M',
       'utc'         => true,
   },
   require => File["/var/log/fluentd"]

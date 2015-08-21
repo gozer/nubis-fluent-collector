@@ -84,6 +84,9 @@
           "SSHKeyName": {
             "Ref": "SSHKeyName"
           },
+          "IamInstanceProfile": {
+            "Ref": "FluentInstanceProfile"
+          },
           "SecurityGroup": {
             "Ref": "SecurityGroup"
           },
@@ -97,6 +100,53 @@
             ]
           }
         }
+      }
+    },
+    "S3Stack": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": { "Fn::Join": [ "/", [ "https://s3.amazonaws.com/nubis-stacks", { "Ref": "StacksVersion" }, "s3-bucket.template" ] ] },
+        "TimeoutInMinutes": "60",
+        "Parameters": {
+          "ServiceName": {
+            "Ref": "ServiceName"
+          },
+          "Environment": {
+            "Ref": "Environment"
+          },
+          "BucketName": {
+            "Fn::Join": [ "-", [ "nubis",
+              {
+                           "Ref": "AWS::StackName"
+              },
+              {
+                "Ref": "Environment"
+              },
+              {
+                "Ref": "AWS::Region"
+              }]
+            ]
+          },
+          "TechnicalOwner": {
+            "Ref": "TechnicalOwner"
+          },
+          "AccessControl": "Private",
+          "WithRole": "true"
+        }
+      }
+    },
+    "FluentInstanceProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [
+          {
+            "Fn::GetAtt": [
+              "S3Stack",
+              "Outputs.S3Role"
+            ]
+          }
+          ]
       }
     },
     "VpcInfo": {
