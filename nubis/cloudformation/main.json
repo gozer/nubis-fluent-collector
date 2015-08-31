@@ -12,10 +12,10 @@
       "Type": "String",
       "AllowedValues": [
         "prod",
-        "dev",
+        "stage",
         "sandbox"
       ],
-      "ConstraintDescription": "Must specify prod, dev, or sandbox."
+      "ConstraintDescription": "Must specify prod, stage, or sandbox."
     },
     "SSHKeyName": {
       "Description": "Existing ssh key to deploy to instances",
@@ -32,7 +32,7 @@
     "StacksVersion": {
       "Description": "Version of the Nubis Stacks",
       "Type": "String",
-      "Default": "v0.9.0"
+      "Default": "v1.0.0"
     }
   },
   "Mappings": {
@@ -40,7 +40,7 @@
       "prod": {
         "InstanceType": "m3.large"
       },
-      "dev": {
+      "stage": {
         "InstanceType": "m3.medium"
       },
       "sandbox": {
@@ -84,8 +84,11 @@
           "SSHKeyName": {
             "Ref": "SSHKeyName"
           },
-          "IamInstanceProfile": {
-            "Ref": "FluentInstanceProfile"
+          "IamRole": {
+            "Fn::GetAtt": [
+              "S3Stack",
+              "Outputs.S3Role"
+            ]
           },
           "SecurityGroup": {
             "Ref": "SecurityGroup"
@@ -105,7 +108,18 @@
     "S3Stack": {
       "Type": "AWS::CloudFormation::Stack",
       "Properties": {
-        "TemplateURL": { "Fn::Join": [ "/", [ "https://s3.amazonaws.com/nubis-stacks", { "Ref": "StacksVersion" }, "s3-bucket.template" ] ] },
+        "TemplateURL": {
+          "Fn::Join": [
+            "/",
+            [
+              "https://s3.amazonaws.com/nubis-stacks",
+              {
+                "Ref": "StacksVersion"
+              },
+              "s3-bucket.template"
+            ]
+          ]
+        },
         "TimeoutInMinutes": "60",
         "Parameters": {
           "ServiceName": {
@@ -115,16 +129,23 @@
             "Ref": "Environment"
           },
           "BucketName": {
-            "Fn::Join": [ "-", [ "nubis",
-              {
-                           "Ref": "AWS::StackName"
-              },
-              {
-                "Ref": "Environment"
-              },
-              {
-                "Ref": "AWS::Region"
-              }]
+            "Fn::Join": [
+              "-",
+              [
+                "nubis",
+                {
+                  "Ref": "AWS::StackName"
+                },
+                {
+                  "Fn::GetAtt": [
+                    "VpcInfo",
+                    "ServiceName"
+                  ]
+                },
+                {
+                  "Ref": "AWS::Region"
+                }
+              ]
             ]
           },
           "TechnicalOwner": {
@@ -133,20 +154,6 @@
           "AccessControl": "Private",
           "WithRole": "true"
         }
-      }
-    },
-    "FluentInstanceProfile": {
-      "Type": "AWS::IAM::InstanceProfile",
-      "Properties": {
-        "Path": "/",
-        "Roles": [
-          {
-            "Fn::GetAtt": [
-              "S3Stack",
-              "Outputs.S3Role"
-            ]
-          }
-          ]
       }
     },
     "VpcInfo": {
@@ -165,7 +172,7 @@
                 "Ref": "AWS::AccountId"
               },
               ":function:",
-              "LookupStackOutputs"
+              "LookupNestedStackOutputs"
             ]
           ]
         },
@@ -176,12 +183,12 @@
               {
                 "Ref": "AWS::Region"
               },
-              {
-                "Ref": "Environment"
-              },
               "vpc"
             ]
           ]
+        },
+        "SearchString": {
+          "Ref": "Environment"
         }
       }
     },
