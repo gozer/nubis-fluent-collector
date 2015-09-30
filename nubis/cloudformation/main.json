@@ -30,6 +30,11 @@
       "Description": "The id of the ami for this region",
       "Type": "String"
     },
+    "ConsulToken": {
+      "Description": "Consul ACL Token",
+      "Type": "String",
+      "Default": "anonymous"
+    },
     "StacksVersion": {
       "Description": "Version of the Nubis Stacks",
       "Type": "String",
@@ -96,6 +101,9 @@
           },
           "SecurityGroup": {
             "Ref": "SecurityGroup"
+          },
+          "ConsulToken": {
+            "Ref": "ConsulToken"
           },
           "InstanceType": {
             "Fn::FindInMap": [
