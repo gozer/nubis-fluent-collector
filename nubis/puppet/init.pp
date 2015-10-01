@@ -1,5 +1,10 @@
 include ::fluentd
 
+fluentd::install_plugin { 'elb':
+  plugin_type => 'gem',
+  plugin_name => 'fluent-plugin-elb-log',
+}
+
 fluentd::install_plugin { 's3':
   plugin_type => 'gem',
   plugin_name => 'fluent-plugin-s3',
