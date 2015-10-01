@@ -5,6 +5,11 @@ fluentd::install_plugin { 's3':
   plugin_name => 'fluent-plugin-s3',
 }
 
+fluentd::install_plugin { 'sqs':
+  plugin_type => 'gem',
+  plugin_name => 'fluent-plugin-sqs',
+}
+
 fluentd::configfile { 'collector': }
 
 fluentd::source { 'forwarder':
