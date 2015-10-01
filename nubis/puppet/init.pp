@@ -1,16 +1,19 @@
 include ::fluentd
 
 fluentd::install_plugin { 'elb':
+  ensure      => '0.2.5',
   plugin_type => 'gem',
   plugin_name => 'fluent-plugin-elb-log',
 }
 
 fluentd::install_plugin { 's3':
+  ensure      => '0.5.11',
   plugin_type => 'gem',
   plugin_name => 'fluent-plugin-s3',
 }
 
 fluentd::install_plugin { 'sqs':
+  ensure      => '1.6.1',
   plugin_type => 'gem',
   plugin_name => 'fluent-plugin-sqs',
 }
