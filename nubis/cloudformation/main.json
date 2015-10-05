@@ -360,5 +360,23 @@
         ]
       }
     }
+  },
+  "Outputs": {
+    "AccessLoggingBucket": {
+      "Value": {
+        "Fn::GetAtt": [
+          "VpcInfo",
+          "AccessLoggingBucket"
+        ]
+      }
+    },
+    "FluentLogsBucket": {
+      "Value": {
+        "Fn::GetAtt": [
+          "S3Stack",
+          "Outputs.S3Bucket"
+        ]
+      }
+    }
   }
 }
