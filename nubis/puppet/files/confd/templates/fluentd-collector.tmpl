@@ -1,0 +1,34 @@
+<source>
+  type forward
+</source>
+<source>
+  type monitor_agent
+  port 24220
+</source>
+
+# Copy everything to S3
+<match ec2.forward.**>
+    type copy
+    <store>
+    type s3
+        buffer_path /var/log/fluentd/s3.log
+        check_apikey_on_start false
+        s3_bucket {{ getv "/config/FluentLogsBucket" }}
+        s3_region {{ getv "/config/AWSRegion" }}
+        time_slice_format %Y/%m/%d/%H/%Y%m%d%H%M
+        utc true
+        use_ssl true
+   </store>
+</match>
+
+# Pull in ELB logs
+<source>
+  type elb_log
+  region            {{ getv "/config/AWSRegion" }}
+  s3_bucketname     {{ getv "/config/AccessLoggingBucket" }}
+  timestamp_file    /var/log/fluentd/elb.ts
+  buf_file          /var/log/fluentd/elb.buf
+  refresh_interval  15
+  tag               ec2.forward.elb.access
+</source>
+

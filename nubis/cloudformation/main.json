@@ -94,10 +94,7 @@
             "Ref": "SSHKeyName"
           },
           "IamRole": {
-            "Fn::GetAtt": [
-              "S3Stack",
-              "Outputs.S3Role"
-            ]
+            "Ref": "FluentIamRole"
           },
           "SecurityGroup": {
             "Ref": "SecurityGroup"
@@ -164,8 +161,100 @@
             "Ref": "TechnicalOwner"
           },
           "AccessControl": "Private",
-          "WithRole": "true"
+          "IamRole": {
+            "Ref": "FluentIamRole"
+          }
         }
+      }
+    },
+    "FluentIamRole": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": {
+                "Service": [
+                  "ec2.amazonaws.com"
+                ]
+              },
+              "Action": [
+                "sts:AssumeRole"
+              ]
+            }
+          ]
+        },
+        "Path": "/"
+      }
+    },
+    "FluentAccessLogsPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": {
+          "Fn::Join": [
+            "-",
+            [
+              {
+                "Ref": "AWS::StackName"
+              },
+              "fluent",
+              "policy"
+            ]
+          ]
+        },
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:ListBucket"
+              ],
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Fn::GetAtt": [
+                        "VpcInfo",
+                        "AccessLoggingBucket"
+                      ]
+                    }
+                  ]
+                ]
+              }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:GetObject"
+              ],
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Fn::GetAtt": [
+                        "VpcInfo",
+                        "AccessLoggingBucket"
+                      ]
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        "Roles": [
+          {
+            "Ref": "FluentIamRole"
+          }
+        ]
       }
     },
     "VpcInfo": {
@@ -268,6 +357,32 @@
             "Key": "Shutdown",
             "Value": "Never"
           }
+        ]
+      }
+    }
+  },
+  "Outputs": {
+    "AWSRegion": {
+      "Description": "Consul: config/ AWS Region",
+      "Value": {
+        "Ref": "AWS::Region"
+      }
+    },
+    "AccessLoggingBucket": {
+      "Description": "Consul: config/ ELB Log Bucket",
+      "Value": {
+        "Fn::GetAtt": [
+          "VpcInfo",
+          "AccessLoggingBucket"
+        ]
+      }
+    },
+    "FluentLogsBucket": {
+      "Description": "Consul: config/ Log Archive Bucket",
+      "Value": {
+        "Fn::GetAtt": [
+          "S3Stack",
+          "Outputs.S3Bucket"
         ]
       }
     }

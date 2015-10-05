@@ -1,0 +1,13 @@
+[template]
+src = "fluentd-collector.tmpl"
+dest = "/etc/td-agent/config.d/collector.conf"
+prefix = "/%%STACK%%/%%ENVIRONMENT%%"
+
+keys = [
+    "/config/AWSRegion",
+    "/config/FluentLogsBucket",
+    "/config/AccessLoggingBucket",
+]
+
+check_cmd  = "/usr/sbin/td-agent --dry-run -c {{.src}}"
+reload_cmd = "/etc/init.d/td-agent restart"

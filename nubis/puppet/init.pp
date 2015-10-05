@@ -18,21 +18,6 @@ fluentd::install_plugin { 'sqs':
   plugin_name => 'fluent-plugin-sqs',
 }
 
-fluentd::configfile { 'collector': }
-
-fluentd::source { 'forwarder':
-  configfile => "collector",
-  type => "forward",
-}
-
-fluentd::source { 'monitor':
-  configfile => "collector",
-  type => "monitor_agent",
-  config  => {
-    'port' => "24220"
-  }
-}
-
 file { "/var/log/fluentd":
   ensure => "directory",
   owner  => "td-agent",
@@ -48,27 +33,11 @@ file { "/etc/consul/svc-fluentd-collector.json":
   content => '{"service":{"check":{"interval":"10s","script":"/usr/bin/curl -s http://localhost:24220/api/plugins.json"},"port":24224,"tags":["collector","production"],"name":"fluentd"}}'
 }
 
-fluentd::match { 'collector':
-  configfile => "collector",
-  type => 's3',
-  pattern => 'ec2.forward.**',
-
-  config  => {
-      'type'        => 's3',
-      's3_bucket'   => '%%FLUENTD_S3_BUCKET%%',
-      's3_region'   => '%%FLUENTD_S3_REGION%%',
-      'buffer_path' => "/var/log/fluentd/s3.log",
-      'check_apikey_on_start' => false,
-      'time_slice_format' => '%Y/%m/%d/%H/%Y%m%d%H%M',
-      'utc'         => true,
-  },
-  require => File["/var/log/fluentd"]
-}
-
-# Fixes up the settings %%'ed above, not runtime-controlled, static for the lifetime of the stack
-file { "/etc/nubis.d/fluentd-s3-config":
-    owner => 'root',
-    group => 'root',
-    mode  => '0755',
-    source => "puppet:///nubis/files/fluentd-fixups",
+file { "/etc/confd":
+  ensure  => directory,
+  recurse => true,
+  purge => false,
+  owner => 'root',
+  group => 'root',
+  source => "puppet:///nubis/files/confd",
 }
