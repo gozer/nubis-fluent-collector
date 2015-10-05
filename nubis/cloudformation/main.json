@@ -362,6 +362,12 @@
     }
   },
   "Outputs": {
+    "AWSRegion": {
+      "Description": "Consul: config/ AWS Region",
+      "Value": {
+        "Ref": "AWS::Region"
+      }
+    },
     "AccessLoggingBucket": {
       "Description": "Consul: config/ ELB Log Bucket",
       "Value": {
