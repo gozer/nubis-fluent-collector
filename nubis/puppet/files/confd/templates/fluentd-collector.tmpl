@@ -1,0 +1,21 @@
+<match ec2.forward.**>
+    type copy
+    <store>
+    type s3
+        buffer_path /var/log/fluentd/s3.log
+        check_apikey_on_start false
+        s3_bucket {{ getv "/config/FluentLogsBucket" }}
+        s3_region {{ getv "/config/AWSRegion" }}
+        time_slice_format %Y/%m/%d/%H/%Y%m%d%H%M
+        utc true
+        use_ssl true
+   </store>
+</match>
+<source>
+  type forward
+</source>
+<source>
+  type monitor_agent
+  port 24220
+</source>
+
