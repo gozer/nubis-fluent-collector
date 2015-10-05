@@ -161,7 +161,9 @@
             "Ref": "TechnicalOwner"
           },
           "AccessControl": "Private",
-          "IamRole": { "Ref": "FluentIamRole" }
+          "IamRole": {
+            "Ref": "FluentIamRole"
+          }
         }
       }
     },
@@ -185,6 +187,74 @@
           ]
         },
         "Path": "/"
+      }
+    },
+    "FluentAccessLogsPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": {
+          "Fn::Join": [
+            "-",
+            [
+              {
+                "Ref": "AWS::StackName"
+              },
+              "fluent",
+              "policy"
+            ]
+          ]
+        },
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:ListBucket"
+              ],
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Fn::GetAtt": [
+                        "VpcInfo",
+                        "AccessLoggingBucket"
+                      ]
+                    }
+                  ]
+                ]
+              }
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:GetObject"
+              ],
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:s3:::",
+                    {
+                      "Fn::GetAtt": [
+                        "VpcInfo",
+                        "AccessLoggingBucket"
+                      ]
+                    },
+                    "/*"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        "Roles": [
+          {
+            "Ref": "FluentIamRole"
+          }
+        ]
       }
     },
     "VpcInfo": {
