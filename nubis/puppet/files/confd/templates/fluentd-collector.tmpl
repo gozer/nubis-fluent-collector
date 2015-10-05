@@ -19,6 +19,14 @@
         utc true
         use_ssl true
    </store>
+{{ if exists "/config/SQSQueue" }}
+   <store>
+     type sqs
+     queue_name {{ getv "/config/SQSQueue" }}
+     create_queue false
+     sqs_endpoint sqs.{{ getv "/config/AWSRegion" }}.amazonaws.com
+   </store>
+{{ end }}
 </match>
 
 # Pull in ELB logs
@@ -31,4 +39,6 @@
   refresh_interval  15
   tag               ec2.forward.elb.access
 </source>
+
+
 
