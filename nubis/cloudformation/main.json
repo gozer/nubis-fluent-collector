@@ -363,6 +363,7 @@
   },
   "Outputs": {
     "AccessLoggingBucket": {
+      "Description": "Consul: config/ ELB Log Bucket",
       "Value": {
         "Fn::GetAtt": [
           "VpcInfo",
@@ -371,6 +372,7 @@
       }
     },
     "FluentLogsBucket": {
+      "Description": "Consul: config/ Log Archive Bucket",
       "Value": {
         "Fn::GetAtt": [
           "S3Stack",
