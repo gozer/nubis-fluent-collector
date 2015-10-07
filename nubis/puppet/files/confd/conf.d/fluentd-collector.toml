@@ -7,6 +7,9 @@ keys = [
     "/config/AWSRegion",
     "/config/FluentLogsBucket",
     "/config/AccessLoggingBucket",
+    "/config/SQS/Queue",
+    "/config/SQS/AccessKey",
+    "/config/SQS/SecretKey",
 ]
 
 check_cmd  = "/usr/sbin/td-agent --dry-run -c {{.src}}"
