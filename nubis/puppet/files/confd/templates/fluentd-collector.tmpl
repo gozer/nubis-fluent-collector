@@ -26,7 +26,11 @@
      create_queue false
 {{ if exists "/config/SQS/AccessKey" }}aws_key_id {{ getv "/config/SQS/AccessKey" }}{{ end }}
 {{ if exists "/config/SQS/SecretKey" }}aws_sec_key {{ getv "/config/SQS/SecretKey" }}{{ end }}
+{{ if exists "/config/SQS/Region" }}
+     sqs_endpoint sqs.{{ getv "/config/SQS/Region" }}.amazonaws.com
+{{ else }}
      sqs_endpoint sqs.{{ getv "/config/AWSRegion" }}.amazonaws.com
+{{ end }}
    </store>
 {{ end }}
 </match>

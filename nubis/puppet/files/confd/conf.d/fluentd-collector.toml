@@ -10,6 +10,7 @@ keys = [
     "/config/SQS/Queue",
     "/config/SQS/AccessKey",
     "/config/SQS/SecretKey",
+    "/config/SQS/Region",
 ]
 
 check_cmd  = "/usr/sbin/td-agent --dry-run -c {{.src}}"
