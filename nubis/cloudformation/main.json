@@ -257,6 +257,147 @@
         ]
       }
     },
+    "FluentCredstashPolicy": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyName": {
+          "Fn::Join": [
+            "-",
+            [
+              {
+                "Ref": "AWS::StackName"
+              },
+              "credstash",
+              "policy"
+            ]
+          ]
+        },
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Resource": {
+                "Fn::Join": [
+                  ":",
+                  [
+                    "arn:aws:dynamodb",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    "table/credential-store"
+                  ]
+                ]
+              },
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:DescribeTable",
+                "dynamodb:GetItem",
+                "dynamodb:ListTables",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:DescribeReservedCapacity",
+                "dynamodb:DescribeReservedCapacityOfferings"
+              ],
+              "Effect": "Allow"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "kms:Decrypt"
+              ],
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    ":",
+                    [
+                      "arn:aws:kms",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      {
+                        "Fn::Join": [
+                          "/",
+                          [
+                            "key",
+                            {
+                              "Fn::GetAtt": [
+                                "MetaInfo",
+                                "CredstashKeyId"
+                              ]
+                            }
+                          ]
+                        ]
+                      }
+                    ]
+                  ]
+                }
+              ],
+              "Condition": {
+                "StringEquals": {
+                  "kms:EncryptionContext:environment": {
+                    "Ref": "Environment"
+                  },
+                  "kms:EncryptionContext:service": {
+                    "Ref": "ServiceName"
+                  },
+                  "kms:EncryptionContext:region": {
+                    "Ref": "AWS::Region"
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "Roles": [
+          {
+            "Ref": "FluentIamRole"
+          }
+        ]
+      }
+    },
+    "MetaInfo": {
+      "Type": "Custom::MetaInfo",
+      "Properties": {
+        "StacksVersion": {
+          "Ref": "StacksVersion"
+        },
+        "ServiceToken": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:lambda:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":function:",
+              "LookupNestedStackOutputs"
+            ]
+          ]
+        },
+        "StackName": {
+          "Fn::Join": [
+            "-",
+            [
+              {
+                "Ref": "AWS::Region"
+              },
+              "vpc"
+            ]
+          ]
+        },
+        "SearchString": "Meta"
+      }
+    },
     "VpcInfo": {
       "Type": "Custom::VpcInfo",
       "Properties": {
