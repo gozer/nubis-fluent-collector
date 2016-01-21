@@ -7,13 +7,13 @@ fluentd::install_plugin { 'elb':
 }
 
 fluentd::install_plugin { 's3':
-  ensure      => '0.5.11',
+  ensure      => '0.6.5',
   plugin_type => 'gem',
   plugin_name => 'fluent-plugin-s3',
 }
 
 fluentd::install_plugin { 'sqs':
-  ensure      => '1.6.1',
+  ensure      => '1.7.0',
   plugin_type => 'gem',
   plugin_name => 'fluent-plugin-sqs',
 }
