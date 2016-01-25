@@ -18,6 +18,18 @@ fluentd::install_plugin { 'sqs':
   plugin_name => 'fluent-plugin-sqs',
 }
 
+fluentd::install_plugin { 'aws-elasticsearch-service':
+  ensure      => '0.1.4',
+  plugin_type => 'gem',
+  plugin_name => 'fluent-plugin-aws-elasticsearch-service',
+}
+
+fluentd::install_plugin { 'elasticsearch':
+  ensure      => '1.3.0',
+  plugin_type => 'gem',
+  plugin_name => 'fluent-plugin-elasticsearch',
+}
+
 file { "/var/log/fluentd":
   ensure => "directory",
   owner  => "td-agent",

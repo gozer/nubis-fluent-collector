@@ -41,6 +41,20 @@
 {{ end }}
    </store>
 {{ end }}
+
+{{ if exists "/config/ElasticSearch/AWSEndpoint" }}
+  <store>
+    type aws-elasticsearch-service
+    <endpoint>
+      url {{ getv "/config/ElasticSearch/AWSEndpoint" }}
+      {{ if exists "/config/ElasticSearch/Region" }}
+      region {{ getv "/config/ElasticSearch/Region" }}
+      {{ else }}
+      region {{ getv "/config/AWSRegion" }}
+      {{ end }}
+    </endpoint>
+  </store>
+{{ end }}
 </match>
 
 # Pull in ELB logs

@@ -11,6 +11,7 @@ keys = [
     "/config/SQS/AccessKey",
     "/config/SQS/SecretKey",
     "/config/SQS/Region",
+    "/config/ElasticSearch/AWSEndpoint",
 ]
 
 check_cmd  = "/usr/sbin/td-agent --dry-run -c {{.src}}"
