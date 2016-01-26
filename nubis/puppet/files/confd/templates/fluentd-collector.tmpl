@@ -43,8 +43,13 @@
 {{ end }}
 
 {{ if exists "/config/ElasticSearch/AWSEndpoint" }}
+  # Ship to ElasticSearch
   <store>
     type aws-elasticsearch-service
+    logstash_format true
+    include_tag_key true
+    flush_interval "15s"
+
     <endpoint>
       url {{ getv "/config/ElasticSearch/AWSEndpoint" }}
       {{ if exists "/config/ElasticSearch/Region" }}
