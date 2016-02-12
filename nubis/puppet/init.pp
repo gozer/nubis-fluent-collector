@@ -18,6 +18,30 @@ fluentd::install_plugin { 'sqs':
   plugin_name => 'fluent-plugin-sqs',
 }
 
+fluentd::install_plugin { 'aws-elasticsearch-service':
+  ensure      => '0.1.4',
+  plugin_type => 'gem',
+  plugin_name => 'fluent-plugin-aws-elasticsearch-service',
+}->wget::fetch { "patch aws-elasticsearch-service for ruby < 2":
+    source => "https://raw.githubusercontent.com/atomita/fluent-plugin-aws-elasticsearch-service/a823433920bb183dbdda087f3c0fcca6c381bef7/lib/fluent/plugin/out_aws-elasticsearch-service.rb",
+    destination => "/usr/lib/fluent/ruby/lib/ruby/gems/1.9.1/gems/fluent-plugin-aws-elasticsearch-service-0.1.4/lib/fluent/plugin/out_aws-elasticsearch-service.rb",
+    user => "root",
+    verbose => true,
+    redownload => true, # The file already exists, we replace it
+}->wget::fetch { "patch faraday_middleware-aws-signers for ruby < 2":
+    source => "https://raw.githubusercontent.com/winebarrel/faraday_middleware-aws-signers-v4/20a3740db1b7ad1e0877b7c49dfe07c7d57c2c42/lib/faraday_middleware/aws_signers_v4_ext.rb",
+    destination => "/usr/lib/fluent/ruby/lib/ruby/gems/1.9.1/gems/faraday_middleware-aws-signers-v4-0.1.1/lib/faraday_middleware/aws_signers_v4_ext.rb",
+    user => "root",
+    verbose => true,
+    redownload => true, # The file already exists, we replace it
+}
+
+fluentd::install_plugin { 'elasticsearch':
+  ensure      => '1.3.0',
+  plugin_type => 'gem',
+  plugin_name => 'fluent-plugin-elasticsearch',
+}
+
 file { "/var/log/fluentd":
   ensure => "directory",
   owner  => "td-agent",
@@ -41,3 +65,4 @@ file { "/etc/confd":
   group => 'root',
   source => "puppet:///nubis/files/confd",
 }
+
