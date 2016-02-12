@@ -170,6 +170,14 @@
     "FluentIamRole": {
       "Type": "AWS::IAM::Role",
       "Properties": {
+        "ManagedPolicyArns": [
+          {
+            "Fn::GetAtt": [
+              "MetaInfo",
+              "CredstashPolicy"
+            ]
+          }
+        ],
         "AssumeRolePolicyDocument": {
           "Version": "2012-10-17",
           "Statement": [
