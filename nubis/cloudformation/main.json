@@ -78,6 +78,7 @@
           "StackName": {
             "Ref": "AWS::StackName"
           },
+          "Purpose": "Fluent-Collector",
           "ServiceName": {
             "Ref": "ServiceName"
           },
