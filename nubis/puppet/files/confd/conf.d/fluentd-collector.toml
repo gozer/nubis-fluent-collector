@@ -1,7 +1,7 @@
 [template]
 src = "fluentd-collector.tmpl"
 dest = "/etc/td-agent/config.d/collector.conf"
-prefix = "/%%STACK%%/%%ENVIRONMENT%%"
+prefix = "/%%PROJECT%%/%%ENVIRONMENT%%"
 
 keys = [
     "/config/AWSRegion",
