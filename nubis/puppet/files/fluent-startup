@@ -13,5 +13,5 @@ PREFIX="http://localhost:8500/v1/kv/$PROJECT/$ENVIRONMENT/config"
 curl -X PUT -d "$REGION" "$PREFIX/AWSRegion?cas=0"
 
 if [ ! -z "$BUCKET" ]; then
-  curl -X PUT -d "$BUCKET" "$PREFIX/FluentLogsBucket?cas=0"
+  curl -X PUT -d "$BUCKET" "$PREFIX/FluentLogsBucket"
 fi
