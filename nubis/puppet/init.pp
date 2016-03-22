@@ -66,3 +66,9 @@ file { "/etc/confd":
   source => "puppet:///nubis/files/confd",
 }
 
+file { "/etc/nubis.d/fluent":
+  source => "puppet:///nubis/files/fluent-startup",
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0755',
+}

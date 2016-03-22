@@ -1,0 +1,17 @@
+#!/bin/bash
+
+export PATH=/usr/local/bin:$PATH
+
+REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq '.region' -r)
+ENVIRONMENT=$(nubis-metadata NUBIS_ENVIRONMENT)
+PROJECT=$(nubis-metadata NUBIS_PROJECT)
+BUCKET=$(nubis-metadata NUBIS_FLUENT_BUCKET)
+
+PREFIX="http://localhost:8500/v1/kv/$PROJECT/$ENVIRONMENT/config"
+
+# ?cas=0 ensures this KV is created only if not already there
+curl -X PUT -d "$REGION" "$PREFIX/AWSRegion?cas=0"
+
+if [ ! -z "$BUCKET" ]; then
+  curl -X PUT -d "$BUCKET" "$PREFIX/FluentLogsBucket"
+fi

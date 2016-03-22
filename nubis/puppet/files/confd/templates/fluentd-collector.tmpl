@@ -62,6 +62,7 @@
 {{ end }}
 </match>
 
+{{ if exists "/config/AccessLoggingBucket" }}
 # Pull in ELB logs
 <source>
   type elb_log
@@ -72,3 +73,5 @@
   refresh_interval  15
   tag               ec2.forward.elb.access
 </source>
+
+{{ end }}
