@@ -6,6 +6,7 @@ REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/documen
 ENVIRONMENT=$(nubis-metadata NUBIS_ENVIRONMENT)
 PROJECT=$(nubis-metadata NUBIS_PROJECT)
 BUCKET=$(nubis-metadata NUBIS_FLUENT_BUCKET)
+ELB_BUCKET=$(nubis-metadata NUBIS_ELB_BUCKET)
 
 PREFIX="http://localhost:8500/v1/kv/$PROJECT/$ENVIRONMENT/config"
 
@@ -14,4 +15,8 @@ curl -X PUT -d "$REGION" "$PREFIX/AWSRegion?cas=0"
 
 if [ ! -z "$BUCKET" ]; then
   curl -X PUT -d "$BUCKET" "$PREFIX/FluentLogsBucket"
+fi
+
+if [ ! -z "$ELB_BUCKET" ]; then
+  curl -X PUT -d "$BUCKET" "$PREFIX/AccessLoggingBucket"
 fi
