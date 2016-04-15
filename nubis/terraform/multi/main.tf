@@ -18,7 +18,7 @@ resource "atlas_artifact" "nubis-fluent-collector" {
 }
 
 module "uuid" {
-  source = "github.com/gozer/nubis-deploy///modules/uuid?ref=master"
+  source = "github.com/nubisproject/nubis-deploy///modules/uuid?ref=master"
 
   enabled = "${var.enabled}"
 
