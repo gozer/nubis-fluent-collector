@@ -6,6 +6,14 @@
   port 24220
 </source>
 
+# Syslog listener
+<source>
+  type syslog
+  port 514
+  bind 0.0.0.0
+  tag forward.syslog
+</source>
+
 # Copy everything to S3
 <match ec2.forward.**>
     type copy
@@ -19,8 +27,42 @@
         utc true
         use_ssl true
    </store>
+{{ if exists "/config/SQS/Queue" }}
+   <store>
+     type sqs
+     queue_name {{ getv "/config/SQS/Queue" }}
+     create_queue false
+{{ if exists "/config/SQS/AccessKey" }}aws_key_id {{ getv "/config/SQS/AccessKey" }}{{ end }}
+{{ if exists "/config/SQS/SecretKey" }}aws_sec_key {{ getv "/config/SQS/SecretKey" }}{{ end }}
+{{ if exists "/config/SQS/Region" }}
+     sqs_endpoint sqs.{{ getv "/config/SQS/Region" }}.amazonaws.com
+{{ else }}
+     sqs_endpoint sqs.{{ getv "/config/AWSRegion" }}.amazonaws.com
+{{ end }}
+   </store>
+{{ end }}
+
+{{ if exists "/config/ElasticSearch/AWSEndpoint" }}
+  # Ship to ElasticSearch
+  <store>
+    type aws-elasticsearch-service
+    logstash_format true
+    include_tag_key true
+    flush_interval "15s"
+
+    <endpoint>
+      url {{ getv "/config/ElasticSearch/AWSEndpoint" }}
+      {{ if exists "/config/ElasticSearch/Region" }}
+      region {{ getv "/config/ElasticSearch/Region" }}
+      {{ else }}
+      region {{ getv "/config/AWSRegion" }}
+      {{ end }}
+    </endpoint>
+  </store>
+{{ end }}
 </match>
 
+{{ if exists "/config/AccessLoggingBucket" }}
 # Pull in ELB logs
 <source>
   type elb_log
@@ -32,3 +74,4 @@
   tag               ec2.forward.elb.access
 </source>
 
+{{ end }}

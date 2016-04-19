@@ -1,7 +1,5 @@
 {
   "variables": {
-    "automatic_version_bump": "1",
-    "automatic_version_verify": "1",
     "builders": [
       "amazon-ebs-ubuntu"
     ],
