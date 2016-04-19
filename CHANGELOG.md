@@ -5,6 +5,7 @@
 
 **Closed issues:**
 
+- Fix proxy support in our 2 s3 plugins. [\#69](https://github.com/nubisproject/nubis-fluent-collector/issues/69)
 - Create a multi-environment TF module for deployment [\#67](https://github.com/nubisproject/nubis-fluent-collector/issues/67)
 - Default the AccessLoggingBucket from user-data [\#65](https://github.com/nubisproject/nubis-fluent-collector/issues/65)
 - Fill up Consul KV with user-data provided initial values, as defaults. [\#62](https://github.com/nubisproject/nubis-fluent-collector/issues/62)
@@ -19,6 +20,7 @@
 
 **Merged pull requests:**
 
+- Fix proxy support, requires one upgrade and one monkey patch [\#74](https://github.com/nubisproject/nubis-fluent-collector/pull/74) ([gozer](https://github.com/gozer))
 - Update builder artifacts for v1.1.0 release [\#72](https://github.com/nubisproject/nubis-fluent-collector/pull/72) ([tinnightcap](https://github.com/tinnightcap))
 - Update versions for  release [\#71](https://github.com/nubisproject/nubis-fluent-collector/pull/71) ([tinnightcap](https://github.com/tinnightcap))
 - Create a multi-environment TF module for deployment [\#70](https://github.com/nubisproject/nubis-fluent-collector/pull/70) ([gozer](https://github.com/gozer))
