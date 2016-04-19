@@ -26,7 +26,7 @@ index b248709..f18a942 100644
 }
 
 fluentd::install_plugin { 's3':
-  ensure      => '0.6.5',
+  ensure      => '0.6.7',
   plugin_type => 'gem',
   plugin_name => 'fluent-plugin-s3',
 }
