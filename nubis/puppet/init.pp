@@ -1,13 +1,32 @@
 include ::fluentd
 
+$elb_log_version = '0.2.5'
+
 fluentd::install_plugin { 'elb':
-  ensure      => '0.2.5',
+  ensure      => $elb_log_version,
   plugin_type => 'gem',
   plugin_name => 'fluent-plugin-elb-log',
+}->
+patch::file { "/usr/lib/fluent/ruby/lib/ruby/gems/1.9.1/gems/fluent-plugin-elb-log-$elb_log_version/lib/fluent/plugin/in_elb_log.rb":
+  diff_content => "
+diff --git a/lib/fluent/plugin/in_elb_log.rb b/lib/fluent/plugin/in_elb_log.rb
+index b248709..f18a942 100644
+--- a/in_elb_log.rb
++++ b/in_elb_log.rb
+@@ -18,7 +18,7 @@ class Fluent::Elb_LogInput < Fluent::Input
+   config_param :timestamp_file, :string, :default => nil
+   config_param :refresh_interval, :integer, :default => 300
+   config_param :buf_file, :string, :default => './fluentd_elb_log_buf_file'
+-  config_param :proxy_uri, :string, :default => nil
++  config_param :http_proxy, :string, :default => nil
+
+   def configure(conf)
+     super
+"
 }
 
 fluentd::install_plugin { 's3':
-  ensure      => '0.6.5',
+  ensure      => '0.6.7',
   plugin_type => 'gem',
   plugin_name => 'fluent-plugin-s3',
 }
