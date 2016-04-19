@@ -26,7 +26,7 @@
         time_slice_format %Y/%m/%d/%H/%Y%m%d%H%M
         utc true
         use_ssl true
-        http_proxy http://proxy.service.consul:3128
+        proxy_uri http://proxy.service.consul:3128
    </store>
 {{ if exists "/config/SQS/Queue" }}
    <store>
