@@ -10,7 +10,7 @@ fluentd::install_plugin { 'elb':
 patch::file { "/usr/lib/fluent/ruby/lib/ruby/gems/1.9.1/gems/fluent-plugin-elb-log-$elb_log_version/lib/fluent/plugin/in_elb_log.rb":
   diff_content => "
 diff --git a/lib/fluent/plugin/in_elb_log.rb b/lib/fluent/plugin/in_elb_log.rb
-index b248709..f18a942 100644
+index b248709..29b203b 100644
 --- a/in_elb_log.rb
 +++ b/in_elb_log.rb
 @@ -18,7 +18,7 @@ class Fluent::Elb_LogInput < Fluent::Input
@@ -19,9 +19,19 @@ index b248709..f18a942 100644
    config_param :buf_file, :string, :default => './fluentd_elb_log_buf_file'
 -  config_param :proxy_uri, :string, :default => nil
 +  config_param :http_proxy, :string, :default => nil
-
+ 
    def configure(conf)
      super
+@@ -100,6 +100,9 @@ def s3_client
+         options[:access_key_id] = @access_key_id
+         options[:secret_access_key] = @secret_access_key
+       end
++      if @http_proxy
++        options[:http_proxy] = @http_proxy
++      end
+       \$log.debug \"S3 client connect\"
+       Aws::S3::Client.new(options)
+     rescue => e
 "
 }
 
