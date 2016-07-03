@@ -1,15 +1,20 @@
 include ::fluentd
 
-fluentd::install_plugin { 'elb':
-  ensure      => '0.2.6',
-  plugin_type => 'gem',
-  plugin_name => 'fluent-plugin-elb-log',
+package { "fluent-plugin-elb-log":
+  ensure   => "0.2.6",
+  provider => "fluentgem",
+  source   => "http://people.mozilla.org/~pchiasson/ruby",
+  require     => [
+    Package["td-agent"],
+  ],
 }
-
-fluentd::install_plugin { 's3':
-  ensure      => '0.6.7',
-  plugin_type => 'gem',
-  plugin_name => 'fluent-plugin-s3',
+package { "fluent-plugin-s3":
+  ensure   => "0.6.8",
+  provider => "fluentgem",
+  source   => "http://people.mozilla.org/~pchiasson/ruby",
+  require     => [
+    Package["td-agent"],
+  ],
 }
 
 fluentd::install_plugin { 'sqs':
@@ -18,28 +23,22 @@ fluentd::install_plugin { 'sqs':
   plugin_name => 'fluent-plugin-sqs',
 }
 
-fluentd::install_plugin { 'aws-elasticsearch-service':
-  ensure      => '0.1.4',
-  plugin_type => 'gem',
-  plugin_name => 'fluent-plugin-aws-elasticsearch-service',
-}->wget::fetch { "patch aws-elasticsearch-service for ruby < 2":
-    source => "https://raw.githubusercontent.com/atomita/fluent-plugin-aws-elasticsearch-service/a823433920bb183dbdda087f3c0fcca6c381bef7/lib/fluent/plugin/out_aws-elasticsearch-service.rb",
-    destination => "/usr/lib/fluent/ruby/lib/ruby/gems/1.9.1/gems/fluent-plugin-aws-elasticsearch-service-0.1.4/lib/fluent/plugin/out_aws-elasticsearch-service.rb",
-    user => "root",
-    verbose => true,
-    redownload => true, # The file already exists, we replace it
-}->wget::fetch { "patch faraday_middleware-aws-signers for ruby < 2":
-    source => "https://raw.githubusercontent.com/winebarrel/faraday_middleware-aws-signers-v4/20a3740db1b7ad1e0877b7c49dfe07c7d57c2c42/lib/faraday_middleware/aws_signers_v4_ext.rb",
-    destination => "/usr/lib/fluent/ruby/lib/ruby/gems/1.9.1/gems/faraday_middleware-aws-signers-v4-0.1.1/lib/faraday_middleware/aws_signers_v4_ext.rb",
-    user => "root",
-    verbose => true,
-    redownload => true, # The file already exists, we replace it
+package { "fluent-plugin-aws-elasticsearch-service":
+  ensure   => "0.1.6",
+  provider => "fluentgem",
+  source   => "http://people.mozilla.org/~pchiasson/ruby",
+  require     => [
+    Package["td-agent"],
+  ],
 }
 
-fluentd::install_plugin { 'elasticsearch':
-  ensure      => '1.3.0',
-  plugin_type => 'gem',
-  plugin_name => 'fluent-plugin-elasticsearch',
+package { "fluent-plugin-elasticsearch":
+  ensure   => "1.5.0",
+  provider => "fluentgem",
+  source   => "http://people.mozilla.org/~pchiasson/ruby",
+  require     => [
+    Package["td-agent"],
+  ],
 }
 
 file { "/var/log/fluentd":
