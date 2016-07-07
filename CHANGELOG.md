@@ -1,6 +1,22 @@
 # Change Log
 
-## [v1.1.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.1.0) (2016-04-18)
+## [v1.2.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.2.0) (2016-07-07)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.1.0...v1.2.0)
+
+**Closed issues:**
+
+- fluentd-0.14 requires ruby \>= 2 [\#81](https://github.com/nubisproject/nubis-fluent-collector/issues/81)
+- Upgrade fluent-plugin-elb-log to 0.2.6 [\#77](https://github.com/nubisproject/nubis-fluent-collector/issues/77)
+- Move to v1.1.1-dev train [\#75](https://github.com/nubisproject/nubis-fluent-collector/issues/75)
+
+**Merged pull requests:**
+
+- Update builder artifacts for v1.2.0 release [\#83](https://github.com/nubisproject/nubis-fluent-collector/pull/83) ([tinnightcap](https://github.com/tinnightcap))
+- Fix ruby \>= 2 dependencies by pinning back down some fluentd plugins [\#82](https://github.com/nubisproject/nubis-fluent-collector/pull/82) ([gozer](https://github.com/gozer))
+- Upgrade to fluent-plugin-elb-log 0.2.6 [\#80](https://github.com/nubisproject/nubis-fluent-collector/pull/80) ([gozer](https://github.com/gozer))
+- Stat v1.2.0-dev cycle [\#79](https://github.com/nubisproject/nubis-fluent-collector/pull/79) ([gozer](https://github.com/gozer))
+
+## [v1.1.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.1.0) (2016-04-19)
 [Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.0.1...v1.1.0)
 
 **Closed issues:**
@@ -17,10 +33,12 @@
 - Enable syslog listener, for services that only know how to send to syslog [\#40](https://github.com/nubisproject/nubis-fluent-collector/issues/40)
 - Add support for injecting into ElasticSearch [\#39](https://github.com/nubisproject/nubis-fluent-collector/issues/39)
 - Tag v1.1.0 release [\#10](https://github.com/nubisproject/nubis-fluent-collector/issues/10)
+- Tag v1.1.0 release [\#47](https://github.com/nubisproject/nubis-fluent-collector/issues/47)
 
 **Merged pull requests:**
 
 - Fix proxy support, requires one upgrade and one monkey patch [\#74](https://github.com/nubisproject/nubis-fluent-collector/pull/74) ([gozer](https://github.com/gozer))
+- Update CHANGELOG for v1.1.0 release [\#73](https://github.com/nubisproject/nubis-fluent-collector/pull/73) ([tinnightcap](https://github.com/tinnightcap))
 - Update builder artifacts for v1.1.0 release [\#72](https://github.com/nubisproject/nubis-fluent-collector/pull/72) ([tinnightcap](https://github.com/tinnightcap))
 - Update versions for  release [\#71](https://github.com/nubisproject/nubis-fluent-collector/pull/71) ([tinnightcap](https://github.com/tinnightcap))
 - Create a multi-environment TF module for deployment [\#70](https://github.com/nubisproject/nubis-fluent-collector/pull/70) ([gozer](https://github.com/gozer))
