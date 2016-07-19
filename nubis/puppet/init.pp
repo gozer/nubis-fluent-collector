@@ -1,44 +1,33 @@
 include ::fluentd
 
-package { "fluent-plugin-elb-log":
-  ensure   => "0.2.6",
-  provider => "fluentgem",
-  source   => "http://people.mozilla.org/~pchiasson/ruby",
-  require     => [
-    Package["td-agent"],
-  ],
+fluentd::install_plugin { "elb-log":
+  ensure      => "0.2.6",
+  plugin_name => "fluent-plugin-elb-log",
+  plugin_type => 'gem',
 }
-package { "fluent-plugin-s3":
-  ensure   => "0.6.8",
-  provider => "fluentgem",
-  source   => "http://people.mozilla.org/~pchiasson/ruby",
-  require     => [
-    Package["td-agent"],
-  ],
+
+fluentd::install_plugin { 's3':
+  ensure      => "0.6.8",
+  plugin_name => "fluent-plugin-s3",
+  plugin_type => 'gem',
 }
 
 fluentd::install_plugin { 'sqs':
-  ensure      => '1.7.0',
+  ensure      => "1.7.1",
+  plugin_name => "fluent-plugin-sqs",
   plugin_type => 'gem',
-  plugin_name => 'fluent-plugin-sqs',
 }
 
-package { "fluent-plugin-aws-elasticsearch-service":
-  ensure   => "0.1.6",
-  provider => "fluentgem",
-  source   => "http://people.mozilla.org/~pchiasson/ruby",
-  require     => [
-    Package["td-agent"],
-  ],
+fluentd::install_plugin { 'aws-elasticsearch-service':
+  ensure      => "0.1.6",
+  plugin_name => "fluent-plugin-aws-elasticsearch-service",
+  plugin_type => 'gem',
 }
 
-package { "fluent-plugin-elasticsearch":
-  ensure   => "1.5.0",
-  provider => "fluentgem",
-  source   => "http://people.mozilla.org/~pchiasson/ruby",
-  require     => [
-    Package["td-agent"],
-  ],
+fluentd::install_plugin { 'elasticsearch':
+  ensure      => "1.5.0",
+  plugin_name => "fluent-plugin-elasticsearch",
+  plugin_type => 'gem',
 }
 
 file { "/var/log/fluentd":
