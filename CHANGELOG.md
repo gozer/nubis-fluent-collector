@@ -1,16 +1,31 @@
 # Change Log
 
+## [v1.2.1](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.2.1) (2016-07-30)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.2.0...v1.2.1)
+
+**Closed issues:**
+
+- Upgrade fluentd and plugins [\#68](https://github.com/nubisproject/nubis-fluent-collector/issues/68)
+
+**Merged pull requests:**
+
+- Update builder artifacts for v1.2.1 release [\#89](https://github.com/nubisproject/nubis-fluent-collector/pull/89) ([tinnightcap](https://github.com/tinnightcap))
+- This upgrades us to td-agent 2.x [\#87](https://github.com/nubisproject/nubis-fluent-collector/pull/87) ([gozer](https://github.com/gozer))
+- Update builder artifacts for v1.3.0-dev release [\#86](https://github.com/nubisproject/nubis-fluent-collector/pull/86) ([tinnightcap](https://github.com/tinnightcap))
+
 ## [v1.2.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.2.0) (2016-07-07)
 [Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.1.0...v1.2.0)
 
 **Closed issues:**
 
+- Tag v1.2.0 release [\#84](https://github.com/nubisproject/nubis-fluent-collector/issues/84)
 - fluentd-0.14 requires ruby \>= 2 [\#81](https://github.com/nubisproject/nubis-fluent-collector/issues/81)
 - Upgrade fluent-plugin-elb-log to 0.2.6 [\#77](https://github.com/nubisproject/nubis-fluent-collector/issues/77)
 - Move to v1.1.1-dev train [\#75](https://github.com/nubisproject/nubis-fluent-collector/issues/75)
 
 **Merged pull requests:**
 
+- Update CHANGELOG for v1.2.0 release [\#85](https://github.com/nubisproject/nubis-fluent-collector/pull/85) ([tinnightcap](https://github.com/tinnightcap))
 - Update builder artifacts for v1.2.0 release [\#83](https://github.com/nubisproject/nubis-fluent-collector/pull/83) ([tinnightcap](https://github.com/tinnightcap))
 - Fix ruby \>= 2 dependencies by pinning back down some fluentd plugins [\#82](https://github.com/nubisproject/nubis-fluent-collector/pull/82) ([gozer](https://github.com/gozer))
 - Upgrade to fluent-plugin-elb-log 0.2.6 [\#80](https://github.com/nubisproject/nubis-fluent-collector/pull/80) ([gozer](https://github.com/gozer))
