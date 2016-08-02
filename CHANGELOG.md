@@ -1,14 +1,23 @@
 # Change Log
 
+## [v1.2.2](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.2.2) (2016-08-02)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.2.1...v1.2.2)
+
+**Merged pull requests:**
+
+- Update builder artifacts for v1.2.2 release [\#92](https://github.com/nubisproject/nubis-fluent-collector/pull/92) ([tinnightcap](https://github.com/tinnightcap))
+
 ## [v1.2.1](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.2.1) (2016-07-30)
 [Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.2.0...v1.2.1)
 
 **Closed issues:**
 
 - Upgrade fluentd and plugins [\#68](https://github.com/nubisproject/nubis-fluent-collector/issues/68)
+- Tag v1.2.1 release [\#88](https://github.com/nubisproject/nubis-fluent-collector/issues/88)
 
 **Merged pull requests:**
 
+- Update CHANGELOG for v1.2.1 release [\#90](https://github.com/nubisproject/nubis-fluent-collector/pull/90) ([tinnightcap](https://github.com/tinnightcap))
 - Update builder artifacts for v1.2.1 release [\#89](https://github.com/nubisproject/nubis-fluent-collector/pull/89) ([tinnightcap](https://github.com/tinnightcap))
 - This upgrades us to td-agent 2.x [\#87](https://github.com/nubisproject/nubis-fluent-collector/pull/87) ([gozer](https://github.com/gozer))
 - Update builder artifacts for v1.3.0-dev release [\#86](https://github.com/nubisproject/nubis-fluent-collector/pull/86) ([tinnightcap](https://github.com/tinnightcap))
