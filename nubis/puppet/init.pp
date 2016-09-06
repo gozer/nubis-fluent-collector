@@ -1,5 +1,11 @@
 include ::fluentd
 
+fluentd::install_plugin { "prometheus":
+  ensure      => "0.2.0",
+  plugin_name => "fluent-plugin-prometheus",
+  plugin_type => 'gem',
+}
+
 fluentd::install_plugin { "elb-log":
   ensure      => "0.2.6",
   plugin_name => "fluent-plugin-elb-log",
