@@ -14,6 +14,17 @@
   tag forward.syslog
 </source>
 
+# Prometheus listener
+<source>
+  type prometheus
+  port 9101
+</source>
+
+# Prometheus fluentd metrics
+<source>
+  type prometheus_monitor
+</source>
+
 # Copy everything to S3
 <match ec2.forward.**>
     type copy
