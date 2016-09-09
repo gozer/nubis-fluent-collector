@@ -13,7 +13,7 @@ fluentd::install_plugin { "elb-log":
 }
 
 fluentd::install_plugin { 's3':
-  ensure      => "0.6.8",
+  ensure      => "0.7.1",
   plugin_name => "fluent-plugin-s3",
   plugin_type => 'gem',
 }
@@ -31,7 +31,7 @@ fluentd::install_plugin { 'aws-elasticsearch-service':
 }
 
 fluentd::install_plugin { 'elasticsearch':
-  ensure      => "1.5.0",
+  ensure      => "1.6.0",
   plugin_name => "fluent-plugin-elasticsearch",
   plugin_type => 'gem',
 }
