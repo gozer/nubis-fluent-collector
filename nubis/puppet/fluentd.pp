@@ -57,11 +57,11 @@ file { '/etc/confd':
   purge   => false,
   owner   => 'root',
   group   => 'root',
-  source  => 'puppet:///modules/nubis/files/confd',
+  source  => 'puppet:///nubis/files/confd',
 }
 
 file { '/etc/nubis.d/fluent':
-  source => 'puppet:///modules/nubis/files/fluent-startup',
+  source => 'puppet:///nubis/files/fluent-startup',
   owner  => 'root',
   group  => 'root',
   mode   => '0755',

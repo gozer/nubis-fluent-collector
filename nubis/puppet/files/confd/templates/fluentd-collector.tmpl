@@ -36,7 +36,6 @@
         s3_region {{ getv "/config/AWSRegion" }}
         time_slice_format %Y/%m/%d/%H/%Y%m%d%H%M
         utc true
-        use_ssl true
         proxy_uri http://proxy.service.consul:3128
    </store>
 {{ if exists "/config/SQS/Queue" }}
@@ -61,6 +60,10 @@
     logstash_format true
     include_tag_key true
     flush_interval "15s"
+
+    buffer_type file
+    buffer_path /var/log/fluentd/elasticsearch.log
+    buffer_chunk_limit 8m
 
     <endpoint>
       url {{ getv "/config/ElasticSearch/AWSEndpoint" }}
