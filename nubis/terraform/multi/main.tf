@@ -18,7 +18,7 @@ resource "atlas_artifact" "nubis-fluent-collector" {
 }
 
 module "uuid" {
-  source = "github.com/nubisproject/nubis-deploy///modules/uuid?ref=v1.1.0"
+  source = "github.com/nubisproject/nubis-deploy///modules/uuid?ref=master"
 
   enabled = "${var.enabled}"
 
@@ -240,18 +240,24 @@ resource "aws_iam_role_policy" "fluent-collector" {
   "Version": "2012-10-17",
   "Statement": [
               {
+              "Sid": "SeeAllBuckets",
               "Effect": "Allow",
               "Action": "s3:ListAllMyBuckets",
               "Resource": "arn:aws:s3:::*"
             },
             {
+              "Sid": "ListInOurBuckets",
               "Effect": "Allow",
               "Action": [
                 "s3:ListBucket"
               ],
-              "Resource": "${element(aws_s3_bucket.fluent.*.arn, count.index)}"
+              "Resource": [
+	          "${element(aws_s3_bucket.fluent.*.arn, count.index)}",
+		  "${element(aws_s3_bucket.elb.*.arn, count.index)}"
+	       ]
             },
             {
+              "Sid": "FullAccessToOurBucket",
               "Effect": "Allow",
               "Action": [
                 "s3:PutObject",
@@ -259,6 +265,14 @@ resource "aws_iam_role_policy" "fluent-collector" {
                 "s3:DeleteObject"
               ],
               "Resource": "${element(aws_s3_bucket.fluent.*.arn, count.index)}/*"
+            },
+	    {
+              "Sid": "ReadingFromELBBucket",
+              "Effect": "Allow",
+              "Action": [
+                "s3:GetObject"
+              ],
+              "Resource": "${element(aws_s3_bucket.elb.*.arn, count.index)}/*"
             }
   ]
 }
@@ -292,12 +306,13 @@ resource "aws_launch_configuration" "fluent-collector" {
   ]
 
   user_data = <<EOF
-NUBIS_PROJECT=${var.project}
-NUBIS_ENVIRONMENT=${element(split(",",var.environments), count.index)}
-NUBIS_ACCOUNT=${var.service_name}
-NUBIS_DOMAIN=${var.nubis_domain}
-NUBIS_FLUENT_BUCKET=${element(aws_s3_bucket.fluent.*.id, count.index)}
-NUBIS_ELB_BUCKET=${element(aws_s3_bucket.elb.*.id, count.index)}
+NUBIS_PROJECT="${var.project}"
+NUBIS_ENVIRONMENT="${element(split(",",var.environments), count.index)}"
+NUBIS_ACCOUNT="${var.service_name}"
+NUBIS_DOMAIN="${var.nubis_domain}"
+NUBIS_FLUENT_BUCKET="${element(aws_s3_bucket.fluent.*.id, count.index)}"
+NUBIS_ELB_BUCKET="${element(aws_s3_bucket.elb.*.id, count.index)}"
+NUBIS_FLUENT_ES_ENDPOINT="${element(aws_elasticsearch_domain.fluentd.*.endpoint, count.index)}"
 EOF
 }
 
@@ -336,5 +351,60 @@ resource "aws_autoscaling_group" "fluent-collector" {
     key                 = "ServiceName"
     value               = "${var.project}"
     propagate_at_launch = true
+  }
+}
+
+resource "aws_elasticsearch_domain" "fluentd" {
+    count = "${var.enabled * var.monitoring_enabled * length(split(",", var.environments))}"
+    domain_name = "${var.project}-${element(split(",",var.environments), count.index)}"
+
+    # This will need tweakability via knobs
+    cluster_config {
+      instance_type = "m3.medium.elasticsearch"
+      instance_count = 2
+    }
+
+    ebs_options {
+      ebs_enabled = true
+      volume_type = "gp2"
+      # min/max depends on instance type
+      volume_size = "50"
+    }
+
+    access_policies = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "Allow Fluentd to inject",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "${element(aws_iam_role.fluent-collector.*.arn, count.index)}"
+      },
+      "Action": [
+        "es:ESHttpGet",
+        "es:ESHttpHead",
+        "es:ESHttpPost",
+        "es:ESHttpPut",
+        "es:ESHttpDelete"
+      ],
+      "Resource": "arn:aws:es:${var.aws_region}:${var.aws_account_id}:domain/${var.project}-${element(split(",",var.environments), count.index)}/*"
+    }
+  ]
+}
+POLICY
+
+    snapshot_options {
+        automated_snapshot_start_hour = 23
+    }
+
+  tags = {
+    Name        = "${var.project}-${element(split(",",var.environments), count.index)}"
+    Region      = "${var.aws_region}"
+    Environment = "${element(split(",",var.environments), count.index)}"
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 }

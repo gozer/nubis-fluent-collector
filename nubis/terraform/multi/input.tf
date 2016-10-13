@@ -4,6 +4,10 @@ variable aws_profile {
 variable aws_region {
 }
 
+variable aws_account_id {
+
+}
+
 variable key_name {
 }
 
@@ -20,6 +24,10 @@ variable environments {
 }
 
 variable enabled {
+}
+
+variable monitoring_enabled {
+  default = 1
 }
 
 variable technical_contact {
