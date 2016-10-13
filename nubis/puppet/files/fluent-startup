@@ -7,16 +7,31 @@ ENVIRONMENT=$(nubis-metadata NUBIS_ENVIRONMENT)
 PROJECT=$(nubis-metadata NUBIS_PROJECT)
 BUCKET=$(nubis-metadata NUBIS_FLUENT_BUCKET)
 ELB_BUCKET=$(nubis-metadata NUBIS_ELB_BUCKET)
+ES_ENDPOINT=$(nubis-metadata NUBIS_FLUENT_ES_ENDPOINT)
 
-PREFIX="http://localhost:8500/v1/kv/$PROJECT/$ENVIRONMENT/config"
+PREFIX="$PROJECT/$ENVIRONMENT/config"
 
-# ?cas=0 ensures this KV is created only if not already there
-curl -X PUT -d "$REGION" "$PREFIX/AWSRegion?cas=0"
+# Make sure our region is in our config
+consulate kv set "$PREFIX/AWSRegion" "$REGION"
+
+
+# Publish our settings into Consul, careful to clean up and delete
+# what might have been there but isn't currently specified anymore
 
 if [ ! -z "$BUCKET" ]; then
-  curl -X PUT -d "$BUCKET" "$PREFIX/FluentLogsBucket"
+  consulate kv set "$PREFIX/FluentLogsBucket" "$BUCKET"
+else
+  consulate kv rm "$PREFIX/FluentLogsBucket"
 fi
 
 if [ ! -z "$ELB_BUCKET" ]; then
-  curl -X PUT -d "$BUCKET" "$PREFIX/AccessLoggingBucket"
+  consulate kv set "$PREFIX/AccessLoggingBucket" "$ELB_BUCKET"
+else
+  consulate kv rm "$PREFIX/AccessLoggingBucket"
+fi
+
+if [ ! -z "$ES_ENDPOINT" ]; then
+  consulate kv set "$PREFIX/ElasticSearch/AWSEndpoint" "https://$ES_ENDPOINT"
+else
+  consulate kv rm "$PREFIX/ElasticSearch/AWSEndpoint"
 fi
