@@ -25,8 +25,30 @@
   type prometheus_monitor
 </source>
 
-# Copy everything to S3
+# Tag all events with the environment they came from
+<filter **>
+  type record_transformer
+  <record>
+    environment {{ getv "/config/Environment" }}
+  </record>
+</filter>
+
+# Tag all events with our aws account_id
+<filter **>
+  type ec2_metadata
+  <record>
+    account_id    ${account_id}
+  </record>
+</filter>
+
+# Strip out the ec2.forward tag
 <match ec2.forward.**>
+  type retag
+  remove_prefix ec2.forward
+</match>
+
+# Copy everything outbound
+<match **>
     type copy
     <store>
     type s3
