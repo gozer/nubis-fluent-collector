@@ -1,6 +1,6 @@
 [template]
 src = "fluentd-collector.tmpl"
-dest = "/etc/td-agent/config.d/collector.conf"
+dest = "/etc/td-agent/config.d/zz-collector.conf"
 prefix = "/%%PROJECT%%/%%ENVIRONMENT%%"
 
 keys = [
