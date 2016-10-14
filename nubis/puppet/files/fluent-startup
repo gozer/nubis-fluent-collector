@@ -11,9 +11,9 @@ ES_ENDPOINT=$(nubis-metadata NUBIS_FLUENT_ES_ENDPOINT)
 
 PREFIX="$PROJECT/$ENVIRONMENT/config"
 
-# Make sure our region is in our config
+# Make sure our region/environment is in our config
 consulate kv set "$PREFIX/AWSRegion" "$REGION"
-
+consulate kv set "$PREFIX/Environment" "$ENVIRONMENT"
 
 # Publish our settings into Consul, careful to clean up and delete
 # what might have been there but isn't currently specified anymore
