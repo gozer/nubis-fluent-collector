@@ -5,6 +5,7 @@ prefix = "/%%PROJECT%%/%%ENVIRONMENT%%"
 
 keys = [
     "/config/AWSRegion",
+    "/config/Environment",
     "/config/FluentLogsBucket",
     "/config/AccessLoggingBucket",
     "/config/SQS/Queue",
