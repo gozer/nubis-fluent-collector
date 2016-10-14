@@ -312,7 +312,7 @@ NUBIS_ACCOUNT="${var.service_name}"
 NUBIS_DOMAIN="${var.nubis_domain}"
 NUBIS_FLUENT_BUCKET="${element(aws_s3_bucket.fluent.*.id, count.index)}"
 NUBIS_ELB_BUCKET="${element(aws_s3_bucket.elb.*.id, count.index)}"
-NUBIS_FLUENT_ES_ENDPOINT="${element(aws_elasticsearch_domain.fluentd.*.endpoint, count.index)}"
+NUBIS_FLUENT_ES_ENDPOINT="${aws_elasticsearch_domain.fluentd.endpoint}"
 EOF
 }
 
@@ -355,8 +355,8 @@ resource "aws_autoscaling_group" "fluent-collector" {
 }
 
 resource "aws_elasticsearch_domain" "fluentd" {
-    count = "${var.enabled * var.monitoring_enabled * length(split(",", var.environments))}"
-    domain_name = "${var.project}-${element(split(",",var.environments), count.index)}"
+    count = "${var.enabled * var.monitoring_enabled}"
+    domain_name = "${var.project}"
 
     # This will need tweakability via knobs
     cluster_config {
@@ -379,7 +379,7 @@ resource "aws_elasticsearch_domain" "fluentd" {
       "Sid": "Allow Fluentd to inject",
       "Effect": "Allow",
       "Principal": {
-        "AWS": "${element(aws_iam_role.fluent-collector.*.arn, count.index)}"
+        "AWS": [ ${join(",\n", formatlist("\"%v\"", aws_iam_role.fluent-collector.*.arn))} ]
       },
       "Action": [
         "es:ESHttpGet",
@@ -388,7 +388,7 @@ resource "aws_elasticsearch_domain" "fluentd" {
         "es:ESHttpPut",
         "es:ESHttpDelete"
       ],
-      "Resource": "arn:aws:es:${var.aws_region}:${var.aws_account_id}:domain/${var.project}-${element(split(",",var.environments), count.index)}/*"
+      "Resource": "arn:aws:es:${var.aws_region}:${var.aws_account_id}:domain/${var.project}/*"
     }
   ]
 }
@@ -399,9 +399,9 @@ POLICY
     }
 
   tags = {
-    Name        = "${var.project}-${element(split(",",var.environments), count.index)}"
+    Name        = "${var.project}"
     Region      = "${var.aws_region}"
-    Environment = "${element(split(",",var.environments), count.index)}"
+    Environment = "global"
   }
 
   lifecycle {
