@@ -27,7 +27,7 @@ variable enabled {
 }
 
 variable monitoring_enabled {
-  default = 1
+  default = 0
 }
 
 variable technical_contact {
