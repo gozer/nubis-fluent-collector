@@ -74,10 +74,10 @@ file { '/etc/nubis.d/fluent':
 }
 
 file { '/etc/td-agent/elasticsearch-logstash-template.json':
-  source => 'puppet:///nubis/files/elasticsearch-logstash-template.json',
-  owner  => 'root',
-  group  => 'root',
-  mode => '0644',
+  source  => 'puppet:///nubis/files/elasticsearch-logstash-template.json',
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0644',
   require => [
     Class['Fluentd'],
   ],
