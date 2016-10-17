@@ -82,6 +82,7 @@
     logstash_format true
     include_tag_key true
     flush_interval "15s"
+    request_timeout "30s"
 
     buffer_type file
     buffer_path /var/log/fluentd/elasticsearch.log
