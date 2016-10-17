@@ -37,7 +37,7 @@ fluentd::install_plugin { 'aws-elasticsearch-service':
 }
 
 fluentd::install_plugin { 'elasticsearch':
-  ensure      => '1.6.0',
+  ensure      => '1.7.0',
   plugin_name => 'fluent-plugin-elasticsearch',
   plugin_type => 'gem',
 }
@@ -71,4 +71,14 @@ file { '/etc/nubis.d/fluent':
   owner  => 'root',
   group  => 'root',
   mode   => '0755',
+}
+
+file { '/etc/td-agent/elasticsearch-logstash-template.json':
+  source => 'puppet:///nubis/files/elasticsearch-logstash-template.json',
+  owner  => 'root',
+  group  => 'root',
+  mode => '0644',
+  require => [
+    Class['Fluentd'],
+  ],
 }
