@@ -15,5 +15,5 @@ keys = [
     "/config/ElasticSearch/AWSEndpoint",
 ]
 
-check_cmd  = "/usr/sbin/td-agent --dry-run -c {{.src}}"
+check_cmd  = ". /etc/profile.d/proxy.sh && /usr/sbin/td-agent --dry-run -c {{.src}}"
 reload_cmd = "/etc/init.d/td-agent restart"
