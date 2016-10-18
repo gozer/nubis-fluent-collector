@@ -312,7 +312,7 @@ NUBIS_ACCOUNT="${var.service_name}"
 NUBIS_DOMAIN="${var.nubis_domain}"
 NUBIS_FLUENT_BUCKET="${element(aws_s3_bucket.fluent.*.id, count.index)}"
 NUBIS_ELB_BUCKET="${element(aws_s3_bucket.elb.*.id, count.index)}"
-NUBIS_FLUENT_ES_ENDPOINT="${aws_elasticsearch_domain.fluentd.endpoint}"
+NUBIS_FLUENT_ES_ENDPOINT="${coalesce(aws_elasticsearch_domain.fluentd.endpoint,"")}"
 EOF
 }
 
@@ -388,6 +388,29 @@ resource "aws_elasticsearch_domain" "fluentd" {
         "es:ESHttpPut",
         "es:ESHttpDelete"
       ],
+      "Resource": "arn:aws:es:${var.aws_region}:${var.aws_account_id}:domain/${var.project}/*"
+    },
+    {
+      "Sid": "XXX: Temporary, allow read-only access to anonymous users",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "*"
+      },
+      "Action": [
+        "es:ESHttpGet",
+        "es:ESHttpHead",
+        "es:ESHttpPost",
+	"es:ESHttpPut",
+        "es:ESHttpDelete"
+      ],
+      "Condition": {
+        "IpAddress": {
+          "aws:SourceIp": [
+            "174.92.184.0/24",
+            "68.109.230.10/24"
+           ]
+        }
+      },
       "Resource": "arn:aws:es:${var.aws_region}:${var.aws_account_id}:domain/${var.project}/*"
     }
   ]
