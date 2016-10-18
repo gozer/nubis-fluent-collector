@@ -391,29 +391,6 @@ resource "aws_elasticsearch_domain" "fluentd" {
         "es:ESHttpDelete"
       ],
       "Resource": "arn:aws:es:${var.aws_region}:${var.aws_account_id}:domain/${var.project}/*"
-    },
-    {
-      "Sid": "XXX: Temporary, allow read-only access to anonymous users",
-      "Effect": "Allow",
-      "Principal": {
-        "AWS": "*"
-      },
-      "Action": [
-        "es:ESHttpGet",
-        "es:ESHttpHead",
-        "es:ESHttpPost",
-	"es:ESHttpPut",
-        "es:ESHttpDelete"
-      ],
-      "Condition": {
-        "IpAddress": {
-          "aws:SourceIp": [
-            "174.92.184.0/24",
-            "68.109.230.10/24"
-           ]
-        }
-      },
-      "Resource": "arn:aws:es:${var.aws_region}:${var.aws_account_id}:domain/${var.project}/*"
     }
   ]
 }
