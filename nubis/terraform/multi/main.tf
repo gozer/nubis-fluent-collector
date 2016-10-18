@@ -312,8 +312,10 @@ NUBIS_ACCOUNT="${var.service_name}"
 NUBIS_DOMAIN="${var.nubis_domain}"
 NUBIS_FLUENT_BUCKET="${element(aws_s3_bucket.fluent.*.id, count.index)}"
 NUBIS_ELB_BUCKET="${element(aws_s3_bucket.elb.*.id, count.index)}"
-NUBIS_FLUENT_ES_ENDPOINT="${coalesce(aws_elasticsearch_domain.fluentd.endpoint,"")}"
+NUBIS_FLUENT_ES_ENDPOINT="${coalesce(element(aws_elasticsearch_domain.fluentd.*.endpoint, 0),"")}"
 EOF
+
+# XXX: TF edge: the coalesce(element(splat.*.endpoint,0),"") is necessary
 }
 
 resource "aws_autoscaling_group" "fluent-collector" {
