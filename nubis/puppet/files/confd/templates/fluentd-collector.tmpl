@@ -87,6 +87,8 @@
     include_tag_key true
     flush_interval "15s"
     request_timeout "30s"
+    reload_connections false
+    reload_on_failure false
 
     template_name fluentd
     template_file /etc/td-agent/elasticsearch-logstash-template.json
