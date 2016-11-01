@@ -9,6 +9,11 @@ BUCKET=$(nubis-metadata NUBIS_FLUENT_BUCKET)
 ELB_BUCKET=$(nubis-metadata NUBIS_ELB_BUCKET)
 ES_ENDPOINT=$(nubis-metadata NUBIS_FLUENT_ES_ENDPOINT)
 
+SQS_QUEUE=$(nubis-metadata NUBIS_FLUENT_SQS_QUEUE)
+SQS_REGION=$(nubis-metadata NUBIS_FLUENT_SQS_QUEUE_REGION)
+SQS_ACCESS_KEY=$(nubis-metadata NUBIS_FLUENT_SQS_ACCESS_KEY)
+SQS_SECRET_KEY=$(nubis-secret get SQS/SecretKey)
+
 PREFIX="$PROJECT/$ENVIRONMENT/config"
 
 # Make sure our region/environment is in our config
@@ -34,4 +39,32 @@ if [ ! -z "$ES_ENDPOINT" ]; then
   consulate kv set "$PREFIX/ElasticSearch/AWSEndpoint" "https://$ES_ENDPOINT"
 else
   consulate kv rm "$PREFIX/ElasticSearch/AWSEndpoint"
+fi
+
+KV="$PREFIX/SQS/Queue"
+if [ ! -z "$SQS_QUEUE" ]; then
+  consulate kv set "$KV" "$SQS_QUEUE"
+else
+  consulate kv rm "$KV"
+fi
+
+KV="$PREFIX/SQS/Region"
+if [ ! -z "$SQS_REGION" ]; then
+  consulate kv set "$KV" "$SQS_REGION"
+else
+  consulate kv rm "$KV"
+fi
+
+KV="$PREFIX/SQS/AccessKey"
+if [ ! -z "$SQS_ACCESS_KEY" ]; then
+  consulate kv set "$KV" "$SQS_ACCESS_KEY"
+else
+  consulate kv rm "$KV"
+fi
+
+KV="$PREFIX/SQS/SecretKey"
+if [ ! -z "$SQS_SECRET_KEY" ]; then
+  consulate kv set "$KV" "$SQS_SECRET_KEY"
+else
+  consulate kv rm "$KV"
 fi

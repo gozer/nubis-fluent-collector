@@ -286,6 +286,11 @@ resource "aws_launch_configuration" "fluent-collector" {
     create_before_destroy = true
   }
 
+  # XXX: Should work, but doesn's, so see NUBIS_BUMP below
+  depends_on = [
+    "null_resource.secrets"
+  ]
+
   name_prefix = "${var.project}-${element(split(",",var.environments), count.index)}-${var.aws_region}-"
 
   # Somewhat nasty, since Atlas doesn't have an elegant way to access the id for a region
@@ -313,6 +318,10 @@ NUBIS_DOMAIN="${var.nubis_domain}"
 NUBIS_FLUENT_BUCKET="${element(aws_s3_bucket.fluent.*.id, count.index)}"
 NUBIS_ELB_BUCKET="${element(aws_s3_bucket.elb.*.id, count.index)}"
 NUBIS_FLUENT_ES_ENDPOINT="${coalesce(element(aws_elasticsearch_domain.fluentd.*.endpoint, 0),"")}"
+NUBIS_FLUENT_SQS_QUEUE="${element(split(",",var.sqs_queues), count.index)}"
+NUBIS_FLUENT_SQS_QUEUE_REGION="${element(split(",",var.sqs_regions), count.index)}"
+NUBIS_FLUENT_SQS_ACCESS_KEY="${element(split(",",var.sqs_access_keys), count.index)}"
+NUBIS_BUMP="${sha256(element(null_resource.secrets.*.triggers.sqs_secret_key, count.index))}"
 EOF
 
 # XXX: TF edge: the coalesce(element(splat.*.endpoint,0),"") is necessary
@@ -404,6 +413,28 @@ POLICY
     Name        = "${var.project}"
     Region      = "${var.aws_region}"
     Environment = "global"
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+# This null resource is responsible for publishing secrets to Credstash
+resource "null_resource" "secrets" {
+  count = "${var.enabled * length(split(",", var.environments))}"
+
+  # Important to list here every variable that affects what needs to be put into credstash
+  triggers {
+    sqs_secret_key   = "${element(split(",", var.sqs_secret_keys), count.index)}"
+    region           = "${var.aws_region}"
+    context          = "region=${var.aws_region} environment=${element(split(",", var.environments), count.index)} service=${var.project}"
+    credstash        = "credstash -r ${var.aws_region} put -k ${var.credstash_key} -a ${var.project}/${element(split(",", var.environments), count.index)}"
+  }
+
+  # Consul gossip secret
+  provisioner "local-exec" {
+    command = "${self.triggers.credstash}/SQS/SecretKey ${element(split(",", var.sqs_secret_keys), count.index)} ${self.triggers.context}"
   }
 
   lifecycle {

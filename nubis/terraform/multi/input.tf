@@ -57,3 +57,10 @@ variable lambda_uuid_arn {
 variable project {
   default = "fluent-collector"
 }
+
+variable sqs_queues {}
+variable sqs_access_keys {}
+variable sqs_secret_keys {}
+variable sqs_regions {}
+
+variable credstash_key {}

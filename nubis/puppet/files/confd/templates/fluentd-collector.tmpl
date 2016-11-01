@@ -68,6 +68,7 @@
 {{ if exists "/config/SQS/Queue" }}
    <store>
      type sqs
+     buffer_path /var/log/fluentd/sqs
      queue_name {{ getv "/config/SQS/Queue" }}
      create_queue false
 {{ if exists "/config/SQS/AccessKey" }}aws_key_id {{ getv "/config/SQS/AccessKey" }}{{ end }}
