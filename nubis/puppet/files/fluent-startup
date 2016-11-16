@@ -37,8 +37,15 @@ fi
 
 if [ ! -z "$ES_ENDPOINT" ]; then
   consulate kv set "$PREFIX/ElasticSearch/AWSEndpoint" "https://$ES_ENDPOINT"
+
+  # Register the service in Consul for convenience
+  curl -X PUT -d "{\"Node\": \"aws-service-es-fluentd\", \"Address\": \"$ES_ENDPOINT\", \"Service\": {\"Service\": \"nubis-elasticsearch-fluentd\", \"Port\": 80}}" \
+    http://127.0.0.1:8500/v1/catalog/register
 else
   consulate kv rm "$PREFIX/ElasticSearch/AWSEndpoint"
+
+  # Cleanup the service
+  curl -X PUT -d '{"Node": "aws-service-es-fluentd"}' http://127.0.0.1:8500/v1/catalog/deregister
 fi
 
 KV="$PREFIX/SQS/Queue"
