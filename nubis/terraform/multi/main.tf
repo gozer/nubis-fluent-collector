@@ -322,6 +322,8 @@ NUBIS_FLUENT_SQS_QUEUE="${element(split(",",var.sqs_queues), count.index)}"
 NUBIS_FLUENT_SQS_QUEUE_REGION="${element(split(",",var.sqs_regions), count.index)}"
 NUBIS_FLUENT_SQS_ACCESS_KEY="${element(split(",",var.sqs_access_keys), count.index)}"
 NUBIS_BUMP="${sha256(element(null_resource.secrets.*.triggers.sqs_secret_key, count.index))}"
+NUBIS_SUDO_GROUPS="${var.nubis_sudo_groups}"
+NUBIS_USER_GROUPS="${var.nubis_user_groups}"
 EOF
 
 # XXX: TF edge: the coalesce(element(splat.*.endpoint,0),"") is necessary
