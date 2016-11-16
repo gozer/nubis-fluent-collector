@@ -7,19 +7,19 @@ fluentd::install_plugin { 'retag':
 }
 
 fluentd::install_plugin { 'prometheus':
-  ensure      => '0.2.0',
+  ensure      => '0.2.1',
   plugin_name => 'fluent-plugin-prometheus',
   plugin_type => 'gem',
 }
 
 fluentd::install_plugin { 'elb-log':
-  ensure      => '0.2.6',
+  ensure      => '0.2.7',
   plugin_name => 'fluent-plugin-elb-log',
   plugin_type => 'gem',
 }
 
 fluentd::install_plugin { 's3':
-  ensure      => '0.7.1',
+  ensure      => '0.7.2',
   plugin_name => 'fluent-plugin-s3',
   plugin_type => 'gem',
 }
@@ -37,7 +37,7 @@ fluentd::install_plugin { 'aws-elasticsearch-service':
 }
 
 fluentd::install_plugin { 'elasticsearch':
-  ensure      => '1.7.0',
+  ensure      => '1.8.0',
   plugin_name => 'fluent-plugin-elasticsearch',
   plugin_type => 'gem',
 }
