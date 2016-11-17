@@ -64,3 +64,11 @@ variable sqs_secret_keys {}
 variable sqs_regions {}
 
 variable credstash_key {}
+
+variable nubis_sudo_groups {
+  default = "nubis_global_admins"
+}
+
+variable nubis_user_groups {
+  default = ""
+}
