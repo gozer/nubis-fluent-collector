@@ -41,11 +41,26 @@ if [ ! -z "$ES_ENDPOINT" ]; then
   # Register the service in Consul for convenience
   curl -X PUT -d "{\"Node\": \"aws-service-es-fluentd\", \"Address\": \"$ES_ENDPOINT\", \"Service\": {\"Service\": \"nubis-elasticsearch-fluentd\", \"Port\": 80}}" \
     http://127.0.0.1:8500/v1/catalog/register
+
+  # enable awsproxy service (XXX: Use confd)
+  start awsproxy
+  if [ -f "/etc/consul/svc-awsproxy.json.gz" ]; then
+    gunzip /etc/consul/svc-awsproxy.json.gz
+    reload consul
+  fi
+
 else
   consulate kv rm "$PREFIX/ElasticSearch/AWSEndpoint"
 
   # Cleanup the service
   curl -X PUT -d '{"Node": "aws-service-es-fluentd"}' http://127.0.0.1:8500/v1/catalog/deregister
+
+  # Disable awsproxy service (XXX: Use confd)
+  if [ -f "/etc/consul/svc-awsproxy.json" ]; then
+    gzip /etc/consul/svc-awsproxy.json
+    reload consul
+  fi
+  stop awsproxy
 fi
 
 KV="$PREFIX/SQS/Queue"

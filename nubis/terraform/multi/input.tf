@@ -42,6 +42,9 @@ variable vpc_ids {
 variable subnet_ids {
 }
 
+variable monitoring_security_groups {
+}
+
 variable ssh_security_groups {
 }
 

@@ -132,6 +132,17 @@ resource "aws_security_group" "fluent-collector" {
     ]
   }
 
+  # ES Proxy
+  ingress {
+    from_port = 8080
+    to_port   = 8080
+    protocol  = "tcp"
+
+    security_groups = [
+      "${element(split(",",var.monitoring_security_groups), count.index)}",
+    ]
+  }
+
   ingress {
     from_port = 24224
     to_port   = 24224
