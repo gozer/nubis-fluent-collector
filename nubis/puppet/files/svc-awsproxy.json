@@ -1,0 +1,14 @@
+{
+  "service": {
+    "name": "es",
+    "port": 8080,
+    "tags": [
+      "traefik.tags=monitoring"
+    ],
+    "check": {
+       "http": "http://localhost:8080/_cat/health",
+       "interval": "30s",
+       "timeout": "1s"
+    }
+  }
+}
