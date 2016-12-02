@@ -7,9 +7,9 @@ staging::file { '/usr/local/bin/awsproxy':
   source => $awsproxy_url,
   target => '/usr/local/bin/awsproxy',
 }->
-exec { "chmod /usr/local/bin/awsproxy":
-  command => "chmod 755 /usr/local/bin/awsproxy",
-  path => ['/sbin','/bin','/usr/sbin','/usr/bin','/usr/local/sbin','/usr/local/bin'],
+exec { 'chmod /usr/local/bin/awsproxy':
+  command => 'chmod 755 /usr/local/bin/awsproxy',
+  path    => ['/sbin','/bin','/usr/sbin','/usr/bin','/usr/local/sbin','/usr/local/bin'],
 }
 
 upstart::job { 'awsproxy':
@@ -49,9 +49,9 @@ fi
 }
 
 file { '/etc/consul/svc-awsproxy.json':
-  ensure  => file,
-  owner   => root,
-  group   => root,
-  mode    => '0644',
-  source  => 'puppet:///nubis/files/svc-awsproxy.json',
+  ensure => file,
+  owner  => root,
+  group  => root,
+  mode   => '0644',
+  source => 'puppet:///nubis/files/svc-awsproxy.json',
 }
