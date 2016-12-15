@@ -24,18 +24,18 @@ The Nubis Fluent deployment consists of:
  - An optional Elastic Search cluster where logs are stored
 
 ### Deployment Resources
-Details for the deployment including; naming conventions, relationships, permissions, etcetera, can be found in the [Terraform template](nubis/terraform/main.tf) used for deployment. Links to specific resources can be found in the following table.
+Details for the deployment including; naming conventions, relationships, permissions, etcetera, can be found in the [Terraform template](nubis/terraform/multi/main.tf) used for deployment. Links to specific resources can be found in the following table.
 
 |Resource Type|Resource Title|Code Location|
 |-------------|--------------|-------------|
-|atlas_artifact|nubis-fluent-collector|[nubis/terraform/main.tf#6](nubis/terraform/main.tf#6)|
-|aws_s3_bucket|fluent|[nubis/terraform/main.tf#35](nubis/terraform/main.tf#35)|
-|aws_s3_bucket|elb|[nubis/terraform/main.tf#72](nubis/terraform/main.tf#72)|
-|aws_security_group|fluent-collector|[nubis/terraform/main.tf#113](nubis/terraform/main.tf#113)|
-|aws_iam_instance_profile|fluent-collector|[nubis/terraform/main.tf#187](nubis/terraform/main.tf#187)|
-|aws_iam_role|fluent-collector|[nubis/terraform/main.tf#201](nubis/terraform/main.tf#201)|
-|aws_iam_role_policy|fluent-collector|[nubis/terraform/main.tf#228](nubis/terraform/main.tf#228)|
-|aws_launch_configuration|fluent-collector|[nubis/terraform/main.tf#282](nubis/terraform/main.tf#282)|
-|aws_autoscaling_group|fluent-collector|[nubis/terraform/main.tf#330](nubis/terraform/main.tf#330)|
-|aws_elasticsearch_domain|fluentd|[nubis/terraform/main.tf#368](nubis/terraform/main.tf#368)|
-|null_resource|secrets|[nubis/terraform/main.tf#424](nubis/terraform/main.tf#424)|
+|atlas_artifact|nubis-fluent-collector|[nubis/terraform/multi/main.tf#L6](nubis/terraform/multi/main.tf#L6)|
+|aws_s3_bucket|fluent|[nubis/terraform/multi/main.tf#L35](nubis/terraform/multi/main.tf#L35)|
+|aws_s3_bucket|elb|[nubis/terraform/multi/main.tf#L72](nubis/terraform/multi/main.tf#L72)|
+|aws_security_group|fluent-collector|[nubis/terraform/multi/main.tf#L113](nubis/terraform/multi/main.tf#L113)|
+|aws_iam_instance_profile|fluent-collector|[nubis/terraform/multi/main.tf#L187](nubis/terraform/multi/main.tf#L187)|
+|aws_iam_role|fluent-collector|[nubis/terraform/multi/main.tf#L201](nubis/terraform/multi/main.tf#L201)|
+|aws_iam_role_policy|fluent-collector|[nubis/terraform/multi/main.tf#L228](nubis/terraform/multi/main.tf#L228)|
+|aws_launch_configuration|fluent-collector|[nubis/terraform/multi/main.tf#L282](nubis/terraform/multi/main.tf#L282)|
+|aws_autoscaling_group|fluent-collector|[nubis/terraform/multi/main.tf#L330](nubis/terraform/multi/main.tf#L330)|
+|aws_elasticsearch_domain|fluentd|[nubis/terraform/multi/main.tf#L368](nubis/terraform/multi/main.tf#L368)|
+|null_resource|secrets|[nubis/terraform/multi/main.tf#L424](nubis/terraform/multi/main.tf#L424)|
