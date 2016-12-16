@@ -19,7 +19,7 @@ file { '/usr/local/bin/nubis-cleanup-es-indices':
 
 cron::daily { 'nubis-cleanup-es-indices':
     user    => 'root',
-    command => 'nubis-cron cleanup-es-indices /usr/local/sbin/nubis-cleanup-es-indices',
+    command => 'nubis-cron cleanup-es-indices /usr/local/bin/nubis-cleanup-es-indices',
     require => [
       File['/usr/local/bin/nubis-cleanup-es-indices'],
     ],
