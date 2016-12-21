@@ -1,10 +1,74 @@
 # Change Log
 
-## [v1.2.2](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.2.2) (2016-08-02)
-[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.2.1...v1.2.2)
+## [v1.3.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.3.0) (2016-12-20)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.2.2...v1.3.0)
+
+**Closed issues:**
+
+- Run an ES Prometheus exporter [\#136](https://github.com/nubisproject/nubis-fluent-collector/issues/136)
+- Run an ES proxy [\#133](https://github.com/nubisproject/nubis-fluent-collector/issues/133)
+- \[consul\] Register an external service for ElasticSearch [\#128](https://github.com/nubisproject/nubis-fluent-collector/issues/128)
+- Upgrade some outdated plugins: [\#126](https://github.com/nubisproject/nubis-fluent-collector/issues/126)
+- Inject user management userdata [\#125](https://github.com/nubisproject/nubis-fluent-collector/issues/125)
+- \[sqs\] Add back support for SQS injection [\#122](https://github.com/nubisproject/nubis-fluent-collector/issues/122)
+- Emit plugin stats as events [\#120](https://github.com/nubisproject/nubis-fluent-collector/issues/120)
+- \[bug\] ES node discovery against Amazon ES doesn't work [\#118](https://github.com/nubisproject/nubis-fluent-collector/issues/118)
+- \[elasticsearch\] Increase request timeout to allow for batch submissions [\#113](https://github.com/nubisproject/nubis-fluent-collector/issues/113)
+- \[elasticsearch\] create logstash-inspired ES templates [\#111](https://github.com/nubisproject/nubis-fluent-collector/issues/111)
+- \[elasticsearch\] Expire old logs [\#109](https://github.com/nubisproject/nubis-fluent-collector/issues/109)
+- Better tagging [\#107](https://github.com/nubisproject/nubis-fluent-collector/issues/107)
+- Inject logs into ElasticSearch [\#105](https://github.com/nubisproject/nubis-fluent-collector/issues/105)
+- td-agent needs PROXY\* environment variables set for some plugins [\#103](https://github.com/nubisproject/nubis-fluent-collector/issues/103)
+- \[upgrade\] Fluentd Plugins [\#100](https://github.com/nubisproject/nubis-fluent-collector/issues/100)
+- Fixes \#97 [\#98](https://github.com/nubisproject/nubis-fluent-collector/issues/98)
+- \[plugin\] Install Prometheus plugin [\#97](https://github.com/nubisproject/nubis-fluent-collector/issues/97)
+- Tag v1.2.3 release [\#94](https://github.com/nubisproject/nubis-fluent-collector/issues/94)
+- \[warn\]: 'aws\_iam\_retries' parameter is deprecated. Use 'instance\_profile\_credentials' instead [\#61](https://github.com/nubisproject/nubis-fluent-collector/issues/61)
+- \[Datadog\] Enable fluentd module [\#41](https://github.com/nubisproject/nubis-fluent-collector/issues/41)
 
 **Merged pull requests:**
 
+- Update builder artifacts for v1.3.0 release [\#144](https://github.com/nubisproject/nubis-fluent-collector/pull/144) ([tinnightcap](https://github.com/tinnightcap))
+- fix tyop [\#142](https://github.com/nubisproject/nubis-fluent-collector/pull/142) ([gozer](https://github.com/gozer))
+- fix tyop [\#141](https://github.com/nubisproject/nubis-fluent-collector/pull/141) ([gozer](https://github.com/gozer))
+- Fix Links [\#140](https://github.com/nubisproject/nubis-fluent-collector/pull/140) ([tinnightcap](https://github.com/tinnightcap))
+- Add documentation [\#139](https://github.com/nubisproject/nubis-fluent-collector/pull/139) ([tinnightcap](https://github.com/tinnightcap))
+- update to nubis-travis v0.1.3 [\#138](https://github.com/nubisproject/nubis-fluent-collector/pull/138) ([gozer](https://github.com/gozer))
+- Run a Prometheus ES Exporter on tcp/9105 [\#137](https://github.com/nubisproject/nubis-fluent-collector/pull/137) ([gozer](https://github.com/gozer))
+- Cleanup our ES indexes [\#135](https://github.com/nubisproject/nubis-fluent-collector/pull/135) ([gozer](https://github.com/gozer))
+- Run an ES IAM/STS proxy and allow Prometheus to talk to it [\#134](https://github.com/nubisproject/nubis-fluent-collector/pull/134) ([gozer](https://github.com/gozer))
+- Don't use triggers of null\_resources directly [\#132](https://github.com/nubisproject/nubis-fluent-collector/pull/132) ([gozer](https://github.com/gozer))
+- Added nubis\_sudo\_groups and nubis\_sudo\_users userdata [\#130](https://github.com/nubisproject/nubis-fluent-collector/pull/130) ([limed](https://github.com/limed))
+- Register/De-Register an external Consul for ES [\#129](https://github.com/nubisproject/nubis-fluent-collector/pull/129) ([gozer](https://github.com/gozer))
+- Upgrade outdated plugins [\#127](https://github.com/nubisproject/nubis-fluent-collector/pull/127) ([gozer](https://github.com/gozer))
+- Add support for pushing events into SQS [\#123](https://github.com/nubisproject/nubis-fluent-collector/pull/123) ([gozer](https://github.com/gozer))
+- Tag plugin monitor metrics as forwardable events [\#121](https://github.com/nubisproject/nubis-fluent-collector/pull/121) ([gozer](https://github.com/gozer))
+- Disable reload\_\* knobs to avoid running the ES node discovery [\#119](https://github.com/nubisproject/nubis-fluent-collector/pull/119) ([gozer](https://github.com/gozer))
+- Handle correcltly fluentd user-data with or without ES enabled [\#117](https://github.com/nubisproject/nubis-fluent-collector/pull/117) ([gozer](https://github.com/gozer))
+- Make sure we can handle ES being disabled proprely [\#116](https://github.com/nubisproject/nubis-fluent-collector/pull/116) ([gozer](https://github.com/gozer))
+- Add an ES index template from logstash [\#115](https://github.com/nubisproject/nubis-fluent-collector/pull/115) ([gozer](https://github.com/gozer))
+- Increase ES timeout to 30s to account for batch submissions [\#114](https://github.com/nubisproject/nubis-fluent-collector/pull/114) ([gozer](https://github.com/gozer))
+- Run a single ES domain for all logs in an account region [\#112](https://github.com/nubisproject/nubis-fluent-collector/pull/112) ([gozer](https://github.com/gozer))
+- add missing config key [\#110](https://github.com/nubisproject/nubis-fluent-collector/pull/110) ([gozer](https://github.com/gozer))
+- Tag handling [\#108](https://github.com/nubisproject/nubis-fluent-collector/pull/108) ([gozer](https://github.com/gozer))
+- Enable log injection into ElasticSearch [\#106](https://github.com/nubisproject/nubis-fluent-collector/pull/106) ([gozer](https://github.com/gozer))
+- Enable datadog fluentd module [\#104](https://github.com/nubisproject/nubis-fluent-collector/pull/104) ([gozer](https://github.com/gozer))
+- Update to nubis-travis v0.1.0 [\#102](https://github.com/nubisproject/nubis-fluent-collector/pull/102) ([gozer](https://github.com/gozer))
+- Upgrade fluentd plugins [\#101](https://github.com/nubisproject/nubis-fluent-collector/pull/101) ([gozer](https://github.com/gozer))
+- Install and enable Prometheus collector for Fluentd [\#99](https://github.com/nubisproject/nubis-fluent-collector/pull/99) ([gozer](https://github.com/gozer))
+- Update builder artifacts for v1.3.0-dev release [\#96](https://github.com/nubisproject/nubis-fluent-collector/pull/96) ([gozer](https://github.com/gozer))
+- Update builder artifacts for v1.2.3 release [\#95](https://github.com/nubisproject/nubis-fluent-collector/pull/95) ([gozer](https://github.com/gozer))
+
+## [v1.2.2](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.2.2) (2016-08-02)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.2.1...v1.2.2)
+
+**Closed issues:**
+
+- Tag v1.2.2 release [\#91](https://github.com/nubisproject/nubis-fluent-collector/issues/91)
+
+**Merged pull requests:**
+
+- Update CHANGELOG for v1.2.2 release [\#93](https://github.com/nubisproject/nubis-fluent-collector/pull/93) ([tinnightcap](https://github.com/tinnightcap))
 - Update builder artifacts for v1.2.2 release [\#92](https://github.com/nubisproject/nubis-fluent-collector/pull/92) ([tinnightcap](https://github.com/tinnightcap))
 
 ## [v1.2.1](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.2.1) (2016-07-30)
