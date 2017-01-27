@@ -61,7 +61,7 @@
         check_apikey_on_start false
         s3_bucket {{ getv "/config/FluentLogsBucket" }}
         s3_region {{ getv "/config/AWSRegion" }}
-        time_slice_format %Y/%m/%d/%H/%Y%m%d%H%M
+        time_slice_format %Y/%m/%d/%Y%m%d%H
         utc true
         proxy_uri http://proxy.service.consul:3128
    </store>
