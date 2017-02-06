@@ -320,7 +320,7 @@ NUBIS_ACCOUNT="${var.service_name}"
 NUBIS_DOMAIN="${var.nubis_domain}"
 NUBIS_FLUENT_BUCKET="${element(aws_s3_bucket.fluent.*.id, count.index)}"
 NUBIS_ELB_BUCKET="${element(aws_s3_bucket.elb.*.id, count.index)}"
-NUBIS_FLUENT_ES_ENDPOINT="${coalesce(element(aws_elasticsearch_domain.fluentd.*.endpoint, 0),"")}"
+NUBIS_FLUENT_ES_ENDPOINT="${element(concat(aws_elasticsearch_domain.fluentd.*.endpoint, list("")), 0)}"
 NUBIS_FLUENT_SQS_QUEUE="${element(split(",",var.sqs_queues), count.index)}"
 NUBIS_FLUENT_SQS_QUEUE_REGION="${element(split(",",var.sqs_regions), count.index)}"
 NUBIS_FLUENT_SQS_ACCESS_KEY="${element(split(",",var.sqs_access_keys), count.index)}"
@@ -328,8 +328,6 @@ NUBIS_BUMP="${sha256(element(split(",", var.sqs_secret_keys), count.index))}"
 NUBIS_SUDO_GROUPS="${var.nubis_sudo_groups}"
 NUBIS_USER_GROUPS="${var.nubis_user_groups}"
 EOF
-
-# XXX: TF edge: the coalesce(element(splat.*.endpoint,0),"") is necessary
 }
 
 resource "aws_autoscaling_group" "fluent-collector" {
