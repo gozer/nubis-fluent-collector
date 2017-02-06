@@ -8,10 +8,6 @@ data "atlas_artifact" "nubis-fluent-collector" {
   name  = "nubisproject/nubis-fluentd-collector"
   type  = "amazon.image"
 
-  lifecycle {
-    create_before_destroy = true
-  }
-
   metadata {
     project_version = "${var.nubis_version}"
   }
