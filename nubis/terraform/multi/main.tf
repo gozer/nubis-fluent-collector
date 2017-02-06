@@ -3,7 +3,7 @@ provider "aws" {
   region  = "${var.aws_region}"
 }
 
-resource "atlas_artifact" "nubis-fluent-collector" {
+data "atlas_artifact" "nubis-fluent-collector" {
   count = "${var.enabled}"
   name  = "nubisproject/nubis-fluentd-collector"
   type  = "amazon.image"
@@ -304,11 +304,7 @@ resource "aws_launch_configuration" "fluent-collector" {
 
   name_prefix = "${var.project}-${element(split(",",var.environments), count.index)}-${var.aws_region}-"
 
-  # Somewhat nasty, since Atlas doesn't have an elegant way to access the id for a region
-  # the id is "region:ami,region:ami,region:ami"
-  # so we split it all and find the index of the region
-  # add on, and pick that element
-  image_id = "${ element(split(",",replace(atlas_artifact.nubis-fluent-collector.id,":",",")) ,1 + index(split(",",replace(atlas_artifact.nubis-fluent-collector.id,":",",")), var.aws_region)) }"
+  image_id = "${data.atlas_artifact.nubis-fluent-collector.metadata_full["region-${var.aws_region}"]}"
 
   instance_type        = "t2.nano"
   key_name             = "${var.key_name}"
