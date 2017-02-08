@@ -3,14 +3,10 @@ provider "aws" {
   region  = "${var.aws_region}"
 }
 
-resource "atlas_artifact" "nubis-fluent-collector" {
+data "atlas_artifact" "nubis-fluent-collector" {
   count = "${var.enabled}"
   name  = "nubisproject/nubis-fluentd-collector"
   type  = "amazon.image"
-
-  lifecycle {
-    create_before_destroy = true
-  }
 
   metadata {
     project_version = "${var.nubis_version}"
@@ -304,11 +300,7 @@ resource "aws_launch_configuration" "fluent-collector" {
 
   name_prefix = "${var.project}-${element(split(",",var.environments), count.index)}-${var.aws_region}-"
 
-  # Somewhat nasty, since Atlas doesn't have an elegant way to access the id for a region
-  # the id is "region:ami,region:ami,region:ami"
-  # so we split it all and find the index of the region
-  # add on, and pick that element
-  image_id = "${ element(split(",",replace(atlas_artifact.nubis-fluent-collector.id,":",",")) ,1 + index(split(",",replace(atlas_artifact.nubis-fluent-collector.id,":",",")), var.aws_region)) }"
+  image_id = "${data.atlas_artifact.nubis-fluent-collector.metadata_full["region-${var.aws_region}"]}"
 
   instance_type        = "t2.nano"
   key_name             = "${var.key_name}"
@@ -328,7 +320,7 @@ NUBIS_ACCOUNT="${var.service_name}"
 NUBIS_DOMAIN="${var.nubis_domain}"
 NUBIS_FLUENT_BUCKET="${element(aws_s3_bucket.fluent.*.id, count.index)}"
 NUBIS_ELB_BUCKET="${element(aws_s3_bucket.elb.*.id, count.index)}"
-NUBIS_FLUENT_ES_ENDPOINT="${coalesce(element(aws_elasticsearch_domain.fluentd.*.endpoint, 0),"")}"
+NUBIS_FLUENT_ES_ENDPOINT="${element(concat(aws_elasticsearch_domain.fluentd.*.endpoint, list("")), 0)}"
 NUBIS_FLUENT_SQS_QUEUE="${element(split(",",var.sqs_queues), count.index)}"
 NUBIS_FLUENT_SQS_QUEUE_REGION="${element(split(",",var.sqs_regions), count.index)}"
 NUBIS_FLUENT_SQS_ACCESS_KEY="${element(split(",",var.sqs_access_keys), count.index)}"
@@ -336,8 +328,6 @@ NUBIS_BUMP="${sha256(element(split(",", var.sqs_secret_keys), count.index))}"
 NUBIS_SUDO_GROUPS="${var.nubis_sudo_groups}"
 NUBIS_USER_GROUPS="${var.nubis_user_groups}"
 EOF
-
-# XXX: TF edge: the coalesce(element(splat.*.endpoint,0),"") is necessary
 }
 
 resource "aws_autoscaling_group" "fluent-collector" {
