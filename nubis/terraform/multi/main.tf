@@ -306,6 +306,8 @@ resource "aws_launch_configuration" "fluent-collector" {
   key_name             = "${var.key_name}"
   iam_instance_profile = "${element(aws_iam_instance_profile.fluent-collector.*.name, count.index)}"
 
+  enable_monitoring    = true
+
   security_groups = [
     "${element(aws_security_group.fluent-collector.*.id, count.index)}",
     "${element(split(",",var.internet_access_security_groups), count.index)}",
