@@ -1,6 +1,22 @@
 # Change Log
 
-## [v1.3.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.3.0) (2016-12-20)
+## [v1.4.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.4.0) (2017-03-23)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.3.0...v1.4.0)
+
+**Closed issues:**
+
+- Disable detailled monitoring [\#153](https://github.com/nubisproject/nubis-fluent-collector/issues/153)
+- \[s3\] Reduce granularity of time\_slice\_format from minute [\#148](https://github.com/nubisproject/nubis-fluent-collector/issues/148)
+
+**Merged pull requests:**
+
+- Disabled EC2 detailled monitoring [\#154](https://github.com/nubisproject/nubis-fluent-collector/pull/154) ([gozer](https://github.com/gozer))
+- Update builder artifacts for v1.4.0 release \[skip ci\] [\#152](https://github.com/nubisproject/nubis-fluent-collector/pull/152) ([tinnightcap](https://github.com/tinnightcap))
+- Terraform 0.8 Upgrade [\#151](https://github.com/nubisproject/nubis-fluent-collector/pull/151) ([gozer](https://github.com/gozer))
+- Shrink down S3 time slices to hourly [\#149](https://github.com/nubisproject/nubis-fluent-collector/pull/149) ([gozer](https://github.com/gozer))
+- Update builder artifacts for v1.4.0-dev release [\#146](https://github.com/nubisproject/nubis-fluent-collector/pull/146) ([tinnightcap](https://github.com/tinnightcap))
+
+## [v1.3.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.3.0) (2016-12-21)
 [Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.2.2...v1.3.0)
 
 **Closed issues:**
@@ -25,9 +41,12 @@
 - Tag v1.2.3 release [\#94](https://github.com/nubisproject/nubis-fluent-collector/issues/94)
 - \[warn\]: 'aws\_iam\_retries' parameter is deprecated. Use 'instance\_profile\_credentials' instead [\#61](https://github.com/nubisproject/nubis-fluent-collector/issues/61)
 - \[Datadog\] Enable fluentd module [\#41](https://github.com/nubisproject/nubis-fluent-collector/issues/41)
+- Tag v1.3.0 release [\#143](https://github.com/nubisproject/nubis-fluent-collector/issues/143)
+- Upgrade fluentd and plugins [\#68](https://github.com/nubisproject/nubis-fluent-collector/issues/68)
 
 **Merged pull requests:**
 
+- Update CHANGELOG for v1.3.0 release [\#145](https://github.com/nubisproject/nubis-fluent-collector/pull/145) ([tinnightcap](https://github.com/tinnightcap))
 - Update builder artifacts for v1.3.0 release [\#144](https://github.com/nubisproject/nubis-fluent-collector/pull/144) ([tinnightcap](https://github.com/tinnightcap))
 - fix tyop [\#142](https://github.com/nubisproject/nubis-fluent-collector/pull/142) ([gozer](https://github.com/gozer))
 - fix tyop [\#141](https://github.com/nubisproject/nubis-fluent-collector/pull/141) ([gozer](https://github.com/gozer))
@@ -76,7 +95,6 @@
 
 **Closed issues:**
 
-- Upgrade fluentd and plugins [\#68](https://github.com/nubisproject/nubis-fluent-collector/issues/68)
 - Tag v1.2.1 release [\#88](https://github.com/nubisproject/nubis-fluent-collector/issues/88)
 
 **Merged pull requests:**
