@@ -7,9 +7,12 @@
 
 - Disable detailled monitoring [\#153](https://github.com/nubisproject/nubis-fluent-collector/issues/153)
 - \[s3\] Reduce granularity of time\_slice\_format from minute [\#148](https://github.com/nubisproject/nubis-fluent-collector/issues/148)
+- Tag v1.4.0 release [\#147](https://github.com/nubisproject/nubis-fluent-collector/issues/147)
 
 **Merged pull requests:**
 
+- Merge v1.4.0 release into develop. \[skip ci\] [\#156](https://github.com/nubisproject/nubis-fluent-collector/pull/156) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v1.4.0 release \[skip ci\] [\#155](https://github.com/nubisproject/nubis-fluent-collector/pull/155) ([tinnightcap](https://github.com/tinnightcap))
 - Disabled EC2 detailled monitoring [\#154](https://github.com/nubisproject/nubis-fluent-collector/pull/154) ([gozer](https://github.com/gozer))
 - Update builder artifacts for v1.4.0 release \[skip ci\] [\#152](https://github.com/nubisproject/nubis-fluent-collector/pull/152) ([tinnightcap](https://github.com/tinnightcap))
 - Terraform 0.8 Upgrade [\#151](https://github.com/nubisproject/nubis-fluent-collector/pull/151) ([gozer](https://github.com/gozer))
@@ -68,9 +71,7 @@
 - Add an ES index template from logstash [\#115](https://github.com/nubisproject/nubis-fluent-collector/pull/115) ([gozer](https://github.com/gozer))
 - Increase ES timeout to 30s to account for batch submissions [\#114](https://github.com/nubisproject/nubis-fluent-collector/pull/114) ([gozer](https://github.com/gozer))
 - Run a single ES domain for all logs in an account region [\#112](https://github.com/nubisproject/nubis-fluent-collector/pull/112) ([gozer](https://github.com/gozer))
-- add missing config key [\#110](https://github.com/nubisproject/nubis-fluent-collector/pull/110) ([gozer](https://github.com/gozer))
 - Tag handling [\#108](https://github.com/nubisproject/nubis-fluent-collector/pull/108) ([gozer](https://github.com/gozer))
-- Enable log injection into ElasticSearch [\#106](https://github.com/nubisproject/nubis-fluent-collector/pull/106) ([gozer](https://github.com/gozer))
 - Enable datadog fluentd module [\#104](https://github.com/nubisproject/nubis-fluent-collector/pull/104) ([gozer](https://github.com/gozer))
 - Update to nubis-travis v0.1.0 [\#102](https://github.com/nubisproject/nubis-fluent-collector/pull/102) ([gozer](https://github.com/gozer))
 - Upgrade fluentd plugins [\#101](https://github.com/nubisproject/nubis-fluent-collector/pull/101) ([gozer](https://github.com/gozer))
