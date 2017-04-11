@@ -5,6 +5,6 @@
     ],
     "project_description": "Fluentd Collector",
     "project_name": "nubis-fluentd-collector",
-    "project_version": "v1.4.1"
+    "project_version": "v1.5.0-dev"
   }
 }
