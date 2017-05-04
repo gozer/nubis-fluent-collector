@@ -6,9 +6,11 @@
 **Closed issues:**
 
 - Add nubis/builder/artifacts/AMIs.json to .gitignore [\#160](https://github.com/nubisproject/nubis-fluent-collector/issues/160)
+- Tag v1.4.2 release [\#163](https://github.com/nubisproject/nubis-fluent-collector/issues/163)
 
 **Merged pull requests:**
 
+- Update CHANGELOG for v1.4.2 release \[skip ci\] [\#164](https://github.com/nubisproject/nubis-fluent-collector/pull/164) ([tinnightcap](https://github.com/tinnightcap))
 - Add nubis/builder/artifacts/AMIs.json to .gitignore Fixes \#160 [\#162](https://github.com/nubisproject/nubis-fluent-collector/pull/162) ([gozer](https://github.com/gozer))
 
 ## [v1.4.1](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.4.1) (2017-04-11)
