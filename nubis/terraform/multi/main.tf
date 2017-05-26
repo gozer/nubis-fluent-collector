@@ -136,6 +136,7 @@ resource "aws_security_group" "fluent-collector" {
 
     security_groups = [
       "${element(split(",",var.monitoring_security_groups), count.index)}",
+      "${element(split(",",var.sso_security_groups), count.index)}",
     ]
   }
 
