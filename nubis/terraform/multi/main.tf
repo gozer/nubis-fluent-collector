@@ -375,6 +375,8 @@ resource "aws_elasticsearch_domain" "fluentd" {
     count = "${var.enabled * var.monitoring_enabled}"
     domain_name = "${var.project}"
 
+    elasticsearch_version = "5.1"
+
     # This will need tweakability via knobs
     cluster_config {
       instance_type = "m3.medium.elasticsearch"
