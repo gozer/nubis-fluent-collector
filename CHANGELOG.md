@@ -1,16 +1,32 @@
 # Change Log
 
+## [v1.5.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.5.0) (2017-06-24)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.4.2...v1.5.0)
+
+**Closed issues:**
+
+- Support grabbing ELB logs from a list of buckets instead of just one [\#64](https://github.com/nubisproject/nubis-fluent-collector/issues/64)
+
+**Merged pull requests:**
+
+- Remove datadog as module is no longer in nubis-base [\#182](https://github.com/nubisproject/nubis-fluent-collector/pull/182) ([tinnightcap](https://github.com/tinnightcap))
+- use ES 5.1 [\#181](https://github.com/nubisproject/nubis-fluent-collector/pull/181) ([gozer](https://github.com/gozer))
+- Add support for SSO security group [\#180](https://github.com/nubisproject/nubis-fluent-collector/pull/180) ([gozer](https://github.com/gozer))
+
 ## [v1.4.2](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.4.2) (2017-05-04)
 [Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.4.1...v1.4.2)
 
 **Closed issues:**
 
 - Add nubis/builder/artifacts/AMIs.json to .gitignore [\#160](https://github.com/nubisproject/nubis-fluent-collector/issues/160)
+- Tag v1.4.2 release [\#174](https://github.com/nubisproject/nubis-fluent-collector/issues/174)
 - Tag v1.4.2 release [\#166](https://github.com/nubisproject/nubis-fluent-collector/issues/166)
 - Tag v1.4.2 release [\#163](https://github.com/nubisproject/nubis-fluent-collector/issues/163)
 
 **Merged pull requests:**
 
+- Merge v1.4.2 release into develop. \[skip ci\] [\#178](https://github.com/nubisproject/nubis-fluent-collector/pull/178) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v1.4.2 release \[skip ci\] [\#177](https://github.com/nubisproject/nubis-fluent-collector/pull/177) ([tinnightcap](https://github.com/tinnightcap))
 - Update CHANGELOG for v1.4.2 release \[skip ci\] [\#172](https://github.com/nubisproject/nubis-fluent-collector/pull/172) ([tinnightcap](https://github.com/tinnightcap))
 - Update CHANGELOG for v1.4.2 release \[skip ci\] [\#164](https://github.com/nubisproject/nubis-fluent-collector/pull/164) ([tinnightcap](https://github.com/tinnightcap))
 - Add nubis/builder/artifacts/AMIs.json to .gitignore Fixes \#160 [\#162](https://github.com/nubisproject/nubis-fluent-collector/pull/162) ([gozer](https://github.com/gozer))
