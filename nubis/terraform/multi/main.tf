@@ -136,6 +136,7 @@ resource "aws_security_group" "fluent-collector" {
 
     security_groups = [
       "${element(split(",",var.monitoring_security_groups), count.index)}",
+      "${element(split(",",var.sso_security_groups), count.index)}",
     ]
   }
 
@@ -373,6 +374,8 @@ resource "aws_autoscaling_group" "fluent-collector" {
 resource "aws_elasticsearch_domain" "fluentd" {
     count = "${var.enabled * var.monitoring_enabled}"
     domain_name = "${var.project}"
+
+    elasticsearch_version = "5.1"
 
     # This will need tweakability via knobs
     cluster_config {
