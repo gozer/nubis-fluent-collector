@@ -79,3 +79,8 @@ variable nubis_sudo_groups {
 variable nubis_user_groups {
   default = ""
 }
+
+# Default is in main.tf so modules can force the default value
+variable instance_type {
+  default = ""
+}

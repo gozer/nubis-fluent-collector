@@ -37,7 +37,7 @@ fluentd::install_plugin { 'aws-elasticsearch-service':
 }
 
 fluentd::install_plugin { 'elasticsearch':
-  ensure      => '1.8.0',
+  ensure      => '1.9.5',
   plugin_name => 'fluent-plugin-elasticsearch',
   plugin_type => 'gem',
 }
