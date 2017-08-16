@@ -13,21 +13,6 @@ data "atlas_artifact" "nubis-fluent-collector" {
   }
 }
 
-module "uuid" {
-  source = "github.com/nubisproject/nubis-deploy///modules/uuid?ref=master"
-
-  enabled = "${var.enabled}"
-
-  aws_profile = "${var.aws_profile}"
-  aws_region  = "${var.aws_region}"
-
-  name = "fluent-collector"
-
-  environments = "${var.environments}"
-
-  lambda_uuid_arn = "${var.lambda_uuid_arn}"
-}
-
 resource "aws_s3_bucket" "fluent" {
   count = "${var.enabled * length(split(",", var.environments))}"
 
@@ -35,7 +20,7 @@ resource "aws_s3_bucket" "fluent" {
     create_before_destroy = true
   }
 
-  bucket = "fluent-${element(split(",",var.environments), count.index)}-${element(split(",",module.uuid.uuids), count.index)}"
+  bucket_prefix = "fluent-${element(split(",",var.environments), count.index)}-"
 
   acl           = "private"
   force_destroy = true
@@ -72,7 +57,7 @@ resource "aws_s3_bucket" "elb" {
     create_before_destroy = true
   }
 
-  bucket = "fluent-elb-${element(split(",",var.environments), count.index)}-${element(split(",",module.uuid.uuids), count.index)}"
+  bucket_prefix = "fluent-elb-${element(split(",",var.environments), count.index)}-"
 
   acl           = "private"
   force_destroy = true
@@ -81,7 +66,18 @@ resource "aws_s3_bucket" "elb" {
     enabled = true
   }
 
-  # Careful, resource must match the name of the bucket
+  tags = {
+    Name        = "${var.project}-${element(split(",",var.environments), count.index)}"
+    Region      = "${var.aws_region}"
+    Environment = "${element(split(",",var.environments), count.index)}"
+  }
+}
+
+data "aws_elb_service_account" "elb" {}
+
+resource "aws_s3_bucket_policy" "elb" {
+  count = "${var.enabled * length(split(",", var.environments))}"
+  bucket = "${element(aws_s3_bucket.elb.*.id, count.index)}"
   policy = <<POLICY
 {
           "Version": "2008-10-17",
@@ -90,20 +86,14 @@ resource "aws_s3_bucket" "elb" {
               "Sid": "Allow ELBs to publish logs here",
               "Action": "s3:PutObject",
               "Effect": "Allow",
-              "Resource": "arn:aws:s3:::fluent-elb-${element(split(",",var.environments), count.index)}-${element(split(",",module.uuid.uuids), count.index)}/*",
+              "Resource": "${element(aws_s3_bucket.elb.*.arn, count.index)}/*",
               "Principal": {
-                "AWS": "arn:aws:iam::${lookup(var.elb_account_ids, var.aws_region)}:root"
+                "AWS": "${data.aws_elb_service_account.elb.arn}"
               }
             }
           ]
         }  
 POLICY
-
-  tags = {
-    Name        = "${var.project}-${element(split(",",var.environments), count.index)}"
-    Region      = "${var.aws_region}"
-    Environment = "${element(split(",",var.environments), count.index)}"
-  }
 }
 
 resource "aws_security_group" "fluent-collector" {

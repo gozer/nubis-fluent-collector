@@ -58,9 +58,6 @@ variable sso_security_groups {
   default = ""
 }
 
-variable lambda_uuid_arn {
-}
-
 variable project {
   default = "fluent-collector"
 }
