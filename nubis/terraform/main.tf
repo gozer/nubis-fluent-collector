@@ -191,9 +191,7 @@ resource "aws_iam_instance_profile" "fluent-collector" {
 
   name = "${var.project}-${element(split(",",var.environments), count.index)}-${var.aws_region}"
 
-  roles = [
-    "${element(aws_iam_role.fluent-collector.*.name, count.index)}",
-  ]
+  role = "${element(aws_iam_role.fluent-collector.*.name, count.index)}"
 }
 
 resource "aws_iam_role" "fluent-collector" {
