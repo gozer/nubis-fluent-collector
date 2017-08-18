@@ -303,7 +303,8 @@ resource "aws_launch_configuration" "fluent-collector" {
 
   image_id = "${data.atlas_artifact.nubis-fluent-collector.metadata_full["region-${var.aws_region}"]}"
 
-  instance_type        = "t2.nano"
+  # Default here, so modules can force the default value with an empty value
+  instance_type        = "${var.instance_type == "" ? "t2.nano" : var.instance_type}"
   key_name             = "${var.key_name}"
   iam_instance_profile = "${element(aws_iam_instance_profile.fluent-collector.*.name, count.index)}"
 
