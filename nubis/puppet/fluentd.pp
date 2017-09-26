@@ -6,26 +6,29 @@ fluentd::install_plugin { 'retag':
   plugin_type => 'gem',
 }
 
+# Last version supporting fluentd 0.12
 fluentd::install_plugin { 'prometheus':
-  ensure      => '0.2.1',
+  ensure      => '0.3.0',
   plugin_name => 'fluent-plugin-prometheus',
   plugin_type => 'gem',
 }
 
+# Last version supporting fluentd 0.12
 fluentd::install_plugin { 'elb-log':
-  ensure      => '0.2.7',
+  ensure      => '0.2.8',
   plugin_name => 'fluent-plugin-elb-log',
   plugin_type => 'gem',
 }
 
 fluentd::install_plugin { 's3':
-  ensure      => '0.7.2',
+  ensure      => '0.8.5',
   plugin_name => 'fluent-plugin-s3',
   plugin_type => 'gem',
 }
 
+# Last version supporting fluentd 0.12
 fluentd::install_plugin { 'sqs':
-  ensure      => '1.7.1',
+  ensure      => '1.8.0',
   plugin_name => 'fluent-plugin-sqs',
   plugin_type => 'gem',
 }

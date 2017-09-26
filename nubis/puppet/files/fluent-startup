@@ -2,8 +2,8 @@
 
 export PATH=/usr/local/bin:$PATH
 
-REGION=$(curl -s http://169.254.169.254/latest/dynamic/instance-identity/document | jq '.region' -r)
-ENVIRONMENT=$(nubis-metadata NUBIS_ENVIRONMENT)
+REGION=$(nubis-region)
+ARENA=$(nubis-metadata NUBIS_ARENA)
 PROJECT=$(nubis-metadata NUBIS_PROJECT)
 BUCKET=$(nubis-metadata NUBIS_FLUENT_BUCKET)
 ELB_BUCKET=$(nubis-metadata NUBIS_ELB_BUCKET)
@@ -14,11 +14,11 @@ SQS_REGION=$(nubis-metadata NUBIS_FLUENT_SQS_QUEUE_REGION)
 SQS_ACCESS_KEY=$(nubis-metadata NUBIS_FLUENT_SQS_ACCESS_KEY)
 SQS_SECRET_KEY=$(nubis-secret get SQS/SecretKey)
 
-PREFIX="$PROJECT/$ENVIRONMENT/config"
+PREFIX="$PROJECT/$ARENA/config"
 
-# Make sure our region/environment is in our config
+# Make sure our region/arena is in our config
 consulate kv set "$PREFIX/AWSRegion" "$REGION"
-consulate kv set "$PREFIX/Environment" "$ENVIRONMENT"
+consulate kv set "$PREFIX/Arena" "$ARENA"
 
 # Publish our settings into Consul, careful to clean up and delete
 # what might have been there but isn't currently specified anymore
@@ -38,10 +38,6 @@ fi
 if [ ! -z "$ES_ENDPOINT" ]; then
   consulate kv set "$PREFIX/ElasticSearch/AWSEndpoint" "https://$ES_ENDPOINT"
 
-  # Register the service in Consul for convenience
-  curl -X PUT -d "{\"Node\": \"aws-service-es-fluentd\", \"Address\": \"$ES_ENDPOINT\", \"Service\": {\"Service\": \"nubis-elasticsearch-fluentd\", \"Port\": 80}}" \
-    http://127.0.0.1:8500/v1/catalog/register
-
   # enable awsproxy service (XXX: Use confd)
   start awsproxy
   if [ -f "/etc/consul/svc-awsproxy.json.gz" ]; then
@@ -52,8 +48,6 @@ if [ ! -z "$ES_ENDPOINT" ]; then
 else
   consulate kv rm "$PREFIX/ElasticSearch/AWSEndpoint"
 
-  # Cleanup the service
-  curl -X PUT -d '{"Node": "aws-service-es-fluentd"}' http://127.0.0.1:8500/v1/catalog/deregister
 
   # Disable awsproxy service (XXX: Use confd)
   if [ -f "/etc/consul/svc-awsproxy.json" ]; then
