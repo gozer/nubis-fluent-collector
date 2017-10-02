@@ -1,5 +1,5 @@
 $awsproxy_version = '0.1.0'
-$awsproxy_url = "https://github.com/cllunsford/aws-signing-proxy/releases/download/${awsproxy_version}/aws-signing-proxy
+$awsproxy_url = "https://github.com/cllunsford/aws-signing-proxy/releases/download/${awsproxy_version}/aws-signing-proxy"
 
 notice ("Grabbing awsproxy ${awsproxy_version}")
 
