@@ -1,5 +1,5 @@
-$elasticsearch_exporter_version = '0.3.0'
-$elasticsearch_exporter_url = "https://github.com/ewr/elasticsearch_exporter/releases/download/${elasticsearch_exporter_version}/elasticsearch_exporter-${elasticsearch_exporter_version}.linux-amd64.tar.gz"
+$elasticsearch_exporter_version = '0.3.3'
+$elasticsearch_exporter_url = "https://github.com/justwatchcom/elasticsearch_exporter/releases/download/${$elasticsearch_exporter_version}/elasticsearch_exporter-${elasticsearch_exporter_version}.linux-amd64.tar.gz"
 
 notice ("Grabbing elasticsearch_exporter ${elasticsearch_exporter_version}")
 
