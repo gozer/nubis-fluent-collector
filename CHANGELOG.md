@@ -1,14 +1,29 @@
 # Change Log
 
+## [v1.5.1](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.5.1) (2017-08-18)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.5.0...v1.5.1)
+
+**Closed issues:**
+
+- Get rid of credstash for unicreds [\#187](https://github.com/nubisproject/nubis-fluent-collector/issues/187)
+- \[terraform\] Make instance\_type configurable [\#186](https://github.com/nubisproject/nubis-fluent-collector/issues/186)
+
+**Merged pull requests:**
+
+- Performance improvements, allows instance\_type to be configurable [\#188](https://github.com/nubisproject/nubis-fluent-collector/pull/188) ([gozer](https://github.com/gozer))
+
 ## [v1.5.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.5.0) (2017-06-24)
 [Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.4.2...v1.5.0)
 
 **Closed issues:**
 
 - Support grabbing ELB logs from a list of buckets instead of just one [\#64](https://github.com/nubisproject/nubis-fluent-collector/issues/64)
+- Tag v1.5.0 release [\#183](https://github.com/nubisproject/nubis-fluent-collector/issues/183)
 
 **Merged pull requests:**
 
+- Merge v1.5.0 release into develop. \[skip ci\] [\#185](https://github.com/nubisproject/nubis-fluent-collector/pull/185) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v1.5.0 release \[skip ci\] [\#184](https://github.com/nubisproject/nubis-fluent-collector/pull/184) ([tinnightcap](https://github.com/tinnightcap))
 - Remove datadog as module is no longer in nubis-base [\#182](https://github.com/nubisproject/nubis-fluent-collector/pull/182) ([tinnightcap](https://github.com/tinnightcap))
 - use ES 5.1 [\#181](https://github.com/nubisproject/nubis-fluent-collector/pull/181) ([gozer](https://github.com/gozer))
 - Add support for SSO security group [\#180](https://github.com/nubisproject/nubis-fluent-collector/pull/180) ([gozer](https://github.com/gozer))
