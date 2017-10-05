@@ -1,5 +1,29 @@
 # Change Log
 
+## [v2.0.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.0.0) (2017-10-05)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.5.1...v2.0.0)
+
+**Implemented enhancements:**
+
+- Replace atlas search with our own ami search module [\#201](https://github.com/nubisproject/nubis-fluent-collector/issues/201)
+- \[aws-proxy\] Switch aws proxy to upstream [\#198](https://github.com/nubisproject/nubis-fluent-collector/issues/198)
+- \[es-exporter\] Update exporter to v0.3.3 [\#196](https://github.com/nubisproject/nubis-fluent-collector/issues/196)
+
+**Closed issues:**
+
+- Curator 3.x doesn't support ES5 [\#205](https://github.com/nubisproject/nubis-fluent-collector/issues/205)
+
+**Merged pull requests:**
+
+- Upgraded elasticsearch exporter [\#209](https://github.com/nubisproject/nubis-fluent-collector/pull/209) ([limed](https://github.com/limed))
+- Fix curator for ES 5.x [\#208](https://github.com/nubisproject/nubis-fluent-collector/pull/208) ([gozer](https://github.com/gozer))
+- Get rid of Atlas [\#204](https://github.com/nubisproject/nubis-fluent-collector/pull/204) ([gozer](https://github.com/gozer))
+- Arena Work [\#202](https://github.com/nubisproject/nubis-fluent-collector/pull/202) ([gozer](https://github.com/gozer))
+- Update es exporter [\#200](https://github.com/nubisproject/nubis-fluent-collector/pull/200) ([limed](https://github.com/limed))
+- Use upstream aws-proxy [\#199](https://github.com/nubisproject/nubis-fluent-collector/pull/199) ([limed](https://github.com/limed))
+- Update nubis-travis to v1.4.2 [\#195](https://github.com/nubisproject/nubis-fluent-collector/pull/195) ([tinnightcap](https://github.com/tinnightcap))
+- Migrate to mozilla slack [\#194](https://github.com/nubisproject/nubis-fluent-collector/pull/194) ([tinnightcap](https://github.com/tinnightcap))
+
 ## [v1.5.1](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.5.1) (2017-08-18)
 [Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.5.0...v1.5.1)
 
@@ -7,9 +31,12 @@
 
 - Get rid of credstash for unicreds [\#187](https://github.com/nubisproject/nubis-fluent-collector/issues/187)
 - \[terraform\] Make instance\_type configurable [\#186](https://github.com/nubisproject/nubis-fluent-collector/issues/186)
+- Tag v1.5.1 release [\#191](https://github.com/nubisproject/nubis-fluent-collector/issues/191)
 
 **Merged pull requests:**
 
+- Merge v1.5.1 release into develop. \[skip ci\] [\#193](https://github.com/nubisproject/nubis-fluent-collector/pull/193) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v1.5.1 release \[skip ci\] [\#192](https://github.com/nubisproject/nubis-fluent-collector/pull/192) ([tinnightcap](https://github.com/tinnightcap))
 - Performance improvements, allows instance\_type to be configurable [\#188](https://github.com/nubisproject/nubis-fluent-collector/pull/188) ([gozer](https://github.com/gozer))
 
 ## [v1.5.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.5.0) (2017-06-24)

@@ -1,11 +1,11 @@
 [template]
 src = "fluentd-collector.tmpl"
 dest = "/etc/td-agent/config.d/zz-collector.conf"
-prefix = "/%%PROJECT%%/%%ENVIRONMENT%%"
+prefix = "/%%PROJECT%%/%%ARENA%%"
 
 keys = [
     "/config/AWSRegion",
-    "/config/Environment",
+    "/config/Arena",
     "/config/FluentLogsBucket",
     "/config/AccessLoggingBucket",
     "/config/SQS/Queue",

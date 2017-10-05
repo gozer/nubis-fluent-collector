@@ -1,5 +1,5 @@
-$awsproxy_version = '0.0.1'
-$awsproxy_url = "https://github.com/gozer/aws-signing-proxy/releases/download/v${awsproxy_version}/aws-signing-proxy"
+$awsproxy_version = '0.1.0'
+$awsproxy_url = "https://github.com/cllunsford/aws-signing-proxy/releases/download/${awsproxy_version}/aws-signing-proxy"
 
 notice ("Grabbing awsproxy ${awsproxy_version}")
 
@@ -32,7 +32,7 @@ upstart::job { 'awsproxy':
   fi
 
   
-  exec /usr/local/bin/awsproxy -target $(consulate kv get fluent-collector/$(nubis-metadata NUBIS_ENVIRONMENT)/config/ElasticSearch/AWSEndpoint)
+  exec /usr/local/bin/awsproxy -target "https://$(nubis-metadata NUBIS_FLUENT_ES_ENDPOINT)"
 ',
     post_stop      => '
 goal=$(initctl status $UPSTART_JOB | awk \'{print $2}\' | cut -d \'/\' -f 1)

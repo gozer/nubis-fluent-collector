@@ -1,41 +1,25 @@
 provider "aws" {
-  profile = "${var.aws_profile}"
   region  = "${var.aws_region}"
 }
 
-data "atlas_artifact" "nubis-fluent-collector" {
-  count = "${var.enabled}"
-  name  = "nubisproject/nubis-fluentd-collector"
-  type  = "amazon.image"
+data "aws_caller_identity" "current" {}
 
-  metadata {
-    project_version = "${var.nubis_version}"
-  }
-}
+module "fluentd-image" {
+  source = "github.com/nubisproject/nubis-terraform///images?ref=develop"
 
-module "uuid" {
-  source = "github.com/nubisproject/nubis-deploy///modules/uuid?ref=master"
-
-  enabled = "${var.enabled}"
-
-  aws_profile = "${var.aws_profile}"
-  aws_region  = "${var.aws_region}"
-
-  name = "fluent-collector"
-
-  environments = "${var.environments}"
-
-  lambda_uuid_arn = "${var.lambda_uuid_arn}"
+  region  = "${var.aws_region}"
+  version = "${var.nubis_version}"
+  project = "nubis-fluentd-collector"
 }
 
 resource "aws_s3_bucket" "fluent" {
-  count = "${var.enabled * length(split(",", var.environments))}"
+  count = "${var.enabled * length(var.arenas)}"
 
   lifecycle {
     create_before_destroy = true
   }
 
-  bucket = "fluent-${element(split(",",var.environments), count.index)}-${element(split(",",module.uuid.uuids), count.index)}"
+  bucket_prefix = "fluent-${element(var.arenas, count.index)}-"
 
   acl           = "private"
   force_destroy = true
@@ -45,34 +29,20 @@ resource "aws_s3_bucket" "fluent" {
   }
 
   tags = {
-    Name        = "${var.project}-${element(split(",",var.environments), count.index)}"
+    Name        = "${var.project}-${element(var.arenas, count.index)}"
     Region      = "${var.aws_region}"
-    Environment = "${element(split(",",var.environments), count.index)}"
-  }
-}
-
-variable "elb_account_ids" {
-  default = {
-    us-east-1      = "127311923021"
-    us-west-1      = "027434742980"
-    us-west-2      = "797873946194"
-    eu-central-1   = "054676820928"
-    ap-southeast-1 = "114774131450"
-    ap-northeast-1 = "582318560864"
-    ap-southeast-2 = "783225319266"
-    ap-northeast-2 = "600734575887"
-    sa-east-1      = "507241528517"
+    Arena       = "${element(var.arenas, count.index)}"
   }
 }
 
 resource "aws_s3_bucket" "elb" {
-  count = "${var.enabled * length(split(",", var.environments))}"
+  count = "${var.enabled * length(var.arenas)}"
 
   lifecycle {
     create_before_destroy = true
   }
 
-  bucket = "fluent-elb-${element(split(",",var.environments), count.index)}-${element(split(",",module.uuid.uuids), count.index)}"
+  bucket_prefix = "fluent-elb-${element(var.arenas, count.index)}-"
 
   acl           = "private"
   force_destroy = true
@@ -81,7 +51,18 @@ resource "aws_s3_bucket" "elb" {
     enabled = true
   }
 
-  # Careful, resource must match the name of the bucket
+  tags = {
+    Name        = "${var.project}-${element(var.arenas, count.index)}"
+    Region      = "${var.aws_region}"
+    Arena       = "${element(var.arenas, count.index)}"
+  }
+}
+
+data "aws_elb_service_account" "elb" {}
+
+resource "aws_s3_bucket_policy" "elb" {
+  count = "${var.enabled * length(var.arenas)}"
+  bucket = "${element(aws_s3_bucket.elb.*.id, count.index)}"
   policy = <<POLICY
 {
           "Version": "2008-10-17",
@@ -90,30 +71,24 @@ resource "aws_s3_bucket" "elb" {
               "Sid": "Allow ELBs to publish logs here",
               "Action": "s3:PutObject",
               "Effect": "Allow",
-              "Resource": "arn:aws:s3:::fluent-elb-${element(split(",",var.environments), count.index)}-${element(split(",",module.uuid.uuids), count.index)}/*",
+              "Resource": "${element(aws_s3_bucket.elb.*.arn, count.index)}/*",
               "Principal": {
-                "AWS": "arn:aws:iam::${lookup(var.elb_account_ids, var.aws_region)}:root"
+                "AWS": "${data.aws_elb_service_account.elb.arn}"
               }
             }
           ]
         }  
 POLICY
-
-  tags = {
-    Name        = "${var.project}-${element(split(",",var.environments), count.index)}"
-    Region      = "${var.aws_region}"
-    Environment = "${element(split(",",var.environments), count.index)}"
-  }
 }
 
 resource "aws_security_group" "fluent-collector" {
-  count = "${var.enabled * length(split(",", var.environments))}"
+  count = "${var.enabled * length(var.arenas)}"
 
   lifecycle {
     create_before_destroy = true
   }
 
-  name_prefix = "${var.project}-${element(split(",",var.environments), count.index)}-"
+  name_prefix = "${var.project}-${element(var.arenas, count.index)}-"
   description = "Jumphost for SSH"
 
   vpc_id = "${element(split(",",var.vpc_ids), count.index)}"
@@ -186,34 +161,32 @@ resource "aws_security_group" "fluent-collector" {
   }
 
   tags = {
-    Name        = "${var.project}-${element(split(",",var.environments), count.index)}"
+    Name        = "${var.project}-${element(var.arenas, count.index)}"
     Region      = "${var.aws_region}"
-    Environment = "${element(split(",",var.environments), count.index)}"
+    Arena       = "${element(var.arenas, count.index)}"
   }
 }
 
 resource "aws_iam_instance_profile" "fluent-collector" {
-  count = "${var.enabled * length(split(",", var.environments))}"
+  count = "${var.enabled * length(var.arenas)}"
 
   lifecycle {
     create_before_destroy = true
   }
 
-  name = "${var.project}-${element(split(",",var.environments), count.index)}-${var.aws_region}"
+  name = "${var.project}-${element(var.arenas, count.index)}-${var.aws_region}"
 
-  roles = [
-    "${element(aws_iam_role.fluent-collector.*.name, count.index)}",
-  ]
+  role = "${element(aws_iam_role.fluent-collector.*.name, count.index)}"
 }
 
 resource "aws_iam_role" "fluent-collector" {
-  count = "${var.enabled * length(split(",", var.environments))}"
+  count = "${var.enabled * length(var.arenas)}"
 
   lifecycle {
     create_before_destroy = true
   }
 
-  name = "${var.project}-${element(split(",",var.environments), count.index)}-${var.aws_region}"
+  name = "${var.project}-${element(var.arenas, count.index)}-${var.aws_region}"
   path = "/nubis/${var.project}/"
 
   assume_role_policy = <<POLICY
@@ -234,13 +207,13 @@ POLICY
 }
 
 resource "aws_iam_role_policy" "fluent-collector" {
-  count = "${var.enabled * length(split(",", var.environments))}"
+  count = "${var.enabled * length(var.arenas)}"
 
   lifecycle {
     create_before_destroy = true
   }
 
-  name = "${var.project}-bucket-${element(split(",",var.environments), count.index)}-${var.aws_region}"
+  name = "${var.project}-bucket-${element(var.arenas, count.index)}-${var.aws_region}"
   role = "${element(aws_iam_role.fluent-collector.*.id, count.index)}"
 
   policy = <<POLICY
@@ -288,7 +261,7 @@ POLICY
 }
 
 resource "aws_launch_configuration" "fluent-collector" {
-  count = "${var.enabled * length(split(",", var.environments))}"
+  count = "${var.enabled * length(var.arenas)}"
 
   lifecycle {
     create_before_destroy = true
@@ -299,10 +272,9 @@ resource "aws_launch_configuration" "fluent-collector" {
     "null_resource.secrets"
   ]
 
-  name_prefix = "${var.project}-${element(split(",",var.environments), count.index)}-${var.aws_region}-"
+  name_prefix = "${var.project}-${element(var.arenas, count.index)}-${var.aws_region}-"
 
-  image_id = "${data.atlas_artifact.nubis-fluent-collector.metadata_full["region-${var.aws_region}"]}"
-
+  image_id = "${module.fluentd-image.image_id}"
   # Default here, so modules can force the default value with an empty value
   instance_type        = "${var.instance_type == "" ? "t2.nano" : var.instance_type}"
   key_name             = "${var.key_name}"
@@ -319,7 +291,7 @@ resource "aws_launch_configuration" "fluent-collector" {
 
   user_data = <<EOF
 NUBIS_PROJECT="${var.project}"
-NUBIS_ENVIRONMENT="${element(split(",",var.environments), count.index)}"
+NUBIS_ARENA="${element(var.arenas, count.index)}"
 NUBIS_ACCOUNT="${var.service_name}"
 NUBIS_DOMAIN="${var.nubis_domain}"
 NUBIS_FLUENT_BUCKET="${element(aws_s3_bucket.fluent.*.id, count.index)}"
@@ -335,20 +307,20 @@ EOF
 }
 
 resource "aws_autoscaling_group" "fluent-collector" {
-  count = "${var.enabled * length(split(",", var.environments))}"
+  count = "${var.enabled * length(var.arenas)}"
 
   lifecycle {
     create_before_destroy = true
   }
 
-  #XXX: Fugly, assumes 3 subnets per environments, bad assumption, but valid ATM
+  #XXX: Fugly, assumes 3 subnets per arenas, bad assumption, but valid ATM
   vpc_zone_identifier = [
     "${element(split(",",var.subnet_ids), (count.index * 3) + 0 )}",
     "${element(split(",",var.subnet_ids), (count.index * 3) + 1 )}",
     "${element(split(",",var.subnet_ids), (count.index * 3) + 2 )}",
   ]
 
-  name                      = "${var.project}-${element(split(",",var.environments), count.index)} (LC ${element(aws_launch_configuration.fluent-collector.*.name, count.index)})"
+  name                      = "${var.project}-${element(var.arenas, count.index)} (LC ${element(aws_launch_configuration.fluent-collector.*.name, count.index)})"
   max_size                  = "2"
   min_size                  = "1"
   health_check_grace_period = 10
@@ -359,15 +331,32 @@ resource "aws_autoscaling_group" "fluent-collector" {
 
   wait_for_capacity_timeout = "60m"
 
+  enabled_metrics = [
+    "GroupMinSize",
+    "GroupMaxSize",
+    "GroupDesiredCapacity",
+    "GroupInServiceInstances",
+    "GroupPendingInstances",
+    "GroupStandbyInstances",
+    "GroupTerminatingInstances",
+    "GroupTotalInstances",
+  ]
+
   tag {
     key                 = "Name"
-    value               = "Fluent Collector (${var.nubis_version}) for ${var.service_name} in ${element(split(",",var.environments), count.index)}"
+    value               = "Fluent Collector (${var.nubis_version}) for ${var.service_name} in ${element(var.arenas, count.index)}"
     propagate_at_launch = true
   }
 
   tag {
     key                 = "ServiceName"
     value               = "${var.project}"
+    propagate_at_launch = true
+  }
+  
+  tag {
+    key                 = "Arena"
+    value               = "${element(var.arenas, count.index)}"
     propagate_at_launch = true
   }
 }
@@ -408,7 +397,7 @@ resource "aws_elasticsearch_domain" "fluentd" {
         "es:ESHttpPut",
         "es:ESHttpDelete"
       ],
-      "Resource": "arn:aws:es:${var.aws_region}:${var.aws_account_id}:domain/${var.project}/*"
+      "Resource": "arn:aws:es:${var.aws_region}:${data.aws_caller_identity.current.account_id}:domain/${var.project}/*"
     }
   ]
 }
@@ -421,7 +410,7 @@ POLICY
   tags = {
     Name        = "${var.project}"
     Region      = "${var.aws_region}"
-    Environment = "global"
+    Arena       = "global"
   }
 
   lifecycle {
@@ -429,21 +418,21 @@ POLICY
   }
 }
 
-# This null resource is responsible for publishing secrets to Credstash
+# This null resource is responsible for publishing secrets to Unicreds
 resource "null_resource" "secrets" {
-  count = "${var.enabled * length(split(",", var.environments))}"
+  count = "${var.enabled * length(var.arenas)}"
 
   # Important to list here every variable that affects what needs to be put into credstash
   triggers {
     sqs_secret_key   = "${element(split(",", var.sqs_secret_keys), count.index)}"
     region           = "${var.aws_region}"
-    context          = "region=${var.aws_region} environment=${element(split(",", var.environments), count.index)} service=${var.project}"
-    credstash        = "credstash -r ${var.aws_region} put -k ${var.credstash_key} -a ${var.project}/${element(split(",", var.environments), count.index)}"
+    context          = "-E region:${var.aws_region} -E arena:${element(var.arenas, count.index)} -E service:${var.project}"
+    unicreds         = "unicreds -r ${var.aws_region} put -k ${var.credstash_key} ${var.project}/${element(var.arenas, count.index)}"
   }
 
   # Consul gossip secret
   provisioner "local-exec" {
-    command = "${self.triggers.credstash}/SQS/SecretKey ${element(split(",", var.sqs_secret_keys), count.index)} ${self.triggers.context}"
+    command = "${self.triggers.unicreds}/SQS/SecretKey '${element(split(",", var.sqs_secret_keys), count.index)}' ${self.triggers.context}"
   }
 
   lifecycle {

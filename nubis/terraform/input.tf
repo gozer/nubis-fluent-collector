@@ -1,11 +1,4 @@
-variable aws_profile {
-}
-
 variable aws_region {
-}
-
-variable aws_account_id {
-
 }
 
 variable key_name {
@@ -20,7 +13,8 @@ variable nubis_domain {
 variable service_name {
 }
 
-variable environments {
+variable arenas {
+  type = "list"
 }
 
 variable enabled {
@@ -56,9 +50,6 @@ variable shared_services_security_groups {
 
 variable sso_security_groups {
   default = ""
-}
-
-variable lambda_uuid_arn {
 }
 
 variable project {

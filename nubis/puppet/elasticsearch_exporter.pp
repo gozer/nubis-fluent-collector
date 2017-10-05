@@ -1,5 +1,5 @@
-$elasticsearch_exporter_version = '0.3.0'
-$elasticsearch_exporter_url = "https://github.com/ewr/elasticsearch_exporter/releases/download/${elasticsearch_exporter_version}/elasticsearch_exporter-${elasticsearch_exporter_version}.linux-amd64.tar.gz"
+$elasticsearch_exporter_version = '1.0.1'
+$elasticsearch_exporter_url = "https://github.com/justwatchcom/elasticsearch_exporter/releases/download/v${elasticsearch_exporter_version}/elasticsearch_exporter-${elasticsearch_exporter_version}.linux-amd64.tar.gz"
 
 notice ("Grabbing elasticsearch_exporter ${elasticsearch_exporter_version}")
 
@@ -7,6 +7,7 @@ staging::file { "elasticsearch_exporter-${elasticsearch_exporter_version}.tar.gz
   source => $elasticsearch_exporter_url,
 }->
 staging::extract { "elasticsearch_exporter-${elasticsearch_exporter_version}.tar.gz":
+  strip   => 1,
   target  => '/usr/local/bin',
   creates => '/usr/local/bin/elasticsearch_exporter',
 }->
