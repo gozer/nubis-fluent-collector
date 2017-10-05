@@ -4,5 +4,17 @@ DAYS_TO_KEEP=14
 ES_ENABLED=$(nubis-metadata NUBIS_FLUENT_ES_ENDPOINT)
 
 if [ "$ES_ENABLED" != "" ]; then
-  curator --loglevel ERROR --quiet --host localhost --port 8080 delete indices --prefix logstash --timestring '%Y.%m.%d' --time-unit days --older-than $DAYS_TO_KEEP
+  # Builder a logstash filter for old indices
+  FILTER=$(cat << EOF
+[{"filtertype":"age","source":"creation_date","direction":"older","unit":"days","unit_count":$DAYS_TO_KEEP},{"filtertype":"pattern","kind":"prefix","value":"logstash"}]
+EOF
+)
+  # check if we have something to expire
+  if curator_cli --host localhost --port 8080 show_indices --filter_list "$FILTER" 2>/dev/null ; then
+    # delete away
+    curator_cli --host localhost --port 8080 delete_indices --filter_list "$FILTER"
+  else
+    # Nothing to expire
+    exit 0
+  fi
 fi
