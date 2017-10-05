@@ -4,14 +4,12 @@ provider "aws" {
 
 data "aws_caller_identity" "current" {}
 
-data "atlas_artifact" "nubis-fluent-collector" {
-  count = "${var.enabled}"
-  name  = "nubisproject/nubis-fluentd-collector"
-  type  = "amazon.image"
+module "fluentd-image" {
+  source = "github.com/nubisproject/nubis-terraform///images?ref=develop"
 
-  metadata {
-    project_version = "${var.nubis_version}"
-  }
+  region  = "${var.aws_region}"
+  version = "${var.nubis_version}"
+  project = "nubis-fluentd-collector"
 }
 
 resource "aws_s3_bucket" "fluent" {
@@ -276,8 +274,7 @@ resource "aws_launch_configuration" "fluent-collector" {
 
   name_prefix = "${var.project}-${element(var.arenas, count.index)}-${var.aws_region}-"
 
-  image_id = "${data.atlas_artifact.nubis-fluent-collector.metadata_full["region-${var.aws_region}"]}"
-
+  image_id = "${module.fluentd-image.image_id}"
   # Default here, so modules can force the default value with an empty value
   instance_type        = "${var.instance_type == "" ? "t2.nano" : var.instance_type}"
   key_name             = "${var.key_name}"
