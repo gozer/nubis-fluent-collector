@@ -1,8 +1,8 @@
 #!/bin/bash -l
 
 DAYS_TO_KEEP=14
-ES_ENABLED=$(consulate kv get "fluent-collector/$(nubis-metadata NUBIS_ENVIRONMENT)/config/ElasticSearch/AWSEndpoint")
+ES_ENABLED=$(nubis-metadata NUBIS_FLUENT_ES_ENDPOINT)
 
-if [ "$ES_ENABLED" != "None" ] && [ "$ES_ENABLED" != "" ]; then
+if [ "$ES_ENABLED" != "" ]; then
   curator --loglevel ERROR --quiet --host localhost --port 8080 delete indices --prefix logstash --timestring '%Y.%m.%d' --time-unit days --older-than $DAYS_TO_KEEP
 fi

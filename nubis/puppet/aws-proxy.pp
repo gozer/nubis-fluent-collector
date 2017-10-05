@@ -32,7 +32,7 @@ upstart::job { 'awsproxy':
   fi
 
   
-  exec /usr/local/bin/awsproxy -target $(consulate kv get fluent-collector/$(nubis-metadata NUBIS_ENVIRONMENT)/config/ElasticSearch/AWSEndpoint)
+  exec /usr/local/bin/awsproxy -target "https://$(nubis-metadata NUBIS_FLUENT_ES_ENDPOINT)"
 ',
     post_stop      => '
 goal=$(initctl status $UPSTART_JOB | awk \'{print $2}\' | cut -d \'/\' -f 1)

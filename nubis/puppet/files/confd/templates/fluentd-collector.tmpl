@@ -30,11 +30,11 @@
   type prometheus_monitor
 </source>
 
-# Tag all events with the environment they came from
+# Tag all events with the arena they came from
 <filter **>
   type record_transformer
   <record>
-    environment {{ getv "/config/Environment" }}
+    arena {{ getv "/config/Arena" }}
   </record>
 </filter>
 
@@ -68,7 +68,6 @@
 {{ if exists "/config/SQS/Queue" }}
    <store>
      type sqs
-     buffer_path /var/log/fluentd/sqs
      queue_name {{ getv "/config/SQS/Queue" }}
      create_queue false
 {{ if exists "/config/SQS/AccessKey" }}aws_key_id {{ getv "/config/SQS/AccessKey" }}{{ end }}
