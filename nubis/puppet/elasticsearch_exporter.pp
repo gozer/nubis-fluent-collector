@@ -1,4 +1,4 @@
-$elasticsearch_exporter_version = '0.3.3'
+$elasticsearch_exporter_version = '1.0.1'
 $elasticsearch_exporter_url = "https://github.com/justwatchcom/elasticsearch_exporter/releases/download/v${elasticsearch_exporter_version}/elasticsearch_exporter-${elasticsearch_exporter_version}.linux-amd64.tar.gz"
 
 notice ("Grabbing elasticsearch_exporter ${elasticsearch_exporter_version}")
