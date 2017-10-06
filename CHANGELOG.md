@@ -1,5 +1,16 @@
 # Change Log
 
+## [v2.0.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.0.0) (2017-10-06)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v2.0.0...v2.0.0)
+
+**Closed issues:**
+
+- \[unicreds\] Cleanup resources on destruction [\#213](https://github.com/nubisproject/nubis-fluent-collector/issues/213)
+
+**Merged pull requests:**
+
+- Destroy unicreds resources [\#214](https://github.com/nubisproject/nubis-fluent-collector/pull/214) ([gozer](https://github.com/gozer))
+
 ## [v2.0.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.0.0) (2017-10-05)
 [Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.5.1...v2.0.0)
 
@@ -12,9 +23,12 @@
 **Closed issues:**
 
 - Curator 3.x doesn't support ES5 [\#205](https://github.com/nubisproject/nubis-fluent-collector/issues/205)
+- Tag v2.0.0 release [\#210](https://github.com/nubisproject/nubis-fluent-collector/issues/210)
 
 **Merged pull requests:**
 
+- Merge v2.0.0 release into develop. \[skip ci\] [\#212](https://github.com/nubisproject/nubis-fluent-collector/pull/212) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v2.0.0 release \[skip ci\] [\#211](https://github.com/nubisproject/nubis-fluent-collector/pull/211) ([tinnightcap](https://github.com/tinnightcap))
 - Upgraded elasticsearch exporter [\#209](https://github.com/nubisproject/nubis-fluent-collector/pull/209) ([limed](https://github.com/limed))
 - Fix curator for ES 5.x [\#208](https://github.com/nubisproject/nubis-fluent-collector/pull/208) ([gozer](https://github.com/gozer))
 - Get rid of Atlas [\#204](https://github.com/nubisproject/nubis-fluent-collector/pull/204) ([gozer](https://github.com/gozer))
