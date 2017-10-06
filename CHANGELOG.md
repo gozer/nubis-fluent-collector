@@ -1,6 +1,13 @@
 # Change Log
 
 ## [v2.0.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.0.0) (2017-10-06)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v2.0.0...v2.0.0)
+
+**Merged pull requests:**
+
+- destroy on destroy [\#221](https://github.com/nubisproject/nubis-fluent-collector/pull/221) ([gozer](https://github.com/gozer))
+
+## [v2.0.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.0.0) (2017-10-06)
 [Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.5.1...v2.0.0)
 
 **Implemented enhancements:**
@@ -13,11 +20,14 @@
 
 - \[unicreds\] Cleanup resources on destruction [\#213](https://github.com/nubisproject/nubis-fluent-collector/issues/213)
 - Curator 3.x doesn't support ES5 [\#205](https://github.com/nubisproject/nubis-fluent-collector/issues/205)
+- Tag v2.0.0 release [\#218](https://github.com/nubisproject/nubis-fluent-collector/issues/218)
 - Tag v2.0.0 release [\#215](https://github.com/nubisproject/nubis-fluent-collector/issues/215)
 - Tag v2.0.0 release [\#210](https://github.com/nubisproject/nubis-fluent-collector/issues/210)
 
 **Merged pull requests:**
 
+- Merge v2.0.0 release into develop. \[skip ci\] [\#220](https://github.com/nubisproject/nubis-fluent-collector/pull/220) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v2.0.0 release \[skip ci\] [\#219](https://github.com/nubisproject/nubis-fluent-collector/pull/219) ([tinnightcap](https://github.com/tinnightcap))
 - Merge v2.0.0 release into develop. \[skip ci\] [\#217](https://github.com/nubisproject/nubis-fluent-collector/pull/217) ([tinnightcap](https://github.com/tinnightcap))
 - Update CHANGELOG for v2.0.0 release \[skip ci\] [\#216](https://github.com/nubisproject/nubis-fluent-collector/pull/216) ([tinnightcap](https://github.com/tinnightcap))
 - Destroy unicreds resources [\#214](https://github.com/nubisproject/nubis-fluent-collector/pull/214) ([gozer](https://github.com/gozer))
