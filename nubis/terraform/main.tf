@@ -428,6 +428,7 @@ resource "null_resource" "secrets" {
     region           = "${var.aws_region}"
     context          = "-E region:${var.aws_region} -E arena:${element(var.arenas, count.index)} -E service:${var.project}"
     unicreds         = "unicreds -r ${var.aws_region} put -k ${var.credstash_key} ${var.project}/${element(var.arenas, count.index)}"
+    unicreds_rm      = "unicreds -r ${var.aws_region} delete -k ${var.credstash_key} ${var.project}/${element(var.arenas, count.index)}"
   }
 
   # Consul gossip secret
@@ -435,7 +436,8 @@ resource "null_resource" "secrets" {
     command = "${self.triggers.unicreds}/SQS/SecretKey '${element(split(",", var.sqs_secret_keys), count.index)}' ${self.triggers.context}"
   }
 
-  lifecycle {
-    create_before_destroy = true
+  provisioner "local-exec" {
+    command = "${self.triggers.unicreds_rm}/SQS/SecretKey"
   }
+
 }
