@@ -1,28 +1,22 @@
 # Change Log
 
 ## [v2.0.1](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.0.1) (2017-10-16)
-[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v2.0.1...v2.0.1)
-
-**Closed issues:**
-
-- \[Cleanup\] ES Index cleanup missing PATH [\#228](https://github.com/nubisproject/nubis-fluent-collector/issues/228)
-
-**Merged pull requests:**
-
-- Be more specific about PATH [\#229](https://github.com/nubisproject/nubis-fluent-collector/pull/229) ([gozer](https://github.com/gozer))
-
-## [v2.0.1](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.0.1) (2017-10-13)
 [Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v2.0.0...v2.0.1)
 
 **Closed issues:**
 
+- \[Cleanup\] ES Index cleanup missing PATH [\#228](https://github.com/nubisproject/nubis-fluent-collector/issues/228)
 - \[es-exporter\] Update exporter to v1.0.1 [\#197](https://github.com/nubisproject/nubis-fluent-collector/issues/197)
 - use confd to configure awsproxy [\#179](https://github.com/nubisproject/nubis-fluent-collector/issues/179)
 - \[tf\] Convert to using unicreds [\#124](https://github.com/nubisproject/nubis-fluent-collector/issues/124)
+- Tag v2.0.1 release [\#230](https://github.com/nubisproject/nubis-fluent-collector/issues/230)
 - Tag v2.0.1 release [\#225](https://github.com/nubisproject/nubis-fluent-collector/issues/225)
 
 **Merged pull requests:**
 
+- Merge v2.0.1 release into develop. \[skip ci\] [\#232](https://github.com/nubisproject/nubis-fluent-collector/pull/232) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v2.0.1 release \[skip ci\] [\#231](https://github.com/nubisproject/nubis-fluent-collector/pull/231) ([tinnightcap](https://github.com/tinnightcap))
+- Be more specific about PATH [\#229](https://github.com/nubisproject/nubis-fluent-collector/pull/229) ([gozer](https://github.com/gozer))
 - Merge v2.0.1 release into develop. \[skip ci\] [\#227](https://github.com/nubisproject/nubis-fluent-collector/pull/227) ([tinnightcap](https://github.com/tinnightcap))
 - Update CHANGELOG for v2.0.1 release \[skip ci\] [\#226](https://github.com/nubisproject/nubis-fluent-collector/pull/226) ([tinnightcap](https://github.com/tinnightcap))
 
