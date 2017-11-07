@@ -89,7 +89,7 @@ package { 'boto3':
   ensure => '1.4.7',
 }
 package { 'botocore':
-  ensure => '1.7.41',
+  ensure => '1.7.39',
 }
 package { 'bsdmainutils':
   ensure => '9.0.5ubuntu1',
