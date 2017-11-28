@@ -1,4 +1,4 @@
-$elasticsearch_exporter_version = '1.0.1'
+$elasticsearch_exporter_version = '1.0.2rc2'
 $elasticsearch_exporter_url = "https://github.com/justwatchcom/elasticsearch_exporter/releases/download/v${elasticsearch_exporter_version}/elasticsearch_exporter-${elasticsearch_exporter_version}.linux-amd64.tar.gz"
 
 notice ("Grabbing elasticsearch_exporter ${elasticsearch_exporter_version}")
@@ -16,36 +16,7 @@ exec { 'fix elasticsearch_exporter permissions':
   path    => ['/sbin','/bin','/usr/sbin','/usr/bin','/usr/local/sbin','/usr/local/bin'],
 }
 
-upstart::job { 'elasticsearch_exporter':
-    description    => 'ES Exporter',
-    service_ensure => 'stopped',
-    # Never give up
-    respawn        => true,
-    respawn_limit  => 'unlimited',
-    start_on       => 'started awsproxy',
-    stop_on        => 'stopped awsproxy',
-    env            => {
-      'SLEEP_TIME' => 1,
-      'GOMAXPROCS' => 2,
-    },
-    script         => '
-  if [ -r /etc/profile.d/proxy.sh ]; then
-    . /etc/profile.d/proxy.sh
-  fi
-
-  
-  exec /usr/local/bin/elasticsearch_exporter -es.all=true -web.listen-address=:9105 -es.uri="http://localhost:8080"
-',
-    post_stop      => '
-goal=$(initctl status $UPSTART_JOB | awk \'{print $2}\' | cut -d \'/\' -f 1)
-if [ $goal != "stop" ]; then
-    echo "Backoff for $SLEEP_TIME seconds"
-    sleep $SLEEP_TIME
-    NEW_SLEEP_TIME=`expr 2 \* $SLEEP_TIME`
-    if [ $NEW_SLEEP_TIME -ge 60 ]; then
-        NEW_SLEEP_TIME=60
-    fi
-    initctl set-env SLEEP_TIME=$NEW_SLEEP_TIME
-fi
-',
+# Gets triggered by awsproxy startup/shutdown
+systemd::unit_file { 'elasticsearch_exporter.service':
+  source => 'puppet:///nubis/files/elasticsearch_exporter.systemd',
 }
