@@ -1,0 +1,16 @@
+[Unit]
+Description=AWS Proxy
+Wants=basic.target elasticsearch_exporter.service
+Before=elasticsearch_exporter.service
+After=basic.target network.target
+
+[Service]
+Environment=HTTPS_PROXY=http://proxy.service.consul:3128/
+Environment=HTTP_PROXY=http://proxy.service.consul:3128/
+Environment=NO_PROXY=localhost,127.0.0.1,.localdomain,.service.consul,service.consul,.consul,consul,169.254.169.254
+ExecStart=/bin/bash -c '/usr/local/bin/awsproxy -target "https://$(nubis-metadata NUBIS_FLUENT_ES_ENDPOINT)"'
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target

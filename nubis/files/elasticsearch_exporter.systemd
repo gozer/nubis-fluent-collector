@@ -1,0 +1,13 @@
+[Unit]
+Description=Elasticsearch Exposter
+Wants=basic.target
+After=basic.target network.target aws-proxy.service
+BindsTo=aws-proxy.service
+
+[Service]
+ExecStart=/usr/local/bin/elasticsearch_exporter -es.all=true -web.listen-address=:9105 -es.uri="http://localhost:8080"
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
