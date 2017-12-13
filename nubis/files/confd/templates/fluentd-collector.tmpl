@@ -30,11 +30,11 @@
   type prometheus_monitor
 </source>
 
-# Tag all events with the environment they came from
+# Tag all events with the arena they came from
 <filter **>
   type record_transformer
   <record>
-    environment {{ getv "/config/Environment" }}
+    arena {{ getv "/config/Arena" }}
   </record>
 </filter>
 
@@ -68,7 +68,6 @@
 {{ if exists "/config/SQS/Queue" }}
    <store>
      type sqs
-     buffer_path /var/log/fluentd/sqs
      queue_name {{ getv "/config/SQS/Queue" }}
      create_queue false
 {{ if exists "/config/SQS/AccessKey" }}aws_key_id {{ getv "/config/SQS/AccessKey" }}{{ end }}
@@ -88,16 +87,17 @@
     logstash_format true
     include_tag_key true
     flush_interval "15s"
-    request_timeout "30s"
+    request_timeout "60s"
     reload_connections false
     reload_on_failure false
+    num_threads 4
 
     template_name fluentd
     template_file /etc/td-agent/elasticsearch-logstash-template.json
 
     buffer_type file
     buffer_path /var/log/fluentd/elasticsearch.log
-    buffer_chunk_limit 8m
+    buffer_chunk_limit 4m
 
     <endpoint>
       url {{ getv "/config/ElasticSearch/AWSEndpoint" }}

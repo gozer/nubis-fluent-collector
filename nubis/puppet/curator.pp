@@ -2,8 +2,10 @@ class { 'python':
     pip => true,
 }
 
+# Grab from a fork to get AWS fix for ES 5.1
 python::pip { 'elasticsearch-curator':
-    ensure  => '3.5.1',
+  ensure => '6340e0beefe15ba0d114d1d91c425999145f08bf',
+  url    => 'git+https://github.com/Talend/curator.git',
 }
 
 file { '/usr/local/bin/nubis-cleanup-es-indices':

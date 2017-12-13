@@ -1,6 +1,157 @@
 # Change Log
 
-## [v1.3.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.3.0) (2016-12-20)
+## [v2.0.2](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.0.2) (2017-10-24)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v2.0.1...v2.0.2)
+
+**Closed issues:**
+
+- Tag v2.0.2 release [\#233](https://github.com/nubisproject/nubis-fluent-collector/issues/233)
+
+**Merged pull requests:**
+
+- Merge v2.0.2 release into develop. \[skip ci\] [\#235](https://github.com/nubisproject/nubis-fluent-collector/pull/235) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v2.0.2 release \[skip ci\] [\#234](https://github.com/nubisproject/nubis-fluent-collector/pull/234) ([tinnightcap](https://github.com/tinnightcap))
+
+## [v2.0.1](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.0.1) (2017-10-16)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v2.0.0...v2.0.1)
+
+**Closed issues:**
+
+- \[Cleanup\] ES Index cleanup missing PATH [\#228](https://github.com/nubisproject/nubis-fluent-collector/issues/228)
+- \[es-exporter\] Update exporter to v1.0.1 [\#197](https://github.com/nubisproject/nubis-fluent-collector/issues/197)
+- use confd to configure awsproxy [\#179](https://github.com/nubisproject/nubis-fluent-collector/issues/179)
+- \[tf\] Convert to using unicreds [\#124](https://github.com/nubisproject/nubis-fluent-collector/issues/124)
+- Tag v2.0.1 release [\#230](https://github.com/nubisproject/nubis-fluent-collector/issues/230)
+- Tag v2.0.1 release [\#225](https://github.com/nubisproject/nubis-fluent-collector/issues/225)
+
+**Merged pull requests:**
+
+- Merge v2.0.1 release into develop. \[skip ci\] [\#232](https://github.com/nubisproject/nubis-fluent-collector/pull/232) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v2.0.1 release \[skip ci\] [\#231](https://github.com/nubisproject/nubis-fluent-collector/pull/231) ([tinnightcap](https://github.com/tinnightcap))
+- Be more specific about PATH [\#229](https://github.com/nubisproject/nubis-fluent-collector/pull/229) ([gozer](https://github.com/gozer))
+- Merge v2.0.1 release into develop. \[skip ci\] [\#227](https://github.com/nubisproject/nubis-fluent-collector/pull/227) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v2.0.1 release \[skip ci\] [\#226](https://github.com/nubisproject/nubis-fluent-collector/pull/226) ([tinnightcap](https://github.com/tinnightcap))
+
+## [v2.0.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.0.0) (2017-10-06)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.5.1...v2.0.0)
+
+**Implemented enhancements:**
+
+- Replace atlas search with our own ami search module [\#201](https://github.com/nubisproject/nubis-fluent-collector/issues/201)
+- \[aws-proxy\] Switch aws proxy to upstream [\#198](https://github.com/nubisproject/nubis-fluent-collector/issues/198)
+- \[es-exporter\] Update exporter to v0.3.3 [\#196](https://github.com/nubisproject/nubis-fluent-collector/issues/196)
+
+**Closed issues:**
+
+- \[unicreds\] Cleanup resources on destruction [\#213](https://github.com/nubisproject/nubis-fluent-collector/issues/213)
+- Curator 3.x doesn't support ES5 [\#205](https://github.com/nubisproject/nubis-fluent-collector/issues/205)
+- Tag v2.0.0 release [\#222](https://github.com/nubisproject/nubis-fluent-collector/issues/222)
+- Tag v2.0.0 release [\#218](https://github.com/nubisproject/nubis-fluent-collector/issues/218)
+- Tag v2.0.0 release [\#215](https://github.com/nubisproject/nubis-fluent-collector/issues/215)
+- Tag v2.0.0 release [\#210](https://github.com/nubisproject/nubis-fluent-collector/issues/210)
+
+**Merged pull requests:**
+
+- Merge v2.0.0 release into develop. \[skip ci\] [\#224](https://github.com/nubisproject/nubis-fluent-collector/pull/224) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v2.0.0 release \[skip ci\] [\#223](https://github.com/nubisproject/nubis-fluent-collector/pull/223) ([tinnightcap](https://github.com/tinnightcap))
+- destroy on destroy [\#221](https://github.com/nubisproject/nubis-fluent-collector/pull/221) ([gozer](https://github.com/gozer))
+- Merge v2.0.0 release into develop. \[skip ci\] [\#220](https://github.com/nubisproject/nubis-fluent-collector/pull/220) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v2.0.0 release \[skip ci\] [\#219](https://github.com/nubisproject/nubis-fluent-collector/pull/219) ([tinnightcap](https://github.com/tinnightcap))
+- Merge v2.0.0 release into develop. \[skip ci\] [\#217](https://github.com/nubisproject/nubis-fluent-collector/pull/217) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v2.0.0 release \[skip ci\] [\#216](https://github.com/nubisproject/nubis-fluent-collector/pull/216) ([tinnightcap](https://github.com/tinnightcap))
+- Destroy unicreds resources [\#214](https://github.com/nubisproject/nubis-fluent-collector/pull/214) ([gozer](https://github.com/gozer))
+- Merge v2.0.0 release into develop. \[skip ci\] [\#212](https://github.com/nubisproject/nubis-fluent-collector/pull/212) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v2.0.0 release \[skip ci\] [\#211](https://github.com/nubisproject/nubis-fluent-collector/pull/211) ([tinnightcap](https://github.com/tinnightcap))
+- Upgraded elasticsearch exporter [\#209](https://github.com/nubisproject/nubis-fluent-collector/pull/209) ([limed](https://github.com/limed))
+- Fix curator for ES 5.x [\#208](https://github.com/nubisproject/nubis-fluent-collector/pull/208) ([gozer](https://github.com/gozer))
+- Get rid of Atlas [\#204](https://github.com/nubisproject/nubis-fluent-collector/pull/204) ([gozer](https://github.com/gozer))
+- Arena Work [\#202](https://github.com/nubisproject/nubis-fluent-collector/pull/202) ([gozer](https://github.com/gozer))
+- Update es exporter [\#200](https://github.com/nubisproject/nubis-fluent-collector/pull/200) ([limed](https://github.com/limed))
+- Use upstream aws-proxy [\#199](https://github.com/nubisproject/nubis-fluent-collector/pull/199) ([limed](https://github.com/limed))
+- Update nubis-travis to v1.4.2 [\#195](https://github.com/nubisproject/nubis-fluent-collector/pull/195) ([tinnightcap](https://github.com/tinnightcap))
+- Migrate to mozilla slack [\#194](https://github.com/nubisproject/nubis-fluent-collector/pull/194) ([tinnightcap](https://github.com/tinnightcap))
+
+## [v1.5.1](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.5.1) (2017-08-18)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.5.0...v1.5.1)
+
+**Closed issues:**
+
+- Get rid of credstash for unicreds [\#187](https://github.com/nubisproject/nubis-fluent-collector/issues/187)
+- \[terraform\] Make instance\_type configurable [\#186](https://github.com/nubisproject/nubis-fluent-collector/issues/186)
+- Tag v1.5.1 release [\#191](https://github.com/nubisproject/nubis-fluent-collector/issues/191)
+
+**Merged pull requests:**
+
+- Merge v1.5.1 release into develop. \[skip ci\] [\#193](https://github.com/nubisproject/nubis-fluent-collector/pull/193) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v1.5.1 release \[skip ci\] [\#192](https://github.com/nubisproject/nubis-fluent-collector/pull/192) ([tinnightcap](https://github.com/tinnightcap))
+- Performance improvements, allows instance\_type to be configurable [\#188](https://github.com/nubisproject/nubis-fluent-collector/pull/188) ([gozer](https://github.com/gozer))
+
+## [v1.5.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.5.0) (2017-06-24)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.4.2...v1.5.0)
+
+**Closed issues:**
+
+- Support grabbing ELB logs from a list of buckets instead of just one [\#64](https://github.com/nubisproject/nubis-fluent-collector/issues/64)
+- Tag v1.5.0 release [\#183](https://github.com/nubisproject/nubis-fluent-collector/issues/183)
+
+**Merged pull requests:**
+
+- Merge v1.5.0 release into develop. \[skip ci\] [\#185](https://github.com/nubisproject/nubis-fluent-collector/pull/185) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v1.5.0 release \[skip ci\] [\#184](https://github.com/nubisproject/nubis-fluent-collector/pull/184) ([tinnightcap](https://github.com/tinnightcap))
+- Remove datadog as module is no longer in nubis-base [\#182](https://github.com/nubisproject/nubis-fluent-collector/pull/182) ([tinnightcap](https://github.com/tinnightcap))
+- use ES 5.1 [\#181](https://github.com/nubisproject/nubis-fluent-collector/pull/181) ([gozer](https://github.com/gozer))
+- Add support for SSO security group [\#180](https://github.com/nubisproject/nubis-fluent-collector/pull/180) ([gozer](https://github.com/gozer))
+
+## [v1.4.2](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.4.2) (2017-05-04)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.4.1...v1.4.2)
+
+**Closed issues:**
+
+- Add nubis/builder/artifacts/AMIs.json to .gitignore [\#160](https://github.com/nubisproject/nubis-fluent-collector/issues/160)
+- Tag v1.4.2 release [\#174](https://github.com/nubisproject/nubis-fluent-collector/issues/174)
+- Tag v1.4.2 release [\#166](https://github.com/nubisproject/nubis-fluent-collector/issues/166)
+- Tag v1.4.2 release [\#163](https://github.com/nubisproject/nubis-fluent-collector/issues/163)
+
+**Merged pull requests:**
+
+- Merge v1.4.2 release into develop. \[skip ci\] [\#178](https://github.com/nubisproject/nubis-fluent-collector/pull/178) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v1.4.2 release \[skip ci\] [\#177](https://github.com/nubisproject/nubis-fluent-collector/pull/177) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v1.4.2 release \[skip ci\] [\#172](https://github.com/nubisproject/nubis-fluent-collector/pull/172) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v1.4.2 release \[skip ci\] [\#164](https://github.com/nubisproject/nubis-fluent-collector/pull/164) ([tinnightcap](https://github.com/tinnightcap))
+- Add nubis/builder/artifacts/AMIs.json to .gitignore Fixes \#160 [\#162](https://github.com/nubisproject/nubis-fluent-collector/pull/162) ([gozer](https://github.com/gozer))
+
+## [v1.4.1](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.4.1) (2017-04-11)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.4.0...v1.4.1)
+
+**Closed issues:**
+
+- Tag v1.4.1 release [\#157](https://github.com/nubisproject/nubis-fluent-collector/issues/157)
+
+**Merged pull requests:**
+
+- Merge v1.4.1 release into develop. \[skip ci\] [\#159](https://github.com/nubisproject/nubis-fluent-collector/pull/159) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v1.4.1 release \[skip ci\] [\#158](https://github.com/nubisproject/nubis-fluent-collector/pull/158) ([tinnightcap](https://github.com/tinnightcap))
+
+## [v1.4.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.4.0) (2017-03-23)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.3.0...v1.4.0)
+
+**Closed issues:**
+
+- Disable detailled monitoring [\#153](https://github.com/nubisproject/nubis-fluent-collector/issues/153)
+- \[s3\] Reduce granularity of time\_slice\_format from minute [\#148](https://github.com/nubisproject/nubis-fluent-collector/issues/148)
+- Tag v1.4.0 release [\#147](https://github.com/nubisproject/nubis-fluent-collector/issues/147)
+
+**Merged pull requests:**
+
+- Merge v1.4.0 release into develop. \[skip ci\] [\#156](https://github.com/nubisproject/nubis-fluent-collector/pull/156) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v1.4.0 release \[skip ci\] [\#155](https://github.com/nubisproject/nubis-fluent-collector/pull/155) ([tinnightcap](https://github.com/tinnightcap))
+- Disabled EC2 detailled monitoring [\#154](https://github.com/nubisproject/nubis-fluent-collector/pull/154) ([gozer](https://github.com/gozer))
+- Update builder artifacts for v1.4.0 release \[skip ci\] [\#152](https://github.com/nubisproject/nubis-fluent-collector/pull/152) ([tinnightcap](https://github.com/tinnightcap))
+- Terraform 0.8 Upgrade [\#151](https://github.com/nubisproject/nubis-fluent-collector/pull/151) ([gozer](https://github.com/gozer))
+- Shrink down S3 time slices to hourly [\#149](https://github.com/nubisproject/nubis-fluent-collector/pull/149) ([gozer](https://github.com/gozer))
+- Update builder artifacts for v1.4.0-dev release [\#146](https://github.com/nubisproject/nubis-fluent-collector/pull/146) ([tinnightcap](https://github.com/tinnightcap))
+
+## [v1.3.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v1.3.0) (2016-12-21)
 [Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v1.2.2...v1.3.0)
 
 **Closed issues:**
@@ -25,9 +176,12 @@
 - Tag v1.2.3 release [\#94](https://github.com/nubisproject/nubis-fluent-collector/issues/94)
 - \[warn\]: 'aws\_iam\_retries' parameter is deprecated. Use 'instance\_profile\_credentials' instead [\#61](https://github.com/nubisproject/nubis-fluent-collector/issues/61)
 - \[Datadog\] Enable fluentd module [\#41](https://github.com/nubisproject/nubis-fluent-collector/issues/41)
+- Tag v1.3.0 release [\#143](https://github.com/nubisproject/nubis-fluent-collector/issues/143)
+- Upgrade fluentd and plugins [\#68](https://github.com/nubisproject/nubis-fluent-collector/issues/68)
 
 **Merged pull requests:**
 
+- Update CHANGELOG for v1.3.0 release [\#145](https://github.com/nubisproject/nubis-fluent-collector/pull/145) ([tinnightcap](https://github.com/tinnightcap))
 - Update builder artifacts for v1.3.0 release [\#144](https://github.com/nubisproject/nubis-fluent-collector/pull/144) ([tinnightcap](https://github.com/tinnightcap))
 - fix tyop [\#142](https://github.com/nubisproject/nubis-fluent-collector/pull/142) ([gozer](https://github.com/gozer))
 - fix tyop [\#141](https://github.com/nubisproject/nubis-fluent-collector/pull/141) ([gozer](https://github.com/gozer))
@@ -76,7 +230,6 @@
 
 **Closed issues:**
 
-- Upgrade fluentd and plugins [\#68](https://github.com/nubisproject/nubis-fluent-collector/issues/68)
 - Tag v1.2.1 release [\#88](https://github.com/nubisproject/nubis-fluent-collector/issues/88)
 
 **Merged pull requests:**

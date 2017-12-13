@@ -1,11 +1,4 @@
-variable aws_profile {
-}
-
 variable aws_region {
-}
-
-variable aws_account_id {
-
 }
 
 variable key_name {
@@ -20,7 +13,8 @@ variable nubis_domain {
 variable service_name {
 }
 
-variable environments {
+variable arenas {
+  type = "list"
 }
 
 variable enabled {
@@ -54,7 +48,8 @@ variable internet_access_security_groups {
 variable shared_services_security_groups {
 }
 
-variable lambda_uuid_arn {
+variable sso_security_groups {
+  default = ""
 }
 
 variable project {
@@ -73,5 +68,10 @@ variable nubis_sudo_groups {
 }
 
 variable nubis_user_groups {
+  default = ""
+}
+
+# Default is in main.tf so modules can force the default value
+variable instance_type {
   default = ""
 }

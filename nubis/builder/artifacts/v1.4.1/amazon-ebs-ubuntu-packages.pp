@@ -29,7 +29,7 @@ package { 'adduser':
   ensure => '3.113+nmu3ubuntu3',
 }
 package { 'apparmor':
-  ensure => '2.10.95-0ubuntu2.5~14.04.1',
+  ensure => '2.10.95-0ubuntu2.6~14.04.1',
 }
 package { 'apport':
   ensure => '2.14.1-0ubuntu3.23',
@@ -89,7 +89,7 @@ package { 'boto3':
   ensure => '1.4.4',
 }
 package { 'botocore':
-  ensure => '1.5.28',
+  ensure => '1.5.38',
 }
 package { 'bsdmainutils':
   ensure => '9.0.5ubuntu1',
@@ -176,7 +176,7 @@ package { 'dash':
   ensure => '0.5.7-4ubuntu1',
 }
 package { 'datadog-agent':
-  ensure => '1:5.12.0-1',
+  ensure => '1:5.12.3-1',
 }
 package { 'dbus':
   ensure => '1.6.18-0ubuntu4.5',
@@ -239,7 +239,7 @@ package { 'ed':
   ensure => '1.9-2',
 }
 package { 'eject':
-  ensure => '2.1.5+deb1+cvs20081104-13.1',
+  ensure => '2.1.5+deb1+cvs20081104-13.1ubuntu0.14.04.1',
 }
 package { 'elasticsearch':
   ensure => '2.4.1',
@@ -362,10 +362,10 @@ package { 'init-system-helpers':
   ensure => '1.14ubuntu1',
 }
 package { 'initramfs-tools':
-  ensure => '0.103ubuntu4.6',
+  ensure => '0.103ubuntu4.7',
 }
 package { 'initramfs-tools-bin':
-  ensure => '0.103ubuntu4.6',
+  ensure => '0.103ubuntu4.7',
 }
 package { 'initscripts':
   ensure => '2.88dsf-41ubuntu6.3',
@@ -431,10 +431,10 @@ package { 'krb5-locales':
   ensure => '1.12+dfsg-2ubuntu5.3',
 }
 package { 'landscape-client':
-  ensure => '14.12-0ubuntu0.14.04',
+  ensure => '14.12-0ubuntu5.14.04',
 }
 package { 'landscape-common':
-  ensure => '14.12-0ubuntu0.14.04',
+  ensure => '14.12-0ubuntu5.14.04',
 }
 package { 'language-selector-common':
   ensure => '0.129.3',
@@ -461,10 +461,10 @@ package { 'libalgorithm-merge-perl':
   ensure => '0.08-2',
 }
 package { 'libapparmor-perl':
-  ensure => '2.10.95-0ubuntu2.5~14.04.1',
+  ensure => '2.10.95-0ubuntu2.6~14.04.1',
 }
 package { 'libapparmor1':
-  ensure => '2.10.95-0ubuntu2.5~14.04.1',
+  ensure => '2.10.95-0ubuntu2.6~14.04.1',
 }
 package { 'libapt-inst1.5':
   ensure => '1.0.1ubuntu2.17',
@@ -1072,38 +1072,29 @@ package { 'libxtables10':
 package { 'libyaml-0-2':
   ensure => '0.1.4-3ubuntu3.1',
 }
-package { 'linux-headers-3.13.0-112':
-  ensure => '3.13.0-112.159',
+package { 'linux-headers-3.13.0-116':
+  ensure => '3.13.0-116.163',
 }
-package { 'linux-headers-3.13.0-112-generic':
-  ensure => '3.13.0-112.159',
-}
-package { 'linux-headers-3.13.0-113':
-  ensure => '3.13.0-113.160',
-}
-package { 'linux-headers-3.13.0-113-generic':
-  ensure => '3.13.0-113.160',
+package { 'linux-headers-3.13.0-116-generic':
+  ensure => '3.13.0-116.163',
 }
 package { 'linux-headers-generic':
-  ensure => '3.13.0.113.123',
+  ensure => '3.13.0.116.126',
 }
 package { 'linux-headers-virtual':
-  ensure => '3.13.0.113.123',
+  ensure => '3.13.0.116.126',
 }
-package { 'linux-image-3.13.0-112-generic':
-  ensure => '3.13.0-112.159',
-}
-package { 'linux-image-3.13.0-113-generic':
-  ensure => '3.13.0-113.160',
+package { 'linux-image-3.13.0-116-generic':
+  ensure => '3.13.0-116.163',
 }
 package { 'linux-image-virtual':
-  ensure => '3.13.0.113.123',
+  ensure => '3.13.0.116.126',
 }
 package { 'linux-libc-dev':
-  ensure => '3.13.0-113.160',
+  ensure => '3.13.0-116.163',
 }
 package { 'linux-virtual':
-  ensure => '3.13.0.113.123',
+  ensure => '3.13.0.116.126',
 }
 package { 'locales':
   ensure => '2.13+git20120306-12.1',
@@ -1136,7 +1127,7 @@ package { 'make':
   ensure => '3.81-8.2ubuntu3',
 }
 package { 'makedev':
-  ensure => '2.3.1-93ubuntu1',
+  ensure => '2.3.1-93ubuntu2~ubuntu14.04.1',
 }
 package { 'man-db':
   ensure => '2.6.7.1-1ubuntu1',
@@ -1493,7 +1484,7 @@ package { 'python3-software-properties':
   ensure => '0.92.37.7',
 }
 package { 'python3-update-manager':
-  ensure => '1:0.196.22',
+  ensure => '1:0.196.23',
 }
 package { 'python3.4':
   ensure => '3.4.3-1ubuntu1~14.04.5',

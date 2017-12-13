@@ -12,3 +12,4 @@ nubis/.librarian
 ubis/builder/artifacts/*-dev/
 .~lock.*
 
+nubis/builder/artifacts/AMIs.json
