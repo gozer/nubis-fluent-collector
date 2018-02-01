@@ -39,7 +39,7 @@ if [ ! -z "$ES_ENDPOINT" ]; then
   consulate kv set "$PREFIX/ElasticSearch/AWSEndpoint" "https://$ES_ENDPOINT"
 
   # enable awsproxy service (XXX: Use confd)
-  start awsproxy
+  systemctl restart aws-proxy
   if [ -f "/etc/consul/svc-awsproxy.json.gz" ]; then
     gunzip /etc/consul/svc-awsproxy.json.gz
     reload consul
