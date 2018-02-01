@@ -3,17 +3,17 @@
 </system>
 
 <source>
-  type forward
+  @type forward
 </source>
 <source>
-  type monitor_agent
+  @type monitor_agent
   port 24220
   tag forward.fluentd.monitor.metrics
 </source>
 
 # Syslog listener
 <source>
-  type syslog
+  @type syslog
   port 514
   bind 0.0.0.0
   tag forward.syslog
@@ -21,18 +21,18 @@
 
 # Prometheus listener
 <source>
-  type prometheus
+  @type prometheus
   port 9101
 </source>
 
 # Prometheus fluentd metrics
 <source>
-  type prometheus_monitor
+  @type prometheus_monitor
 </source>
 
 # Tag all events with the arena they came from
 <filter **>
-  type record_transformer
+  @type record_transformer
   <record>
     arena {{ getv "/config/Arena" }}
   </record>
@@ -40,7 +40,7 @@
 
 # Tag all events with our aws account_id
 <filter **>
-  type ec2_metadata
+  @type ec2_metadata
   <record>
     account_id    ${account_id}
   </record>
@@ -48,16 +48,16 @@
 
 # Strip out the ec2.forward tag
 <match ec2.forward.**>
-  type retag
+  @type retag
   remove_prefix ec2.forward
 </match>
 
 # Copy everything outbound
 <match **>
-    type copy
+    @type copy
     <store>
-    type s3
-        buffer_path /var/log/fluentd/s3.log
+    @type s3
+        buffer_path /var/log/fluentd/s3
         check_apikey_on_start false
         s3_bucket {{ getv "/config/FluentLogsBucket" }}
         s3_region {{ getv "/config/AWSRegion" }}
@@ -67,15 +67,15 @@
    </store>
 {{ if exists "/config/SQS/Queue" }}
    <store>
-     type sqs
+     @type sqs
      queue_name {{ getv "/config/SQS/Queue" }}
      create_queue false
 {{ if exists "/config/SQS/AccessKey" }}aws_key_id {{ getv "/config/SQS/AccessKey" }}{{ end }}
 {{ if exists "/config/SQS/SecretKey" }}aws_sec_key {{ getv "/config/SQS/SecretKey" }}{{ end }}
 {{ if exists "/config/SQS/Region" }}
-     sqs_endpoint sqs.{{ getv "/config/SQS/Region" }}.amazonaws.com
+     region {{ getv "/config/SQS/Region" }}
 {{ else }}
-     sqs_endpoint sqs.{{ getv "/config/AWSRegion" }}.amazonaws.com
+     region {{ getv "/config/AWSRegion" }}
 {{ end }}
    </store>
 {{ end }}
@@ -83,7 +83,7 @@
 {{ if exists "/config/ElasticSearch/AWSEndpoint" }}
   # Ship to ElasticSearch
   <store>
-    type aws-elasticsearch-service
+    @type elasticsearch
     logstash_format true
     include_tag_key true
     flush_interval "15s"
@@ -94,19 +94,15 @@
 
     template_name fluentd
     template_file /etc/td-agent/elasticsearch-logstash-template.json
+    template_overwrite true
 
     buffer_type file
-    buffer_path /var/log/fluentd/elasticsearch.log
+    buffer_path /var/log/fluentd/elasticsearch
     buffer_chunk_limit 4m
 
-    <endpoint>
-      url {{ getv "/config/ElasticSearch/AWSEndpoint" }}
-      {{ if exists "/config/ElasticSearch/Region" }}
-      region {{ getv "/config/ElasticSearch/Region" }}
-      {{ else }}
-      region {{ getv "/config/AWSRegion" }}
-      {{ end }}
-    </endpoint>
+    # Use our AWS Proxy
+    hosts localhost:8080
+
   </store>
 {{ end }}
 </match>
@@ -114,7 +110,7 @@
 {{ if exists "/config/AccessLoggingBucket" }}
 # Pull in ELB logs
 <source>
-  type elb_log
+  @type elb_log
   region            {{ getv "/config/AWSRegion" }}
   s3_bucketname     {{ getv "/config/AccessLoggingBucket" }}
   timestamp_file    /var/log/fluentd/elb.ts

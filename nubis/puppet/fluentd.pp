@@ -1,46 +1,52 @@
 include ::fluentd
 
 fluentd::install_plugin { 'retag':
-  ensure      => '0.0.2',
+  ensure      => '0.1.0',
   plugin_name => 'fluent-plugin-retag',
   plugin_type => 'gem',
 }
 
-# Last version supporting fluentd 0.12
 fluentd::install_plugin { 'prometheus':
-  ensure      => '0.3.0',
+  ensure      => '1.0.1',
   plugin_name => 'fluent-plugin-prometheus',
   plugin_type => 'gem',
 }
 
-# Last version supporting fluentd 0.12
-fluentd::install_plugin { 'elb-log':
-  ensure      => '0.2.8',
-  plugin_name => 'fluent-plugin-elb-log',
-  plugin_type => 'gem',
-}
-
 fluentd::install_plugin { 's3':
-  ensure      => '0.8.5',
+  ensure      => '1.1.1',
   plugin_name => 'fluent-plugin-s3',
   plugin_type => 'gem',
 }
 
-# Last version supporting fluentd 0.12
-fluentd::install_plugin { 'sqs':
-  ensure      => '1.8.0',
-  plugin_name => 'fluent-plugin-sqs',
+# Install our custom forks for now
+fluentd::install_plugin { 'specific_install':
+  ensure      => '0.3.3',
+  plugin_name => 'specific_install',
   plugin_type => 'gem',
+}->
+exec { 'install fluent-plugin-sqs':
+  command => '/opt/td-agent/embedded/bin/fluent-gem specific_install https://github.com/gozer/fluent-plugin-sqs.git nubis',
+}->
+exec { 'install fluent-plugin-elb-log':
+  command => '/opt/td-agent/embedded/bin/fluent-gem specific_install https://github.com/gozer/fluent-plugin-elb-log.git nubis',
 }
 
-fluentd::install_plugin { 'aws-elasticsearch-service':
-  ensure      => '0.1.6',
-  plugin_name => 'fluent-plugin-aws-elasticsearch-service',
-  plugin_type => 'gem',
-}
+# Disabled until upstream fixes
+#fluentd::install_plugin { 'elb-log':
+#  ensure      => '0.4.3',
+#  plugin_name => 'fluent-plugin-elb-log',
+#  plugin_type => 'gem',
+#}
+
+# Disabled until upstream fixes
+#fluentd::install_plugin { 'sqs':
+#  ensure      => '2.1.0',
+#  plugin_name => 'fluent-plugin-sqs',
+#  plugin_type => 'gem',
+#}
 
 fluentd::install_plugin { 'elasticsearch':
-  ensure      => '1.9.5',
+  ensure      => '2.5.0',
   plugin_name => 'fluent-plugin-elasticsearch',
   plugin_type => 'gem',
 }
