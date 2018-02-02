@@ -1,5 +1,42 @@
 # Change Log
 
+## [v2.1.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.1.0) (2018-02-02)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v2.0.4...v2.1.0)
+
+**Closed issues:**
+
+- Upgrade to td-agent 3 / fluentd 1.x [\#243](https://github.com/nubisproject/nubis-fluent-collector/issues/243)
+- Upgrade curator for ES 5.x [\#207](https://github.com/nubisproject/nubis-fluent-collector/issues/207)
+
+**Merged pull requests:**
+
+- Upgrade to TD-Agent 3, getting fluentd 1.x [\#244](https://github.com/nubisproject/nubis-fluent-collector/pull/244) ([gozer](https://github.com/gozer))
+- add missing license [\#242](https://github.com/nubisproject/nubis-fluent-collector/pull/242) ([gozer](https://github.com/gozer))
+
+## [v2.0.4](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.0.4) (2017-12-08)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v2.0.3...v2.0.4)
+
+**Closed issues:**
+
+- Tag v2.0.4 release [\#241](https://github.com/nubisproject/nubis-fluent-collector/issues/241)
+
+**Merged pull requests:**
+
+- Add 2 forgotten systemd unit files [\#240](https://github.com/nubisproject/nubis-fluent-collector/pull/240) ([gozer](https://github.com/gozer))
+- \[Centennial\] [\#239](https://github.com/nubisproject/nubis-fluent-collector/pull/239) ([gozer](https://github.com/gozer))
+
+## [v2.0.3](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.0.3) (2017-11-02)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v2.0.2...v2.0.3)
+
+**Closed issues:**
+
+- Tag v2.0.3 release [\#236](https://github.com/nubisproject/nubis-fluent-collector/issues/236)
+
+**Merged pull requests:**
+
+- Merge v2.0.3 release into develop. \[skip ci\] [\#238](https://github.com/nubisproject/nubis-fluent-collector/pull/238) ([tinnightcap](https://github.com/tinnightcap))
+- Update CHANGELOG for v2.0.3 release \[skip ci\] [\#237](https://github.com/nubisproject/nubis-fluent-collector/pull/237) ([tinnightcap](https://github.com/tinnightcap))
+
 ## [v2.0.2](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.0.2) (2017-10-24)
 [Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v2.0.1...v2.0.2)
 
