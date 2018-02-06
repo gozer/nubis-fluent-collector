@@ -118,6 +118,7 @@
   refresh_interval  15
   tag               ec2.forward.elb.access
   http_proxy        http://proxy.service.consul:3128
+  start_time        "{{ getv "/config/AccessLoggingBucketStartTime" }}"
 </source>
 
 {{ end }}
