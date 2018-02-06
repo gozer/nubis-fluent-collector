@@ -31,8 +31,10 @@ fi
 
 if [ ! -z "$ELB_BUCKET" ]; then
   consulate kv set "$PREFIX/AccessLoggingBucket" "$ELB_BUCKET"
+  consulate kv set "$PREFIX/AccessLoggingBucketStartTime" "$(uptime -s)"
 else
   consulate kv rm "$PREFIX/AccessLoggingBucket"
+  consulate kv rm "$PREFIX/AccessLoggingBucketStartTime"
 fi
 
 if [ ! -z "$ES_ENDPOINT" ]; then
