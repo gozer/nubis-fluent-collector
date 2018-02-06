@@ -44,19 +44,18 @@ if [ ! -z "$ES_ENDPOINT" ]; then
   systemctl restart aws-proxy
   if [ -f "/etc/consul/svc-awsproxy.json.gz" ]; then
     gunzip /etc/consul/svc-awsproxy.json.gz
-    reload consul
+    systemctl reload consul
   fi
 
 else
   consulate kv rm "$PREFIX/ElasticSearch/AWSEndpoint"
 
-
   # Disable awsproxy service (XXX: Use confd)
   if [ -f "/etc/consul/svc-awsproxy.json" ]; then
     gzip /etc/consul/svc-awsproxy.json
-    reload consul
+    systemctl reload consul
   fi
-  stop awsproxy
+  systemctl stop aws-proxy
 fi
 
 KV="$PREFIX/SQS/Queue"
