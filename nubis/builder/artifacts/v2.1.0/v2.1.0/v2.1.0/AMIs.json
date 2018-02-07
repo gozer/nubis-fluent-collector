@@ -11,11 +11,11 @@
     {
       "name": "amazon-ebs-ubuntu",
       "builder_type": "amazon-ebs",
-      "build_time": 1518035263,
+      "build_time": 1517955642,
       "files": null,
-      "artifact_id": "ap-northeast-1:ami-ef94e289,ap-northeast-2:ami-f6a80a98,ap-southeast-1:ami-45beff39,ap-southeast-2:ami-e417ec86,eu-central-1:ami-c487e3ab,eu-west-1:ami-51f49c28,sa-east-1:ami-76357b1a,us-east-1:ami-37f9f14d,us-west-1:ami-156e6075,us-west-2:ami-919413e9",
-      "packer_run_uuid": "5605b04a-9140-bc5e-1948-56837f706265"
+      "artifact_id": "ap-northeast-1:ami-99e89fff,ap-northeast-2:ami-ebde7c85,ap-southeast-1:ami-3d440541,ap-southeast-2:ami-dbc833b9,eu-central-1:ami-6c6d0903,eu-west-1:ami-7dd6bf04,sa-east-1:ami-0317596f,us-east-1:ami-bc4049c6,us-west-1:ami-3dbdb25d,us-west-2:ami-7978fc01",
+      "packer_run_uuid": "282ca038-ff56-8de4-b20b-6f86ab05b882"
     }
   ],
-  "last_run_uuid": "5605b04a-9140-bc5e-1948-56837f706265"
+  "last_run_uuid": "282ca038-ff56-8de4-b20b-6f86ab05b882"
 }
