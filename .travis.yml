@@ -1,19 +1,16 @@
+sudo: required
+
 language: ruby
-sudo: false
-gemfile: nubis/travis/Gemfile
-cache:
-  bundler: true
-  directories:
-  - "${HOME}/bin"
-  - nubis/librarian-puppet
-addons:
-  apt:
-    sources:
-    - debian-sid
-    packages:
-    - shellcheck
+
+services:
+  - docker
+
+before_install:
+  - docker pull nubisproject/nubis-travis:master
+
 script:
-- nubis/travis/run-checks
+  - docker run --mount type=bind,source="$(pwd)",target=/nubis/files nubisproject/nubis-travis:master
+
 notifications:
   slack:
     secure: H0ScXp8t93/NVLtlhafU+1wx/3pXxB3R5DouPvgCsT50eHE4DUp7qcJDPTB/4TD+u8I/UAunP7BFhL06QP0Nbm4Z9ZxkpcnkdOr9BZfDRYY0qBwUAbMRjILvsKj1EKguewf7TaSQMDjAmWunwW/UtDh/iWdmSz8YwE0Yr+O0yXU=
