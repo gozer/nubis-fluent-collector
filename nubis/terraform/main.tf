@@ -1,5 +1,5 @@
 provider "aws" {
-  region  = "${var.aws_region}"
+  region = "${var.aws_region}"
 }
 
 data "aws_caller_identity" "current" {}
@@ -29,9 +29,9 @@ resource "aws_s3_bucket" "fluent" {
   }
 
   tags = {
-    Name        = "${var.project}-${element(var.arenas, count.index)}"
-    Region      = "${var.aws_region}"
-    Arena       = "${element(var.arenas, count.index)}"
+    Name   = "${var.project}-${element(var.arenas, count.index)}"
+    Region = "${var.aws_region}"
+    Arena  = "${element(var.arenas, count.index)}"
   }
 }
 
@@ -52,32 +52,33 @@ resource "aws_s3_bucket" "elb" {
   }
 
   tags = {
-    Name        = "${var.project}-${element(var.arenas, count.index)}"
-    Region      = "${var.aws_region}"
-    Arena       = "${element(var.arenas, count.index)}"
+    Name   = "${var.project}-${element(var.arenas, count.index)}"
+    Region = "${var.aws_region}"
+    Arena  = "${element(var.arenas, count.index)}"
   }
 }
 
 data "aws_elb_service_account" "elb" {}
 
 resource "aws_s3_bucket_policy" "elb" {
-  count = "${var.enabled * length(var.arenas)}"
+  count  = "${var.enabled * length(var.arenas)}"
   bucket = "${element(aws_s3_bucket.elb.*.id, count.index)}"
+
   policy = <<POLICY
 {
-          "Version": "2008-10-17",
-          "Statement": [
-            {
-              "Sid": "Allow ELBs to publish logs here",
-              "Action": "s3:PutObject",
-              "Effect": "Allow",
-              "Resource": "${element(aws_s3_bucket.elb.*.arn, count.index)}/*",
-              "Principal": {
-                "AWS": "${data.aws_elb_service_account.elb.arn}"
-              }
-            }
-          ]
-        }  
+  "Version": "2008-10-17",
+  "Statement": [
+    {
+      "Sid": "Allow ELBs to publish logs here",
+      "Action": "s3:PutObject",
+      "Effect": "Allow",
+      "Resource": "${element(aws_s3_bucket.elb.*.arn, count.index)}/*",
+      "Principal": {
+        "AWS": "${data.aws_elb_service_account.elb.arn}"
+      }
+    }
+  ]
+}
 POLICY
 }
 
@@ -161,9 +162,9 @@ resource "aws_security_group" "fluent-collector" {
   }
 
   tags = {
-    Name        = "${var.project}-${element(var.arenas, count.index)}"
-    Region      = "${var.aws_region}"
-    Arena       = "${element(var.arenas, count.index)}"
+    Name   = "${var.project}-${element(var.arenas, count.index)}"
+    Region = "${var.aws_region}"
+    Arena  = "${element(var.arenas, count.index)}"
   }
 }
 
@@ -269,18 +270,19 @@ resource "aws_launch_configuration" "fluent-collector" {
 
   # XXX: Should work, but doesn's, so see NUBIS_BUMP below
   depends_on = [
-    "null_resource.secrets"
+    "null_resource.secrets",
   ]
 
   name_prefix = "${var.project}-${element(var.arenas, count.index)}-${var.aws_region}-"
 
   image_id = "${module.fluentd-image.image_id}"
+
   # Default here, so modules can force the default value with an empty value
   instance_type        = "${var.instance_type == "" ? "t2.nano" : var.instance_type}"
   key_name             = "${var.key_name}"
   iam_instance_profile = "${element(aws_iam_instance_profile.fluent-collector.*.name, count.index)}"
 
-  enable_monitoring    = true
+  enable_monitoring = true
 
   security_groups = [
     "${element(aws_security_group.fluent-collector.*.id, count.index)}",
@@ -353,7 +355,7 @@ resource "aws_autoscaling_group" "fluent-collector" {
     value               = "${var.project}"
     propagate_at_launch = true
   }
-  
+
   tag {
     key                 = "Arena"
     value               = "${element(var.arenas, count.index)}"
@@ -362,25 +364,26 @@ resource "aws_autoscaling_group" "fluent-collector" {
 }
 
 resource "aws_elasticsearch_domain" "fluentd" {
-    count = "${var.enabled * var.monitoring_enabled}"
-    domain_name = "${var.project}"
+  count       = "${var.enabled * var.monitoring_enabled}"
+  domain_name = "${var.project}"
 
-    elasticsearch_version = "5.1"
+  elasticsearch_version = "5.1"
 
-    # This will need tweakability via knobs
-    cluster_config {
-      instance_type = "m3.medium.elasticsearch"
-      instance_count = 2
-    }
+  # This will need tweakability via knobs
+  cluster_config {
+    instance_type  = "m3.medium.elasticsearch"
+    instance_count = 2
+  }
 
-    ebs_options {
-      ebs_enabled = true
-      volume_type = "gp2"
-      # min/max depends on instance type
-      volume_size = "50"
-    }
+  ebs_options {
+    ebs_enabled = true
+    volume_type = "gp2"
 
-    access_policies = <<POLICY
+    # min/max depends on instance type
+    volume_size = "50"
+  }
+
+  access_policies = <<POLICY
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -403,14 +406,14 @@ resource "aws_elasticsearch_domain" "fluentd" {
 }
 POLICY
 
-    snapshot_options {
-        automated_snapshot_start_hour = 23
-    }
+  snapshot_options {
+    automated_snapshot_start_hour = 23
+  }
 
   tags = {
-    Name        = "${var.project}"
-    Region      = "${var.aws_region}"
-    Arena       = "global"
+    Name   = "${var.project}"
+    Region = "${var.aws_region}"
+    Arena  = "global"
   }
 
   lifecycle {
@@ -424,11 +427,11 @@ resource "null_resource" "secrets" {
 
   # Important to list here every variable that affects what needs to be put into credstash
   triggers {
-    sqs_secret_key   = "${element(split(",", var.sqs_secret_keys), count.index)}"
-    region           = "${var.aws_region}"
-    context          = "-E region:${var.aws_region} -E arena:${element(var.arenas, count.index)} -E service:${var.project}"
-    unicreds         = "unicreds -r ${var.aws_region} put -k ${var.credstash_key} ${var.project}/${element(var.arenas, count.index)}"
-    unicreds_rm      = "unicreds -r ${var.aws_region} delete -k ${var.credstash_key} ${var.project}/${element(var.arenas, count.index)}"
+    sqs_secret_key = "${element(split(",", var.sqs_secret_keys), count.index)}"
+    region         = "${var.aws_region}"
+    context        = "-E region:${var.aws_region} -E arena:${element(var.arenas, count.index)} -E service:${var.project}"
+    unicreds       = "unicreds -r ${var.aws_region} put -k ${var.credstash_key} ${var.project}/${element(var.arenas, count.index)}"
+    unicreds_rm    = "unicreds -r ${var.aws_region} delete -k ${var.credstash_key} ${var.project}/${element(var.arenas, count.index)}"
   }
 
   # Consul gossip secret
@@ -440,5 +443,4 @@ resource "null_resource" "secrets" {
     when    = "destroy"
     command = "${self.triggers.unicreds_rm}/SQS/SecretKey"
   }
-
 }

@@ -6,16 +6,16 @@ notice ("Grabbing awsproxy ${awsproxy_version}")
 staging::file { '/usr/local/bin/awsproxy':
   source => $awsproxy_url,
   target => '/usr/local/bin/awsproxy',
-}->
-exec { 'chmod /usr/local/bin/awsproxy':
+}
+->exec { 'chmod /usr/local/bin/awsproxy':
   command => 'chmod 755 /usr/local/bin/awsproxy',
   path    => ['/sbin','/bin','/usr/sbin','/usr/bin','/usr/local/sbin','/usr/local/bin'],
 }
 
 systemd::unit_file { 'aws-proxy.service':
   source => 'puppet:///nubis/files/aws-proxy.systemd',
-}->
-service { 'aws-proxy':
+}
+->service { 'aws-proxy':
   enable => true,
 }
 

@@ -1,52 +1,38 @@
-variable aws_region {
-}
+variable aws_region {}
 
-variable key_name {
-}
+variable key_name {}
 
-variable nubis_version {
-}
+variable nubis_version {}
 
-variable nubis_domain {
-}
+variable nubis_domain {}
 
-variable service_name {
-}
+variable service_name {}
 
 variable arenas {
   type = "list"
 }
 
-variable enabled {
-}
+variable enabled {}
 
 variable monitoring_enabled {
   default = 0
 }
 
-variable technical_contact {
-}
+variable technical_contact {}
 
-variable zone_id {
-}
+variable zone_id {}
 
-variable vpc_ids {
-}
+variable vpc_ids {}
 
-variable subnet_ids {
-}
+variable subnet_ids {}
 
-variable monitoring_security_groups {
-}
+variable monitoring_security_groups {}
 
-variable ssh_security_groups {
-}
+variable ssh_security_groups {}
 
-variable internet_access_security_groups {
-}
+variable internet_access_security_groups {}
 
-variable shared_services_security_groups {
-}
+variable shared_services_security_groups {}
 
 variable sso_security_groups {
   default = ""

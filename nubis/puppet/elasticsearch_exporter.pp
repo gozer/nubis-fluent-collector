@@ -5,13 +5,13 @@ notice ("Grabbing elasticsearch_exporter ${elasticsearch_exporter_version}")
 
 staging::file { "elasticsearch_exporter-${elasticsearch_exporter_version}.tar.gz":
   source => $elasticsearch_exporter_url,
-}->
-staging::extract { "elasticsearch_exporter-${elasticsearch_exporter_version}.tar.gz":
+}
+->staging::extract { "elasticsearch_exporter-${elasticsearch_exporter_version}.tar.gz":
   strip   => 1,
   target  => '/usr/local/bin',
   creates => '/usr/local/bin/elasticsearch_exporter',
-}->
-exec { 'fix elasticsearch_exporter permissions':
+}
+->exec { 'fix elasticsearch_exporter permissions':
   command => 'chmod 755 /usr/local/bin/elasticsearch_exporter',
   path    => ['/sbin','/bin','/usr/sbin','/usr/bin','/usr/local/sbin','/usr/local/bin'],
 }

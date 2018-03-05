@@ -23,11 +23,11 @@ fluentd::install_plugin { 'specific_install':
   ensure      => '0.3.3',
   plugin_name => 'specific_install',
   plugin_type => 'gem',
-}->
-exec { 'install fluent-plugin-sqs':
+}
+->exec { 'install fluent-plugin-sqs':
   command => '/opt/td-agent/embedded/bin/fluent-gem specific_install https://github.com/gozer/fluent-plugin-sqs.git nubis',
-}->
-exec { 'install fluent-plugin-elb-log':
+}
+->exec { 'install fluent-plugin-elb-log':
   command => '/opt/td-agent/embedded/bin/fluent-gem specific_install https://github.com/gozer/fluent-plugin-elb-log.git nubis',
 }
 
