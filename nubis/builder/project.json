@@ -4,6 +4,7 @@
       "amazon-ebs-ubuntu"
     ],
     "deregister": "true",
+    "platform": "nubis",
     "project_description": "Fluentd Collector",
     "project_name": "nubis-fluentd-collector",
     "project_version": "v2.2.0-dev"
