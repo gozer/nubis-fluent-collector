@@ -7,9 +7,9 @@ data "aws_caller_identity" "current" {}
 module "fluentd-image" {
   source = "github.com/nubisproject/nubis-terraform///images?ref=develop"
 
-  region  = "${var.aws_region}"
-  version = "${var.nubis_version}"
-  project = "nubis-fluentd-collector"
+  region        = "${var.aws_region}"
+  image_version = "${var.nubis_version}"
+  project       = "nubis-fluentd-collector"
 }
 
 resource "aws_s3_bucket" "fluent" {
