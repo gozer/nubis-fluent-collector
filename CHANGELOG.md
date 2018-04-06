@@ -1,6 +1,20 @@
 # Change Log
 
-## [v2.1.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.1.0) (2018-02-06)
+## [v2.2.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.2.0) (2018-04-06)
+[Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v2.1.0...v2.2.0)
+
+**Closed issues:**
+
+- \[TF\] Cleanup for 0.11.x [\#263](https://github.com/nubisproject/nubis-fluent-collector/issues/263)
+
+**Merged pull requests:**
+
+- Fix \#263 [\#264](https://github.com/nubisproject/nubis-fluent-collector/pull/264) ([gozer](https://github.com/gozer))
+- Tag this project as a platform component [\#262](https://github.com/nubisproject/nubis-fluent-collector/pull/262) ([limed](https://github.com/limed))
+- Linting fix [\#261](https://github.com/nubisproject/nubis-fluent-collector/pull/261) ([limed](https://github.com/limed))
+- Update to nubis-travis v1.4.2 [\#258](https://github.com/nubisproject/nubis-fluent-collector/pull/258) ([tinnightcap](https://github.com/tinnightcap))
+
+## [v2.1.0](https://github.com/nubisproject/nubis-fluent-collector/tree/v2.1.0) (2018-02-07)
 [Full Changelog](https://github.com/nubisproject/nubis-fluent-collector/compare/v2.0.4...v2.1.0)
 
 **Closed issues:**
@@ -9,11 +23,14 @@
 - use systemctl proprely when reloading/restarting services [\#248](https://github.com/nubisproject/nubis-fluent-collector/issues/248)
 - Upgrade to td-agent 3 / fluentd 1.x [\#243](https://github.com/nubisproject/nubis-fluent-collector/issues/243)
 - Upgrade curator for ES 5.x [\#207](https://github.com/nubisproject/nubis-fluent-collector/issues/207)
+- Tag v2.1.0 release [\#255](https://github.com/nubisproject/nubis-fluent-collector/issues/255)
 - Tag v2.1.0 release [\#252](https://github.com/nubisproject/nubis-fluent-collector/issues/252)
 - Tag v2.1.0 release [\#245](https://github.com/nubisproject/nubis-fluent-collector/issues/245)
 
 **Merged pull requests:**
 
+- Update CHANGELOG for v2.1.0 release \[skip ci\] [\#257](https://github.com/nubisproject/nubis-fluent-collector/pull/257) ([nubis-automation](https://github.com/nubis-automation))
+- Update CHANGELOG for v2.1.0 release \[skip ci\] [\#256](https://github.com/nubisproject/nubis-fluent-collector/pull/256) ([nubis-automation](https://github.com/nubis-automation))
 - Update CHANGELOG for v2.1.0 release \[skip ci\] [\#254](https://github.com/nubisproject/nubis-fluent-collector/pull/254) ([nubis-automation](https://github.com/nubis-automation))
 - Update CHANGELOG for v2.1.0 release \[skip ci\] [\#253](https://github.com/nubisproject/nubis-fluent-collector/pull/253) ([nubis-automation](https://github.com/nubis-automation))
 - \[ELB\] Ingest only logs that are newer than our startup time [\#251](https://github.com/nubisproject/nubis-fluent-collector/pull/251) ([gozer](https://github.com/gozer))
