@@ -58,6 +58,10 @@
     <store>
     @type s3
         buffer_path /var/log/fluentd/s3
+        buffer_queue_full_action exception
+        buffer_type file
+        buffer_chunk_limit 256m
+
         check_apikey_on_start false
         s3_bucket {{ getv "/config/FluentLogsBucket" }}
         s3_region {{ getv "/config/AWSRegion" }}
@@ -68,6 +72,12 @@
 {{ if exists "/config/SQS/Queue" }}
    <store>
      @type sqs
+
+     buffer_path /var/log/fluentd/sqs
+     buffer_queue_full_action exception
+     buffer_type file
+     buffer_chunk_limit 8m
+
      queue_name {{ getv "/config/SQS/Queue" }}
      create_queue false
 {{ if exists "/config/SQS/AccessKey" }}aws_key_id {{ getv "/config/SQS/AccessKey" }}{{ end }}
@@ -97,6 +107,7 @@
     template_overwrite true
 
     buffer_type file
+    buffer_queue_full_action exception
     buffer_path /var/log/fluentd/elasticsearch
     buffer_chunk_limit 4m
 
